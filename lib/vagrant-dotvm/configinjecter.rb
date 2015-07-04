@@ -35,6 +35,10 @@ module VagrantPlugins
                 end
               end
             end
+
+            machine_cfg[:folders].each do |folder|
+              machine.vm.synced_folder folder[:host], folder[:guest]
+            end
           end
         end
       end

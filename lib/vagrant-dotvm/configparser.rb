@@ -31,6 +31,7 @@ module VagrantPlugins
           :cpucap     => machine['cpucap'],
           :networks   => [],
           :provision  => [],
+          :folders    => [],
         }
       end
 
@@ -57,6 +58,14 @@ module VagrantPlugins
         }
       end
 
+
+      def parse_folder(folder)
+        return {
+          :host  => self.replace_vars(folder['host']),
+          :guest => folder['guest'],
+        }
+      end
+
       
       def parse(yaml)
         config = {
@@ -72,6 +81,10 @@ module VagrantPlugins
 
           machine['provision'] and machine['provision'].each do |prv|
             item[:provision] << self.parse_provision(prv)
+          end
+
+          machine['shared_folders'] and machine['shared_folders'].each do |folder|
+            item[:folders] << self.parse_folder(folder)
           end
 
           config[:machines] << item
