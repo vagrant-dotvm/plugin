@@ -16,7 +16,13 @@ module VagrantPlugins
 
         Dir[@path + "/projects/*/*.yaml"].each do |fname|
           yaml = YAML::load(File.read(fname))
-          configs << ConfigParser.parse(yaml)
+
+          vars = {
+            'project.path' => File.dirname(fname),
+          }
+          
+          parser = ConfigParser.new vars
+          configs << parser.parse(yaml)
         end
 
         return configs

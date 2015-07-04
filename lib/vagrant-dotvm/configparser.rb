@@ -2,7 +2,26 @@ module VagrantPlugins
   module Dotvm
     class ConfigParser
 
-      def self.parse_machine(machine)
+      def initialize(vars = {})
+        @vars = vars
+      end
+
+      
+      def replace_vars(value)
+        if value
+          value = value.dup()
+          
+          @vars.each do |key, val|
+            pattern = '%' + key + '%'
+            value.gsub! pattern, val
+          end
+        end
+          
+        return value
+      end
+
+        
+      def parse_machine(machine)
         return {
           :nick	      => machine['nick'],
           :name	      => machine['name'],
@@ -16,7 +35,7 @@ module VagrantPlugins
       end
 
       
-      def self.parse_net(net)
+      def parse_net(net)
         return {
           :net  => net['net'],
           :type => net['type'],
@@ -26,20 +45,20 @@ module VagrantPlugins
       end
 
       
-      def self.parse_provision(prv)
+      def parse_provision(prv)
         return {
           :type		  => prv['type'],
-          :source         => prv['source'],
+          :source         => self.replace_vars(prv['source']),
           :destination    => prv['destination'],
-          :path		  => prv['path'],
-          :module_path    => prv['module_path'],
-          :manifests_path => prv['manifests_path'],
+          :path		  => self.replace_vars(prv['path']),
+          :module_path    => self.replace_vars(prv['module_path']),
+          :manifests_path => self.replace_vars(prv['manifests_path']),
           :manifest_file  => prv['manifest_file'],
         }
       end
 
       
-      def self.parse(yaml)
+      def parse(yaml)
         config = {
           :machines => []
         }
