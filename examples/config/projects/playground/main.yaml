@@ -1,0 +1,14 @@
+machines:
+  - nick: example
+    name: machine1.example
+    box: chef/centos-7.0
+    networks:
+      - net: private_network
+        ip: 192.168.56.100
+        mask: 255.255.255.0
+    provision:
+      - type: shell
+        path: "%project.path%/bootstrap.sh"
+    shared_folders:
+      - host: /Volumes/Repos
+        guest: /srv/www
