@@ -14,7 +14,7 @@ module VagrantPlugins
       def get_configs()
         configs = []
 
-        Dir[@path + "/*.yaml"].each do |fname|
+        Dir[@path + "/projects/*/*.yaml"].each do |fname|
           yaml = YAML::load(File.read(fname))
           configs << ConfigParser.parse(yaml)
         end
