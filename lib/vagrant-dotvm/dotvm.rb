@@ -20,6 +20,10 @@ module VagrantPlugins
           vars = {
             'project.path' => File.dirname(fname),
           }
+
+          ENV.each_pair do |name, value|
+            vars['env.' + name] = value
+          end
           
           parser = ConfigParser.new vars
           configs << parser.parse(yaml)
