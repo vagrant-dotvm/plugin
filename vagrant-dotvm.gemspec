@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Krzysztof Magosa"]
   spec.email         = ["krzysztof@magosa.pl"]
   spec.summary       = "Easy YAML based multi machine config approach for Vagrant."
-  spec.homepage      = "http://github.com/krzysztof-magosa/dotvm"
+  spec.homepage      = "http://github.com/krzysztof-magosa/vagrant-dotvm"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
