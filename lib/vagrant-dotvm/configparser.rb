@@ -32,6 +32,7 @@ module VagrantPlugins
           :networks   => [],
           :provision  => [],
           :folders    => [],
+          :groups     => [],
         }
       end
 
@@ -85,6 +86,10 @@ module VagrantPlugins
 
           machine['shared_folders'] and machine['shared_folders'].each do |folder|
             item[:folders] << self.parse_folder(folder)
+          end
+
+          machine['groups'] and machine['groups'].each do |group|
+            item[:groups] << group
           end
 
           config[:machines] << item

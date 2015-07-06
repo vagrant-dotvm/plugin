@@ -39,6 +39,15 @@ module VagrantPlugins
             machine_cfg[:folders].each do |folder|
               machine.vm.synced_folder folder[:host], folder[:guest]
             end
+
+            if Vagrant.has_plugin?('vagrant-group')
+              vc.group.groups = {} unless vc.group.groups.kind_of?(Hash)
+
+              machine_cfg[:groups].each do |group|
+                vc.group.groups[group] = [] unless vc.group.groups.has_key?(group)
+                vc.group.groups[group] << machine_cfg[:nick]
+              end
+            end
           end
         end
       end
