@@ -29,6 +29,7 @@ module VagrantPlugins
           :memory     => machine['memory'],
           :cpus       => machine['cpus'],
           :cpucap     => machine['cpucap'],
+          :primary    => machine['primary'] ||= false,
           :networks   => [],
           :provision  => [],
           :folders    => [],

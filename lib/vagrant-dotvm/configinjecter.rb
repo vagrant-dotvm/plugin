@@ -4,7 +4,7 @@ module VagrantPlugins
       
       def self.inject(config, vc)
         config[:machines].each do |machine_cfg|
-          vc.vm.define machine_cfg[:nick] do |machine|
+          vc.vm.define machine_cfg[:nick], primary: machine_cfg[:primary] do |machine|
             machine.vm.box      = machine_cfg[:box]
             machine.vm.hostname = machine_cfg[:name]
 
