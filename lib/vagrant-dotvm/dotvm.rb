@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Dotvm
     class Dotvm
-      
+
       def initialize(path = nil)
         if not path
           path = Dir.pwd
@@ -24,7 +24,7 @@ module VagrantPlugins
           ENV.each_pair do |name, value|
             vars['env.' + name] = value
           end
-          
+
           parser = ConfigParser.new vars
           configs << parser.parse(yaml)
         end
@@ -32,7 +32,7 @@ module VagrantPlugins
         return configs
       end
 
-      
+
       def inject(vc)
         configs = self.get_configs()
 

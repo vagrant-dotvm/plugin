@@ -5,6 +5,6 @@ module VagrantPlugins
       name 'Dotvm'
       description 'Easy YAML based multi machine config.'
     end # Plugin
-    
+
   end # Dotvm
 end # VagrantPlugins

@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Dotvm
     class ConfigInjecter
-      
+
       def self.inject(config, vc)
         config[:machines].each do |machine_cfg|
           vc.vm.define machine_cfg[:nick], primary: machine_cfg[:primary] do |machine|
@@ -51,7 +51,7 @@ module VagrantPlugins
           end
         end
       end
-      
+
     end # ConfigInjecter
   end # Dotvm
 end # VagrantPlugins
