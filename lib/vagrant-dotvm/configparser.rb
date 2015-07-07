@@ -2,6 +2,9 @@ module VagrantPlugins
   module Dotvm
     class ConfigParser
 
+      DEFAULT_NET     = 'private_network'
+      DEFAULT_NETMASK = '255.255.255.0'
+
       def initialize(vars = {})
         @vars = vars
       end
@@ -40,10 +43,10 @@ module VagrantPlugins
       
       def parse_net(net)
         return {
-          :net  => net['net'],
+          :net  => net['net'] || DEFAULT_NET,
           :type => net['type'],
           :ip   => net['ip'],
-          :mask => net['mask'],
+          :mask => net['mask'] || net['netmask'] || DEFAULT_NETMASK,
         }
       end
 
