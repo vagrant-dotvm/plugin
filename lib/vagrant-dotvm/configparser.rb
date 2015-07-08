@@ -9,24 +9,31 @@ module VagrantPlugins
         @vars = vars
       end
 
-      
+
       def replace_vars(value)
         if value.kind_of?(Hash)
+          result = {}
           value.each do |key, val|
-            value[key] = self.replace_vars(val)
+            result[key] = self.replace_vars(val)
           end
         elsif value.kind_of?(Array)
-          value.map! do |val|
+          result = value.map do |val|
             self.replace_vars(val)
           end
         elsif value.kind_of?(String)
+          result = value.dup
+
           @vars.each do |k, v|
             pattern = '%' + k + '%'
-            value.gsub! pattern, v
+            result.gsub! pattern, v
           end
+        elsif !value.respond_to?(:duplicable) or !value.duplicable?
+          result = value
+        else
+          result = value.dup
         end
 
-        return value
+        return result
       end
 
         
