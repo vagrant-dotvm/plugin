@@ -21,7 +21,11 @@ module VagrantPlugins
 
             machine_cfg[:networks].each do |net|
               if net[:net] == 'private_network'
-                machine.vm.network net[:net], type: net[:type] ||= 'static', ip: net[:ip], netmask: net[:mask]
+                machine.vm.network net[:net],
+                                   type: net[:type] ||= 'static',
+                                   ip: net[:ip],
+                                   netmask: net[:mask],
+                                   virtualbox__intnet: net[:interface]
               end
             end
 

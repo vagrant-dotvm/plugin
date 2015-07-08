@@ -72,6 +72,7 @@ module VagrantPlugins
           :type => net['type'],
           :ip   => net['ip'],
           :mask => self.coalesce(net['mask'], net['netmask'], DEFAULT_NETMASK),
+          :interface => net['interface'],
         }
       end
 
