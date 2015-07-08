@@ -11,7 +11,7 @@ module VagrantPlugins
 
       
       def replace_vars(value)
-        if value
+        if value && value.kind_of?(String)
           value = value.dup()
           
           @vars.each do |key, val|
@@ -26,14 +26,14 @@ module VagrantPlugins
         
       def parse_machine(machine)
         return {
-          :nick	      => machine['nick'],
-          :name	      => machine['name'],
-          :box        => machine['box'],
-          :memory     => machine['memory'],
-          :cpus       => machine['cpus'],
-          :cpucap     => machine['cpucap'],
-          :primary    => machine['primary'] ||= false,
-          :natnet     => machine['natnet'],
+          :nick	      => self.replace_vars(machine['nick']),
+          :name	      => self.replace_vars(machine['name']),
+          :box        => self.replace_vars(machine['box']),
+          :memory     => self.replace_vars(machine['memory']),
+          :cpus       => self.replace_vars(machine['cpus']),
+          :cpucap     => self.replace_vars(machine['cpucap']),
+          :primary    => self.replace_vars(machine['primary'] ||= false),
+          :natnet     => self.replace_vars(machine['natnet']),
           :networks   => [],
           :provision  => [],
           :folders    => [],
@@ -44,23 +44,23 @@ module VagrantPlugins
       
       def parse_net(net)
         return {
-          :net  => net['net'] || DEFAULT_NET,
-          :type => net['type'],
-          :ip   => net['ip'],
-          :mask => net['mask'] || net['netmask'] || DEFAULT_NETMASK,
+          :net  => self.replace_vars(net['net'] || DEFAULT_NET),
+          :type => self.replace_vars(net['type']),
+          :ip   => self.replace_vars(net['ip']),
+          :mask => self.replace_vars(net['mask'] || net['netmask'] || DEFAULT_NETMASK),
         }
       end
 
       
       def parse_provision(prv)
         return {
-          :type		  => prv['type'],
+          :type		  => self.replace_vars(prv['type']),
           :source         => self.replace_vars(prv['source']),
-          :destination    => prv['destination'],
+          :destination    => self.replace_vars(prv['destination']),
           :path		  => self.replace_vars(prv['path']),
           :module_path    => self.replace_vars(prv['module_path']),
           :manifests_path => self.replace_vars(prv['manifests_path']),
-          :manifest_file  => prv['manifest_file'],
+          :manifest_file  => self.replace_vars(prv['manifest_file']),
         }
       end
 
