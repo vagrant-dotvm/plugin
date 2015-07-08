@@ -8,7 +8,9 @@ machines:
         mask: 255.255.255.0
     provision:
       - type: shell
-        path: "%project.path%/bootstrap.sh"
+        path: "%project.host%/bootstrap.sh"
+        args:
+          - "%project.guest%"
     shared_folders:
       - host: /Volumes/Repos
         guest: /srv/www
