@@ -11,6 +11,8 @@ Then create Vagrantfile like that:
 require 'vagrant-dotvm'
 
 Vagrant.configure(2) do |config|
+  # config directory will be expected in the same
+  # directory as Vagrantfile.
   config_path = File.dirname(File.expand_path(__FILE__)) + "/config"
   dotvm = VagrantPlugins::Dotvm::Dotvm.new config_path
   dotvm.inject(config)
