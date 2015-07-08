@@ -49,7 +49,18 @@ module VagrantPlugins
           :natnet     => machine['natnet'],
           :networks   => [],
           :provision  => [],
-          :folders    => [],
+          :folders    => [
+            {
+              :host => '.',
+              :guest => '/vagrant',
+              :disabled => true,
+            },
+            {
+              :host => '%project.host%',
+              :guest => '%project.guest%',
+              :disabled => false,
+            }
+          ],
           :groups     => [],
         }
       end
@@ -83,6 +94,7 @@ module VagrantPlugins
         return {
           :host  => folder['host'],
           :guest => folder['guest'],
+          :disabled => self.coalesce(folder['disabled'], false),
         }
       end
 

@@ -43,7 +43,7 @@ module VagrantPlugins
             end
 
             machine_cfg[:folders].each do |folder|
-              machine.vm.synced_folder folder[:host], folder[:guest]
+              machine.vm.synced_folder folder[:host], folder[:guest], disabled: folder[:disabled]
             end
 
             if Vagrant.has_plugin?('vagrant-group')

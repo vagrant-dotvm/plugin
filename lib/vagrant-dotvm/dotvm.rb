@@ -18,7 +18,8 @@ module VagrantPlugins
           yaml = YAML::load(File.read(fname))
 
           vars = {
-            'project.path' => File.dirname(fname),
+            'project.host' => File.dirname(fname),
+            'project.guest' => '/dotvm/project',
           }
 
           ENV.each_pair do |name, value|
