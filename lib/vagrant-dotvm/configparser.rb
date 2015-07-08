@@ -45,7 +45,7 @@ module VagrantPlugins
           :memory     => machine['memory'],
           :cpus       => machine['cpus'],
           :cpucap     => machine['cpucap'],
-          :primary    => machine['primary'] ||= false,
+          :primary    => self.coalesce(machine['primary'], false),
           :natnet     => machine['natnet'],
           :networks   => [],
           :provision  => [],
@@ -57,10 +57,10 @@ module VagrantPlugins
       
       def parse_net(net)
         return {
-          :net  => net['net'] || DEFAULT_NET,
+          :net  => self.coalesce(net['net'], DEFAULT_NET),
           :type => net['type'],
           :ip   => net['ip'],
-          :mask => net['mask'] || net['netmask'] || DEFAULT_NETMASK,
+          :mask => self.coalesce(net['mask'], net['netmask'], DEFAULT_NETMASK),
         }
       end
 
@@ -114,6 +114,14 @@ module VagrantPlugins
         end
 
         return self.replace_vars(config)
+      end
+
+
+      def coalesce(*args)
+        args.each do |val|
+          next if val.nil?
+          return val
+        end
       end
       
     end
