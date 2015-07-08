@@ -1,9 +1,18 @@
 # DotVm
 
+## What is that?
+DotVm is vagrant plugin for easier maintenance of multi machine configurations.
+It allows you to plugin multiple directories, where each one can hold multiple YAML files, where each one can define multiple machines.
+
 ## How to start using DotVm
 First you need to install DotVm plugin:
 ```
 $ vagrant plugin install vagrant-dotvm
+```
+
+It's also recommended to install plugin for easier work with groups:
+```
+$ vagrant plugin install vagrant-group
 ```
 
 Then create Vagrantfile like that:
