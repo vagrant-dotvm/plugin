@@ -33,6 +33,7 @@ module VagrantPlugins
           :cpus       => machine['cpus'],
           :cpucap     => machine['cpucap'],
           :primary    => machine['primary'] ||= false,
+          :natnet     => machine['natnet'],
           :networks   => [],
           :provision  => [],
           :folders    => [],
