@@ -26,8 +26,7 @@ $ mkdir -p config/projects
 You need to create folder named after your project in `config/projects`.
 In this folder you can create as many YAML files as you want.
 In each one you are able to define multiple machines.
-Where it makes sense you can use %project.path% variable which will be replaced with
-path to directory where you project lives.
+
 
 Example YAML configuration:
 ```yaml
@@ -41,8 +40,16 @@ machines:
         mask: 255.255.255.0
     provision:
       - type: shell
-        path: "%project.path%/bootstrap.sh"
+        path: "%project.host%/bootstrap.sh"
     shared_folders:
       - host: /Volumes/Repos
         guest: /srv/www
 ```
+
+## Available variables
+You can use variables inside of config values.
+Environment variables are accessible by using env prefix, e.g. `%env.LOGNAME%`.  
+
+Predefined variables:  
+* `%project.host%` - points to project directory on host
+* `%project.guest%` - points to project directory on guest
