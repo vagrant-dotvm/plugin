@@ -41,6 +41,8 @@ machines:
     provision:
       - type: shell
         path: "%project.host%/bootstrap.sh"
+        args:
+          - "%project.guest%"
     shared_folders:
       - host: /Volumes/Repos
         guest: /srv/www
