@@ -80,7 +80,7 @@ module VagrantPlugins
 
       def parse_folder(folder)
         return {
-          :host  => self.replace_vars(folder['host']),
+          :host  => folder['host'],
           :guest => folder['guest'],
         }
       end
