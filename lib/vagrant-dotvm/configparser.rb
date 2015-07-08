@@ -71,6 +71,7 @@ module VagrantPlugins
           :source         => prv['source'],
           :destination    => prv['destination'],
           :path		  => prv['path'],
+          :args           => prv['args'],
           :module_path    => prv['module_path'],
           :manifests_path => prv['manifests_path'],
           :manifest_file  => prv['manifest_file'],

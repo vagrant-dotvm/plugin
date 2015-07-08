@@ -29,6 +29,7 @@ module VagrantPlugins
               machine.vm.provision provision[:type] do |p|
                 if provision[:type] == 'shell'
                   p.path           = provision[:path]
+                  p.args           = provision[:args]
                   p.privileged     = provision[:privileged] ||= true
                 elsif provision[:type] == 'file'
                   p.source         = provision[:source]
