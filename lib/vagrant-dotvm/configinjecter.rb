@@ -3,6 +3,9 @@ module VagrantPlugins
     class ConfigInjecter
 
       def self.inject(config, vc)
+        # General settings
+        vc.ssh.forward_x11 = true
+
         config[:machines].each do |machine_cfg|
           vc.vm.define machine_cfg[:nick], primary: machine_cfg[:primary] do |machine|
             machine.vm.box      = machine_cfg[:box]
