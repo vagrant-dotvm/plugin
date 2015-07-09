@@ -4,6 +4,7 @@ module VagrantPlugins
 
       DEFAULT_NET     = 'private_network'
       DEFAULT_NETMASK = '255.255.255.0'
+      DEFAULT_PROTOCOL = 'tcp'
 
       def initialize(vars = {})
         @vars = vars
@@ -69,6 +70,9 @@ module VagrantPlugins
           :ip   => net['ip'],
           :mask => self.coalesce(net['mask'], net['netmask'], DEFAULT_NETMASK),
           :interface => net['interface'],
+          :guest => net['guest'],
+          :host => net['host'],
+          :protocol => self.coalesce(net['protocol'], DEFAULT_PROTOCOL),
         }
       end
 
