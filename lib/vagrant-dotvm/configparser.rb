@@ -51,11 +51,6 @@ module VagrantPlugins
           :provision  => [],
           :folders    => [
             {
-              :host => '.',
-              :guest => '/vagrant',
-              :disabled => true,
-            },
-            {
               :host => '%project.host%',
               :guest => '%project.guest%',
               :disabled => false,
