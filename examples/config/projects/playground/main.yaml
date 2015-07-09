@@ -6,6 +6,11 @@ machines:
       - net: private_network
         ip: 192.168.56.100
         mask: 255.255.255.0
+    authorized_keys:
+      - type: file
+        path: "~/.ssh/id_rsa.pub"
+      - type: static
+        key: "ssh-rsa fakeSSHpubKEY km@laptop"
     provision:
       - type: shell
         path: "%project.host%/bootstrap.sh"

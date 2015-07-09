@@ -57,6 +57,7 @@ module VagrantPlugins
             }
           ],
           :groups     => [],
+          :authorized_keys => [],
         }
       end
 
@@ -94,6 +95,15 @@ module VagrantPlugins
         }
       end
 
+
+      def parse_authorized_key(key)
+        return {
+          :type => key['type'],
+          :path => key['path'],
+          :key => key['key'],
+        }
+      end
+
       
       def parse(yaml)
         config = {
@@ -117,6 +127,10 @@ module VagrantPlugins
 
           machine['groups'] and machine['groups'].each do |group|
             item[:groups] << group
+          end
+
+          machine['authorized_keys'].to_a.each do |key|
+            item[:authorized_keys] << self.parse_authorized_key(key)
           end
 
           config[:machines] << item

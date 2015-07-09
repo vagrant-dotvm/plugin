@@ -50,6 +50,20 @@ module VagrantPlugins
               machine.vm.synced_folder folder[:host], folder[:guest], disabled: folder[:disabled]
             end
 
+            machine_cfg[:authorized_keys].each do |key|
+              if key[:type] == 'file'
+                pubkey = File.readlines(File.expand_path(key[:path])).first.strip
+              elsif key[:type] == 'static'
+                pubkey = key[:key]
+              end
+
+              machine.vm.provision 'shell' do |s|
+                s.path       = File.dirname(__FILE__) + "/../../utils/authorize_key.sh"
+                s.args       = [pubkey]
+                s.privileged = false
+              end
+            end
+
             if Vagrant.has_plugin?('vagrant-group')
               vc.group.groups = {} unless vc.group.groups.kind_of?(Hash)
 
