@@ -59,6 +59,8 @@ module VagrantPlugins
               :host => '%project.host%',
               :guest => '%project.guest%',
               :disabled => false,
+              :create => false,
+              :type => nil,
             }
           ],
           :groups     => [],
@@ -117,6 +119,8 @@ module VagrantPlugins
           :host  => folder['host'],
           :guest => folder['guest'],
           :disabled => self.coalesce(folder['disabled'], false),
+          :create => self.coalesce(folder['create'], false),
+          :type => folder['type'],
         }
       end
 

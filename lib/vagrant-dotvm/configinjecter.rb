@@ -63,7 +63,11 @@ module VagrantPlugins
             end
 
             machine_cfg[:folders].each do |folder|
-              machine.vm.synced_folder folder[:host], folder[:guest], disabled: folder[:disabled]
+              machine.vm.synced_folder folder[:host],
+                                       folder[:guest],
+                                       disabled: folder[:disabled],
+                                       create: folder[:create],
+                                       type: folder[:type]
             end
 
             machine_cfg[:authorized_keys].each do |key|
