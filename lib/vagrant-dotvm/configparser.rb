@@ -3,6 +3,7 @@ module VagrantPlugins
     class ConfigParser
 
       DEFAULT_NET     = 'private_network'
+      DEFAULT_NET_TYPE = 'static'
       DEFAULT_NETMASK = '255.255.255.0'
       DEFAULT_PROTOCOL = 'tcp'
       DEFAULT_BOOT_TIMEOUT = 300
@@ -88,7 +89,7 @@ module VagrantPlugins
         
         return {
           :net  => nettype,
-          :type => net['type'],
+          :type => self.coalesce(net['type'], DEFAULT_NET_TYPE),
           :ip   => net['ip'],
           :mask => self.coalesce(net['mask'], net['netmask'], DEFAULT_NETMASK),
           :interface => net['interface'],
