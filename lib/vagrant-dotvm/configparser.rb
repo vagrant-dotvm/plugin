@@ -71,6 +71,7 @@ module VagrantPlugins
           :box_version => self.coalesce(machine['box_version'], DEFAULT_BOX_VERSION),
           :graceful_halt_timeout => self.coalesce(machine['graceful_halt_timeout'], DEFAULT_GRACEFUL_HALT_TIMEOUT),
           :post_up_message => machine['post_up_message'],
+          :autostart => self.coalesce(machine['autostart'], true),
         }
       end
 
