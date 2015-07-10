@@ -1,0 +1,6 @@
+moduledir '/etc/puppet/modules'
+
+mod 'puppetlabs/apt',      '2.1.0'
+mod 'puppetlabs/concat',   '1.2.3'
+mod 'puppetlabs/stdlib',   '4.6.0'
+mod 'puppetlabs/nodejs',   '0.8.0'
