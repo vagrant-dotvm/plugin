@@ -31,7 +31,7 @@ module VagrantPlugins
                                    ip: net[:ip],
                                    netmask: net[:mask],
                                    virtualbox__intnet: net[:interface]
-              elsif net[:net] = 'forwarded_port'
+              elsif net[:net] == 'forwarded_port'
                 machine.vm.network net[:net],
                                    guest: net[:guest],
                                    host: net[:host],
