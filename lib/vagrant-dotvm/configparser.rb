@@ -73,8 +73,17 @@ module VagrantPlugins
 
       
       def parse_net(net)
+        case net['net']
+        when 'private_network', 'private'
+          nettype = :private_network
+        when 'forwarded_port', 'port'
+          nettype = :forwarded_port
+        else
+          nettype = DEFAULT_NET
+        end
+        
         return {
-          :net  => self.coalesce(net['net'], DEFAULT_NET),
+          :net  => nettype,
           :type => net['type'],
           :ip   => net['ip'],
           :mask => self.coalesce(net['mask'], net['netmask'], DEFAULT_NETMASK),
