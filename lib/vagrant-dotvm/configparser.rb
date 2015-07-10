@@ -5,6 +5,10 @@ module VagrantPlugins
       DEFAULT_NET     = 'private_network'
       DEFAULT_NETMASK = '255.255.255.0'
       DEFAULT_PROTOCOL = 'tcp'
+      DEFAULT_BOOT_TIMEOUT = 300
+      DEFAULT_BOX_CHECK_UPDATE = true
+      DEFAULT_BOX_VERSION = '>= 0'
+      DEFAULT_GRACEFUL_HALT_TIMEOUT = 60
 
       def initialize(vars = {})
         @vars = vars
@@ -59,6 +63,11 @@ module VagrantPlugins
           ],
           :groups     => [],
           :authorized_keys => [],
+          :boot_timeout => self.coalesce(machine['boot_timeout'], DEFAULT_BOOT_TIMEOUT),
+          :box_check_update => self.coalesce(machine['box_check_update'], DEFAULT_BOX_CHECK_UPDATE),
+          :box_version => self.coalesce(machine['box_version'], DEFAULT_BOX_VERSION),
+          :graceful_halt_timeout => self.coalesce(machine['graceful_halt_timeout'], DEFAULT_GRACEFUL_HALT_TIMEOUT),
+          :post_up_message => machine['post_up_message'],
         }
       end
 

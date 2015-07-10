@@ -10,6 +10,11 @@ module VagrantPlugins
           vc.vm.define machine_cfg[:nick], primary: machine_cfg[:primary] do |machine|
             machine.vm.box      = machine_cfg[:box]
             machine.vm.hostname = machine_cfg[:name]
+            machine.vm.boot_timeout = machine_cfg[:boot_timeout]
+            machine.vm.box_check_update = machine_cfg[:box_check_update]
+            machine.vm.box_version = machine_cfg[:box_version]
+            machine.vm.graceful_halt_timeout = machine_cfg[:graceful_halt_timeout]
+            machine.vm.post_up_message = machine_cfg[:post_up_message]
 
             machine.vm.provider "virtualbox" do |vb|
               vb.customize ['modifyvm', :id, '--memory', machine_cfg['memory'] ||= 1024]
