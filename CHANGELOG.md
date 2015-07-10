@@ -1,3 +1,6 @@
+# 0.14.0
+* Ability to configure autostart option
+
 # 0.13.0
 * Ability to configure some vm related options
 * Ability to use shorter forms of network
