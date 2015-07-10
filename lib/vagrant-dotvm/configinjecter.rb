@@ -31,11 +31,17 @@ module VagrantPlugins
                                    ip: net[:ip],
                                    netmask: net[:mask],
                                    virtualbox__intnet: net[:interface]
+              elsif net[:net] == :public_network
+                machine.vm.network net[:net],
+                                   type: net[:type] ||= 'static',
+                                   ip: net[:ip],
+                                   netmask: net[:mask],
+                                   bridge: net[:bridge]
               elsif net[:net] == :forwarded_port
                 machine.vm.network net[:net],
                                    guest: net[:guest],
                                    host: net[:host],
-                                   protocol: net[:protocol]
+                                   protocol: net[:protocol]                                   
               end
             end
 

@@ -78,6 +78,8 @@ module VagrantPlugins
           nettype = :private_network
         when 'forwarded_port', 'port'
           nettype = :forwarded_port
+        when 'public_network', 'public', 'bridged'
+          nettype = :public_network
         else
           nettype = DEFAULT_NET
         end
@@ -91,6 +93,7 @@ module VagrantPlugins
           :guest => net['guest'],
           :host => net['host'],
           :protocol => self.coalesce(net['protocol'], DEFAULT_PROTOCOL),
+          :bridge => net['bridge'],
         }
       end
 
