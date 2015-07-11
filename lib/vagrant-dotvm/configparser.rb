@@ -2,6 +2,10 @@ module VagrantPlugins
   module Dotvm
     class ConfigParser
 
+      DEFAULT_MEMORY                = 1024
+      DEFAULT_CPUS                  = 1
+      DEFAULT_CPUCAP                = 100
+      DEFAULT_NATNET                = "192.168.88.0/24"
       DEFAULT_NET                   = "private_network"
       DEFAULT_NET_TYPE              = "static"
       DEFAULT_NETMASK               = "255.255.255.0"
@@ -48,11 +52,11 @@ module VagrantPlugins
           :nick	                 => machine["nick"],
           :name	                 => machine["name"],
           :box                   => machine["box"],
-          :memory                => machine["memory"],
-          :cpus                  => machine["cpus"],
-          :cpucap                => machine["cpucap"],
+          :memory                => coalesce(machine["memory"], DEFAULT_MEMORY),
+          :cpus                  => coalesce(machine["cpus"], DEFAULT_CPUS),
+          :cpucap                => coalesce(machine["cpucap"], DEFAULT_CPUCAP),
           :primary               => coalesce(machine["primary"], false),
-          :natnet                => machine["natnet"],
+          :natnet                => coalesce(machine["natnet"], DEFAULT_NATNET),
           :networks              => [],
           :provision             => [],
           :groups                => [],
