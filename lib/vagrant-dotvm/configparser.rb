@@ -101,6 +101,7 @@ module VagrantPlugins
           :module_path    => prv["module_path"],
           :manifests_path => prv["manifests_path"],
           :manifest_file  => prv["manifest_file"],
+          :run            => prv["run"],
         }
       end
 

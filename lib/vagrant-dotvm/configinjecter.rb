@@ -49,7 +49,7 @@ module VagrantPlugins
             end
 
             machine_cfg[:provision].each do |provision|
-              machine.vm.provision provision[:type] do |p|
+              machine.vm.provision provision[:type], run: provision[:run] do |p|
                 if provision[:type] == "shell"
                   p.path           = provision[:path]
                   p.args           = provision[:args]
