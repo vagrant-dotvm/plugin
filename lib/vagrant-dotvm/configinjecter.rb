@@ -53,7 +53,7 @@ module VagrantPlugins
                 if provision[:type] == "shell"
                   p.path           = provision[:path]
                   p.args           = provision[:args]
-                  p.privileged     = provision[:privileged] ||= true
+                  p.privileged     = provision[:privileged]
                 elsif provision[:type] == "file"
                   p.source         = provision[:source]
                   p.destination    = provision[:destination]

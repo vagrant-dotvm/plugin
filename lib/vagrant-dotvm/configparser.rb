@@ -101,6 +101,7 @@ module VagrantPlugins
           :module_path    => prv["module_path"],
           :manifests_path => prv["manifests_path"],
           :manifest_file  => prv["manifest_file"],
+          :privileged     => prv["privileged"].nil? ? true : prv["privileged"],
           :run            => prv["run"],
         }
       end
