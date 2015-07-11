@@ -81,19 +81,17 @@ module VagrantPlugins
 
       private
       def parse_net(net)
-        case net["net"]
-        when "private_network", "private"
-          nettype = :private_network
-        when "forwarded_port", "port"
-          nettype = :forwarded_port
-        when "public_network", "public", "bridged"
-          nettype = :public_network
-        else
-          nettype = DEFAULT_NET
-        end
+        nets = {
+          "private_network" => :private_network,
+          "private"         => :private_network,
+          "public_network"  => :public_network,
+          "public"          => :public_network,
+          "forwarded_port"  => :forwarded_port,
+          "port"            => :forwarded_port,
+        }
 
         return {
-          :net       => nettype,
+          :net       => nets.has_key?(net["net"]) ? nets[net["net"]] : DEFAULT_NET,
           :type      => coalesce(net["type"], DEFAULT_NET_TYPE),
           :ip        => net["ip"],
           :mask      => coalesce(net["mask"], net["netmask"], DEFAULT_NETMASK),
