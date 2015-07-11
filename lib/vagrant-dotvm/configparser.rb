@@ -45,6 +45,7 @@ module VagrantPlugins
           :primary               => coalesce(machine["primary"], false),
           :natnet                => coalesce(machine["natnet"], Defaults::NATNET),
           :networks              => [],
+          :routes                => [],
           :provision             => [],
           :groups                => [],
           :authorized_keys       => [],
@@ -87,6 +88,14 @@ module VagrantPlugins
           :host      => net["host"],
           :protocol  => coalesce(net["protocol"], Defaults::PROTOCOL),
           :bridge    => net["bridge"],
+        }
+      end
+
+      private
+      def parse_route(route)
+        {
+          :destination => route["destination"],
+          :gateway     => route["gateway"],
         }
       end
 
@@ -137,6 +146,10 @@ module VagrantPlugins
 
           machine["networks"].to_a.each do |net|
             item[:networks] << parse_net(net)
+          end
+
+          machine["routes"].to_a.each do |route|
+            item[:routes] << parse_route(route)
           end
 
           machine["provision"].to_a.each do |prv|

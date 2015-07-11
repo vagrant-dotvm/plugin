@@ -48,6 +48,14 @@ module VagrantPlugins
               end
             end
 
+            machine_cfg[:routes].each do |route|
+              machine.vm.provision "shell", run: "always" do |s|
+                s.path       = File.dirname(__FILE__) + "/../../utils/setup_route.sh"
+                s.args       = [route[:destination], route[:gateway]]
+                s.privileged = true
+              end
+            end
+
             machine_cfg[:provision].each do |provision|
               machine.vm.provision provision[:type], run: provision[:run] do |p|
                 if provision[:type] == "shell"
