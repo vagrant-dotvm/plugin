@@ -6,7 +6,7 @@ module VagrantPlugins
       DEFAULT_CPUS                  = 1
       DEFAULT_CPUCAP                = 100
       DEFAULT_NATNET                = "192.168.88.0/24"
-      DEFAULT_NET                   = "private_network"
+      DEFAULT_NET                   = :private_network
       DEFAULT_NET_TYPE              = "static"
       DEFAULT_NETMASK               = "255.255.255.0"
       DEFAULT_PROTOCOL              = "tcp"
