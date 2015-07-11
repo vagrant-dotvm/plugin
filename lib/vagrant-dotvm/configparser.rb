@@ -87,7 +87,7 @@ module VagrantPlugins
         else
           nettype = DEFAULT_NET
         end
-        
+
         return {
           :net  => nettype,
           :type => coalesce(net['type'], DEFAULT_NET_TYPE),
@@ -177,7 +177,7 @@ module VagrantPlugins
           return val
         end
       end
-      
+
     end
   end
 end

@@ -44,7 +44,7 @@ module VagrantPlugins
                 machine.vm.network net[:net],
                                    guest: net[:guest],
                                    host: net[:host],
-                                   protocol: net[:protocol]                                   
+                                   protocol: net[:protocol]
               end
             end
 
