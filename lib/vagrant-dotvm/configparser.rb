@@ -48,7 +48,7 @@ module VagrantPlugins
 
       private
       def parse_machine(machine)
-        return {
+        {
           :nick	                 => machine["nick"],
           :name	                 => machine["name"],
           :box                   => machine["box"],
@@ -90,7 +90,7 @@ module VagrantPlugins
           "port"            => :forwarded_port,
         }
 
-        return {
+        {
           :net       => nets.has_key?(net["net"]) ? nets[net["net"]] : DEFAULT_NET,
           :type      => coalesce(net["type"], DEFAULT_NET_TYPE),
           :ip        => net["ip"],
@@ -105,7 +105,7 @@ module VagrantPlugins
 
       private
       def parse_provision(prv)
-        return {
+        {
           :type		  => prv["type"],
           :source         => prv["source"],
           :destination    => prv["destination"],
@@ -119,7 +119,7 @@ module VagrantPlugins
 
       private
       def parse_folder(folder)
-        return {
+        {
           :host     => folder["host"],
           :guest    => folder["guest"],
           :disabled => coalesce(folder["disabled"], false),
@@ -130,7 +130,7 @@ module VagrantPlugins
 
       private
       def parse_authorized_key(key)
-        return {
+        {
           :type => key["type"],
           :path => key["path"],
           :key  => key["key"],
@@ -169,7 +169,7 @@ module VagrantPlugins
           config[:machines] << item
         end
 
-        return replace_vars(config)
+        replace_vars(config)
       end
 
       private
