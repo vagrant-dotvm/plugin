@@ -10,7 +10,7 @@ module VagrantPlugins
         @path = path
       end
 
-
+      private
       def get_configs()
         configs = []
 
@@ -33,9 +33,9 @@ module VagrantPlugins
         return configs
       end
 
-
+      public
       def inject(vc)
-        configs = self.get_configs()
+        configs = get_configs()
 
         configs.each do |config|
           ConfigInjecter.inject(config, vc)

@@ -15,16 +15,16 @@ module VagrantPlugins
         @vars = vars
       end
 
-
+      private
       def replace_vars(value)
         if value.kind_of?(Hash)
           result = {}
           value.each do |key, val|
-            result[key] = self.replace_vars(val)
+            result[key] = replace_vars(val)
           end
         elsif value.kind_of?(Array)
           result = value.map do |val|
-            self.replace_vars(val)
+            replace_vars(val)
           end
         elsif value.kind_of?(String)
           result = value.dup
@@ -42,7 +42,7 @@ module VagrantPlugins
         return result
       end
 
-        
+      private
       def parse_machine(machine)
         return {
           :nick	      => machine['nick'],
@@ -51,7 +51,7 @@ module VagrantPlugins
           :memory     => machine['memory'],
           :cpus       => machine['cpus'],
           :cpucap     => machine['cpucap'],
-          :primary    => self.coalesce(machine['primary'], false),
+          :primary    => coalesce(machine['primary'], false),
           :natnet     => machine['natnet'],
           :networks   => [],
           :provision  => [],
@@ -66,16 +66,16 @@ module VagrantPlugins
           ],
           :groups     => [],
           :authorized_keys => [],
-          :boot_timeout => self.coalesce(machine['boot_timeout'], DEFAULT_BOOT_TIMEOUT),
-          :box_check_update => self.coalesce(machine['box_check_update'], DEFAULT_BOX_CHECK_UPDATE),
-          :box_version => self.coalesce(machine['box_version'], DEFAULT_BOX_VERSION),
-          :graceful_halt_timeout => self.coalesce(machine['graceful_halt_timeout'], DEFAULT_GRACEFUL_HALT_TIMEOUT),
+          :boot_timeout => coalesce(machine['boot_timeout'], DEFAULT_BOOT_TIMEOUT),
+          :box_check_update => coalesce(machine['box_check_update'], DEFAULT_BOX_CHECK_UPDATE),
+          :box_version => coalesce(machine['box_version'], DEFAULT_BOX_VERSION),
+          :graceful_halt_timeout => coalesce(machine['graceful_halt_timeout'], DEFAULT_GRACEFUL_HALT_TIMEOUT),
           :post_up_message => machine['post_up_message'],
-          :autostart => self.coalesce(machine['autostart'], true),
+          :autostart => coalesce(machine['autostart'], true),
         }
       end
 
-      
+      private
       def parse_net(net)
         case net['net']
         when 'private_network', 'private'
@@ -90,18 +90,18 @@ module VagrantPlugins
         
         return {
           :net  => nettype,
-          :type => self.coalesce(net['type'], DEFAULT_NET_TYPE),
+          :type => coalesce(net['type'], DEFAULT_NET_TYPE),
           :ip   => net['ip'],
-          :mask => self.coalesce(net['mask'], net['netmask'], DEFAULT_NETMASK),
+          :mask => coalesce(net['mask'], net['netmask'], DEFAULT_NETMASK),
           :interface => net['interface'],
           :guest => net['guest'],
           :host => net['host'],
-          :protocol => self.coalesce(net['protocol'], DEFAULT_PROTOCOL),
+          :protocol => coalesce(net['protocol'], DEFAULT_PROTOCOL),
           :bridge => net['bridge'],
         }
       end
 
-      
+      private
       def parse_provision(prv)
         return {
           :type		  => prv['type'],
@@ -115,18 +115,18 @@ module VagrantPlugins
         }
       end
 
-
+      private
       def parse_folder(folder)
         return {
           :host  => folder['host'],
           :guest => folder['guest'],
-          :disabled => self.coalesce(folder['disabled'], false),
-          :create => self.coalesce(folder['create'], false),
+          :disabled => coalesce(folder['disabled'], false),
+          :create => coalesce(folder['create'], false),
           :type => folder['type'],
         }
       end
 
-
+      private
       def parse_authorized_key(key)
         return {
           :type => key['type'],
@@ -135,7 +135,7 @@ module VagrantPlugins
         }
       end
 
-      
+      public
       def parse(yaml)
         config = {
           :machines => []
@@ -145,15 +145,15 @@ module VagrantPlugins
           item = parse_machine(machine)
 
           machine['networks'] and machine['networks'].each do |net|
-            item[:networks] << self.parse_net(net)
+            item[:networks] << parse_net(net)
           end
 
           machine['provision'] and machine['provision'].each do |prv|
-            item[:provision] << self.parse_provision(prv)
+            item[:provision] << parse_provision(prv)
           end
 
           machine['shared_folders'] and machine['shared_folders'].each do |folder|
-            item[:folders] << self.parse_folder(folder)
+            item[:folders] << parse_folder(folder)
           end
 
           machine['groups'] and machine['groups'].each do |group|
@@ -161,16 +161,16 @@ module VagrantPlugins
           end
 
           machine['authorized_keys'].to_a.each do |key|
-            item[:authorized_keys] << self.parse_authorized_key(key)
+            item[:authorized_keys] << parse_authorized_key(key)
           end
 
           config[:machines] << item
         end
 
-        return self.replace_vars(config)
+        return replace_vars(config)
       end
 
-
+      private
       def coalesce(*args)
         args.each do |val|
           next if val.nil?

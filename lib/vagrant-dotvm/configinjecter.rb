@@ -2,6 +2,7 @@ module VagrantPlugins
   module Dotvm
     class ConfigInjecter
 
+      public
       def self.inject(config, vc)
         # General settings
         vc.ssh.forward_x11 = true
