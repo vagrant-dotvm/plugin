@@ -37,6 +37,7 @@ machines:
         destination: "~/config.ini"
       - type: shell
         path: "%project.host%/bootstrap.sh"
+        privileged: true
         args:
           - "%project.guest%"
       - type: puppet
