@@ -2,13 +2,13 @@ module VagrantPlugins
   module Dotvm
     class ConfigParser
 
-      DEFAULT_NET     = "private_network"
-      DEFAULT_NET_TYPE = "static"
-      DEFAULT_NETMASK = "255.255.255.0"
-      DEFAULT_PROTOCOL = "tcp"
-      DEFAULT_BOOT_TIMEOUT = 300
-      DEFAULT_BOX_CHECK_UPDATE = true
-      DEFAULT_BOX_VERSION = ">= 0"
+      DEFAULT_NET                   = "private_network"
+      DEFAULT_NET_TYPE              = "static"
+      DEFAULT_NETMASK               = "255.255.255.0"
+      DEFAULT_PROTOCOL              = "tcp"
+      DEFAULT_BOOT_TIMEOUT          = 300
+      DEFAULT_BOX_CHECK_UPDATE      = true
+      DEFAULT_BOX_VERSION           = ">= 0"
       DEFAULT_GRACEFUL_HALT_TIMEOUT = 60
 
       def initialize(vars = {})
@@ -45,33 +45,33 @@ module VagrantPlugins
       private
       def parse_machine(machine)
         return {
-          :nick	      => machine["nick"],
-          :name	      => machine["name"],
-          :box        => machine["box"],
-          :memory     => machine["memory"],
-          :cpus       => machine["cpus"],
-          :cpucap     => machine["cpucap"],
-          :primary    => coalesce(machine["primary"], false),
-          :natnet     => machine["natnet"],
-          :networks   => [],
-          :provision  => [],
-          :folders    => [
+          :nick	                 => machine["nick"],
+          :name	                 => machine["name"],
+          :box                   => machine["box"],
+          :memory                => machine["memory"],
+          :cpus                  => machine["cpus"],
+          :cpucap                => machine["cpucap"],
+          :primary               => coalesce(machine["primary"], false),
+          :natnet                => machine["natnet"],
+          :networks              => [],
+          :provision             => [],
+          :groups                => [],
+          :authorized_keys       => [],
+          :boot_timeout          => coalesce(machine["boot_timeout"], DEFAULT_BOOT_TIMEOUT),
+          :box_check_update      => coalesce(machine["box_check_update"], DEFAULT_BOX_CHECK_UPDATE),
+          :box_version           => coalesce(machine["box_version"], DEFAULT_BOX_VERSION),
+          :graceful_halt_timeout => coalesce(machine["graceful_halt_timeout"], DEFAULT_GRACEFUL_HALT_TIMEOUT),
+          :post_up_message       => machine["post_up_message"],
+          :autostart             => coalesce(machine["autostart"], true),
+          :folders               => [
             {
-              :host => "%project.host%",
-              :guest => "%project.guest%",
+              :host     => "%project.host%",
+              :guest    => "%project.guest%",
               :disabled => false,
-              :create => false,
-              :type => nil,
+              :create   => false,
+              :type     => nil,
             }
           ],
-          :groups     => [],
-          :authorized_keys => [],
-          :boot_timeout => coalesce(machine["boot_timeout"], DEFAULT_BOOT_TIMEOUT),
-          :box_check_update => coalesce(machine["box_check_update"], DEFAULT_BOX_CHECK_UPDATE),
-          :box_version => coalesce(machine["box_version"], DEFAULT_BOX_VERSION),
-          :graceful_halt_timeout => coalesce(machine["graceful_halt_timeout"], DEFAULT_GRACEFUL_HALT_TIMEOUT),
-          :post_up_message => machine["post_up_message"],
-          :autostart => coalesce(machine["autostart"], true),
         }
       end
 
@@ -89,15 +89,15 @@ module VagrantPlugins
         end
 
         return {
-          :net  => nettype,
-          :type => coalesce(net["type"], DEFAULT_NET_TYPE),
-          :ip   => net["ip"],
-          :mask => coalesce(net["mask"], net["netmask"], DEFAULT_NETMASK),
+          :net       => nettype,
+          :type      => coalesce(net["type"], DEFAULT_NET_TYPE),
+          :ip        => net["ip"],
+          :mask      => coalesce(net["mask"], net["netmask"], DEFAULT_NETMASK),
           :interface => net["interface"],
-          :guest => net["guest"],
-          :host => net["host"],
-          :protocol => coalesce(net["protocol"], DEFAULT_PROTOCOL),
-          :bridge => net["bridge"],
+          :guest     => net["guest"],
+          :host      => net["host"],
+          :protocol  => coalesce(net["protocol"], DEFAULT_PROTOCOL),
+          :bridge    => net["bridge"],
         }
       end
 
@@ -118,11 +118,11 @@ module VagrantPlugins
       private
       def parse_folder(folder)
         return {
-          :host  => folder["host"],
-          :guest => folder["guest"],
+          :host     => folder["host"],
+          :guest    => folder["guest"],
           :disabled => coalesce(folder["disabled"], false),
-          :create => coalesce(folder["create"], false),
-          :type => folder["type"],
+          :create   => coalesce(folder["create"], false),
+          :type     => folder["type"],
         }
       end
 
@@ -131,7 +131,7 @@ module VagrantPlugins
         return {
           :type => key["type"],
           :path => key["path"],
-          :key => key["key"],
+          :key  => key["key"],
         }
       end
 
