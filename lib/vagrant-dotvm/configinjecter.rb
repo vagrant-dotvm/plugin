@@ -20,11 +20,11 @@ module VagrantPlugins
             machine.vm.post_up_message = machine_cfg[:post_up_message]
 
             machine.vm.provider "virtualbox" do |vb|
-              vb.customize ['modifyvm', :id, '--memory', machine_cfg['memory'] ||= 1024]
-              vb.customize ['modifyvm', :id, '--cpus',   machine_cfg['cpus']   ||= 1]
-              vb.customize ['modifyvm', :id, '--cpuexecutioncap', machine_cfg['cpucap'] ||= 100]
-              vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
-              vb.customize ['modifyvm', :id, '--natnet1', machine_cfg['natnet'] ||= '192.168.88.0/24']
+              vb.customize ["modifyvm", :id, "--memory", machine_cfg[:memory] ||= 1024]
+              vb.customize ["modifyvm", :id, "--cpus",   machine_cfg[:cpus]   ||= 1]
+              vb.customize ["modifyvm", :id, "--cpuexecutioncap", machine_cfg[:cpucap] ||= 100]
+              vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+              vb.customize ["modifyvm", :id, "--natnet1", machine_cfg["natnet"] ||= "192.168.88.0/24"]
             end
 
             machine_cfg[:networks].each do |net|
@@ -50,14 +50,14 @@ module VagrantPlugins
 
             machine_cfg[:provision].each do |provision|
               machine.vm.provision provision[:type] do |p|
-                if provision[:type] == 'shell'
+                if provision[:type] == "shell"
                   p.path           = provision[:path]
                   p.args           = provision[:args]
                   p.privileged     = provision[:privileged] ||= true
-                elsif provision[:type] == 'file'
+                elsif provision[:type] == "file"
                   p.source         = provision[:source]
                   p.destination    = provision[:destination]
-                elsif provision[:type] == 'puppet'
+                elsif provision[:type] == "puppet"
                   p.module_path    = provision[:module_path]
                   p.manifest_file  = provision[:manifest_file]
                   p.manifests_path = provision[:manifests_path]
@@ -74,20 +74,20 @@ module VagrantPlugins
             end
 
             machine_cfg[:authorized_keys].each do |key|
-              if key[:type] == 'file'
+              if key[:type] == "file"
                 pubkey = File.readlines(File.expand_path(key[:path])).first.strip
-              elsif key[:type] == 'static'
+              elsif key[:type] == "static"
                 pubkey = key[:key]
               end
 
-              machine.vm.provision 'shell' do |s|
+              machine.vm.provision "shell" do |s|
                 s.path       = File.dirname(__FILE__) + "/../../utils/authorize_key.sh"
                 s.args       = [pubkey]
                 s.privileged = false
               end
             end
 
-            if Vagrant.has_plugin?('vagrant-group')
+            if Vagrant.has_plugin?("vagrant-group")
               vc.group.groups = {} unless vc.group.groups.kind_of?(Hash)
 
               machine_cfg[:groups].each do |group|
