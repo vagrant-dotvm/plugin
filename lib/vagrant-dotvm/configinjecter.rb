@@ -24,7 +24,7 @@ module VagrantPlugins
               vb.customize ["modifyvm", :id, "--cpus",   machine_cfg[:cpus]]
               vb.customize ["modifyvm", :id, "--cpuexecutioncap", machine_cfg[:cpucap]]
               vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-              vb.customize ["modifyvm", :id, "--natnet1", machine_cfg["natnet"]]
+              vb.customize ["modifyvm", :id, "--natnet1", machine_cfg[:natnet]]
             end
 
             machine_cfg[:networks].each do |net|
