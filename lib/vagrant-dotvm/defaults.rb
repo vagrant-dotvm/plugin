@@ -1,10 +1,6 @@
 module VagrantPlugins
   module Dotvm
     class Defaults
-      MEMORY                = 1024
-      CPUS                  = 1
-      CPUCAP                = 100
-      NATNET                = "192.168.88.0/24"
       NET                   = :private_network
       NET_TYPE              = "static"
       NETMASK               = "255.255.255.0"

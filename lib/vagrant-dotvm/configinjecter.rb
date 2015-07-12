@@ -20,11 +20,11 @@ module VagrantPlugins
             machine.vm.post_up_message       = machine_cfg[:post_up_message]
 
             machine.vm.provider "virtualbox" do |vb|
-              vb.customize ["modifyvm", :id, "--memory", machine_cfg[:memory]]
-              vb.customize ["modifyvm", :id, "--cpus",   machine_cfg[:cpus]]
-              vb.customize ["modifyvm", :id, "--cpuexecutioncap", machine_cfg[:cpucap]]
+              vb.customize ["modifyvm", :id, "--memory", machine_cfg[:memory]] unless machine_cfg[:memory].nil?
+              vb.customize ["modifyvm", :id, "--cpus",   machine_cfg[:cpus]] unless machine_cfg[:cpus].nil?
+              vb.customize ["modifyvm", :id, "--cpuexecutioncap", machine_cfg[:cpucap]] unless machine_cfg[:cpucap].nil?
               vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-              vb.customize ["modifyvm", :id, "--natnet1", machine_cfg[:natnet]]
+              vb.customize ["modifyvm", :id, "--natnet1", machine_cfg[:natnet]] unless machine_cfg[:natnet].nil?
             end
 
             machine_cfg[:networks].each do |net|
