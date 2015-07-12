@@ -1,3 +1,6 @@
+# 0.15.1
+* Fix for natnet option
+
 # 0.15.0
 * Ability to set run option on provision
 * Fix privileged option in provision
