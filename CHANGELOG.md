@@ -1,3 +1,8 @@
+# 0.15.0
+* Ability to set run option on provision
+* Fix privileged option in provision
+* Ability to setup static routes
+
 # 0.14.0
 * Ability to configure autostart option
 
