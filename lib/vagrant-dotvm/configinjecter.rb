@@ -61,7 +61,7 @@ module VagrantPlugins
 
             machine_cfg[:hosts].each do |host|
               machine.vm.provision "shell", run: "always" do |s|
-                s.path       = File.dirname(__FILE__) + "/../../utils/add_host.py"
+                s.path       = File.dirname(__FILE__) + "/../../utils/add_host.sh"
                 s.args       = [host[:ip], host[:host]]
                 s.privileged = true
               end
