@@ -1,3 +1,6 @@
+# 0.16.0
+* Remove default settings so DotVm is more transparent
+
 # 0.15.1
 * Fix for natnet option
 
