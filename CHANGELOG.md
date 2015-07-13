@@ -1,3 +1,8 @@
+# 0.17.0
+* Add ability to add entries to /etc/hosts in guest
+* Ability to set custom options for VirtualBox
+* Remove default setting for natdnshostresolver1
+
 # 0.16.0
 * Remove default settings so DotVm is more transparent
 
