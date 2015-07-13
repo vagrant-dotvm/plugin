@@ -64,6 +64,9 @@ module VagrantPlugins
               :type     => nil,
             }
           ],
+          :options               => {
+            :virtualbox => [],
+          },
         }
       end
 
@@ -135,6 +138,14 @@ module VagrantPlugins
         }
       end
 
+      private
+      def parse_option(option)
+        {
+          :name  => option["name"],
+          :value => option["value"],
+        }
+      end
+
       public
       def parse(yaml)
         config = {
@@ -166,6 +177,10 @@ module VagrantPlugins
 
           machine["authorized_keys"].to_a.each do |key|
             item[:authorized_keys] << parse_authorized_key(key)
+          end
+
+          machine["options"].to_h["virtualbox"].to_a.each do |option|
+            item[:options][:virtualbox] << parse_option(option)
           end
 
           config[:machines] << item
