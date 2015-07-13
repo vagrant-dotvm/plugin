@@ -1,3 +1,6 @@
+# 0.18.0
+* Use sh to add hosts entries to cover more systems
+
 # 0.17.0
 * Add ability to add entries to /etc/hosts in guest
 * Ability to set custom options for VirtualBox
