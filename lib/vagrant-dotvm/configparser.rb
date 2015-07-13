@@ -55,6 +55,7 @@ module VagrantPlugins
           :graceful_halt_timeout => coalesce(machine["graceful_halt_timeout"], Defaults::GRACEFUL_HALT_TIMEOUT),
           :post_up_message       => machine["post_up_message"],
           :autostart             => coalesce(machine["autostart"], true),
+          :hosts                 => [],
           :folders               => [
             {
               :host     => "%project.host%",
@@ -146,6 +147,14 @@ module VagrantPlugins
         }
       end
 
+      private
+      def parse_host(host)
+        {
+          :ip   => host["ip"],
+          :host => host["host"],
+        }
+      end
+
       public
       def parse(yaml)
         config = {
@@ -181,6 +190,10 @@ module VagrantPlugins
 
           machine["options"].to_h["virtualbox"].to_a.each do |option|
             item[:options][:virtualbox] << parse_option(option)
+          end
+
+          machine["hosts"].to_a.each do |host|
+            item[:hosts] << parse_host(host)
           end
 
           config[:machines] << item

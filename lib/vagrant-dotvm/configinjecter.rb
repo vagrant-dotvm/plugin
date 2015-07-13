@@ -59,6 +59,14 @@ module VagrantPlugins
               end
             end
 
+            machine_cfg[:hosts].each do |host|
+              machine.vm.provision "shell", run: "always" do |s|
+                s.path       = File.dirname(__FILE__) + "/../../utils/add_host.py"
+                s.args       = [host[:ip], host[:host]]
+                s.privileged = true
+              end
+            end
+
             machine_cfg[:provision].each do |provision|
               machine.vm.provision provision[:type], run: provision[:run] do |p|
                 if provision[:type] == "shell"
