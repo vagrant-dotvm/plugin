@@ -109,6 +109,7 @@ module VagrantPlugins
           :type		  => prv["type"],
           :source         => prv["source"],
           :destination    => prv["destination"],
+          :inline         => prv["inline"],
           :path		  => prv["path"],
           :args           => prv["args"],
           :module_path    => prv["module_path"],

@@ -70,7 +70,8 @@ module VagrantPlugins
             machine_cfg[:provision].each do |provision|
               machine.vm.provision provision[:type], run: provision[:run] do |p|
                 if provision[:type] == "shell"
-                  p.path           = provision[:path]
+                  p.path           = provision[:path] unless provision[:path].nil?
+                  p.inline         = provision[:inline] unless provision[:inline].nil?
                   p.args           = provision[:args]
                   p.privileged     = provision[:privileged]
                 elsif provision[:type] == "file"
