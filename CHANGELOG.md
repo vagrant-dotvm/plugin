@@ -1,3 +1,6 @@
+# 0.19.0
+* Ability to use inline shell provision
+
 # 0.18.0
 * Use sh to add hosts entries to cover more systems
 
