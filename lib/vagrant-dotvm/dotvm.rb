@@ -26,9 +26,13 @@ module VagrantPlugins
             vars['env.' + name] = value
           end
 
-          conf = Config::Root.new
-          conf.populate yaml
-          conf.replace_vars! vars
+          begin
+            conf = Config::Root.new
+            conf.populate yaml
+            conf.replace_vars! vars
+          rescue Exception => e
+            raise Vagrant::Errors::VagrantError.new, "DotVM: #{e.message}"
+          end
 
           configs << conf
         end

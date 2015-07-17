@@ -9,7 +9,7 @@ module VagrantPlugins
             elsif respond_to? "#{key}="
               m = method("#{key}=")
             else
-              raise Vagrant::Errors::VagrantError.new, "Invalid configuration option: #{key}."
+              raise "Invalid configuration option: #{key}."
             end
 
             m.call(value)
