@@ -6,8 +6,10 @@ module VagrantPlugins
           data.each do |key, value|
             if respond_to?("populate_#{key}")
               m = method("populate_#{key}")
-            else
+            elsif respond_to? "#{key}="
               m = method("#{key}=")
+            else
+              raise Vagrant::Errors::VagrantError.new, "Invalid configuration option: #{key}."
             end
 
             m.call(value)
