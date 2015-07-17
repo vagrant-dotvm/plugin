@@ -26,8 +26,11 @@ module VagrantPlugins
             vars['env.' + name] = value
           end
 
-          parser = ConfigParser.new vars
-          configs << parser.parse(yaml)
+          conf = Config::Root.new
+          conf.populate yaml
+          conf.replace_vars! vars
+
+          configs << conf
         end
 
         return configs
