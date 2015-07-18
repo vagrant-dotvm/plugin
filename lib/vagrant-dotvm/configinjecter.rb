@@ -89,6 +89,16 @@ module VagrantPlugins
                 p.hiera_config_path = provision.hiera_config_path unless provision.hiera_config_path.nil?
                 p.environment       = provision.environment       unless provision.environment.nil?
                 p.environment_path  = provision.environment_path  unless provision.environment_path.nil?
+                p.binary            = provision.binary            unless provision.binary.nil?
+                p.upload_path       = provision.upload_path       unless provision.upload_path.nil?
+                p.keep_color        = provision.keep_color        unless provision.keep_color.nil?
+                p.name              = provision.name              unless provision.name.nil?
+                p.powershell_args   = provision.powershell_args   unless provision.powershell_args.nil?
+                p.facter             = provision.facter             unless provision.facter.nil?
+                p.options            = provision.options            unless provision.options.nil?
+                p.synced_folder_type = provision.synced_folder_type unless provision.synced_folder_type.nil?
+                p.temp_dir           = provision.temp_dir           unless provision.temp_dir.nil?
+                p.working_directory  = provision.working_directory  unless provision.working_directory.nil?
               end
             end
 

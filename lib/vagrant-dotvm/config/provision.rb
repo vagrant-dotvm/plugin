@@ -17,6 +17,17 @@ module VagrantPlugins
         attr_accessor :hiera_config_path
         attr_accessor :environment
         attr_accessor :environment_path
+        attr_accessor :binary
+        attr_accessor :upload_path
+        attr_accessor :keep_color
+        attr_accessor :name
+        attr_accessor :powershell_args
+        attr_accessor :facter
+        attr_accessor :options
+        attr_accessor :synced_folder_type
+        attr_accessor :synced_folder_args
+        attr_accessor :temp_dir
+        attr_accessor :working_directory
       end
     end
   end
