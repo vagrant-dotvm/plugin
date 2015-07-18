@@ -4,8 +4,9 @@
 [![Gem Version](https://badge.fury.io/rb/vagrant-dotvm.svg)](http://badge.fury.io/rb/vagrant-dotvm)
 
 ## What is that?
-DotVm is vagrant plugin for easier maintenance of multi machine configurations.
-DotVm joins easy syntax of YAML files with flexibility offered by configuration exploded into several small files.
+DotVm is plugin which makes your life easier when it comes to setup both simple VM in Vagrant and
+bigger development environments. You can plug multiple infrastructure projects into one DotVm instance.
+Each project can contain many VMs, splitted (or not) into several small YAML files.
 
 ## How to start using DotVm
 First you need to install DotVm plugin:
@@ -50,3 +51,6 @@ Environment variables are accessible by using env prefix, e.g. `%env.LOGNAME%`.
 Predefined variables:  
 * `%project.host%` - points to project directory on host
 * `%project.guest%` - points to project directory on guest
+
+## More information
+For more information please follow to [wiki](https://github.com/krzysztof-magosa/vagrant-dotvm/wiki/Getting-started).
