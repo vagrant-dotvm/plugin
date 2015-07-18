@@ -1,3 +1,7 @@
+# 0.20.0
+* Now error is displayed when you specify unsupported option
+* Removal of next bunch of default parameters
+
 # 0.19.0
 * Ability to use inline shell provision
 
