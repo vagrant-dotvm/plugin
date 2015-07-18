@@ -18,6 +18,16 @@ module VagrantPlugins
             machine.vm.box_version           = machine_cfg.box_version
             machine.vm.graceful_halt_timeout = machine_cfg.graceful_halt_timeout
             machine.vm.post_up_message       = machine_cfg.post_up_message
+            machine.vm.box_download_checksum         = machine_cfg.box_download_checksum         unless machine_cfg.box_download_checksum.nil?
+            machine.vm.box_download_checksum_type    = machine_cfg.box_download_checksum_type    unless machine_cfg.box_download_checksum_type.nil?
+            machine.vm.box_download_client_cert      = machine_cfg.box_download_client_cert      unless machine_cfg.box_download_client_cert.nil?
+            machine.vm.box_download_ca_cert          = machine_cfg.box_download_ca_cert          unless machine_cfg.box_download_ca_cert.nil?
+            machine.vm.box_download_ca_path          = machine_cfg.box_download_ca_path          unless machine_cfg.box_download_ca_path.nil?
+            machine.vm.box_download_insecure         = machine_cfg.box_download_insecure         unless machine_cfg.box_download_insecure.nil?
+            machine.vm.box_download_location_trusted = machine_cfg.box_download_location_trusted unless machine_cfg.box_download_location_trusted.nil?
+            machine.vm.box_url                       = machine_cfg.box_url                       unless machine_cfg.box_url.nil?
+            machine.vm.communicator                  = machine_cfg.communicator                  unless machine_cfg.communicator.nil?
+            machine.vm.guest                         = machine_cfg.guest                         unless machine_cfg.guest.nil?
 
             machine.vm.provider "virtualbox" do |vb|
               vb.customize ["modifyvm", :id, "--memory",          machine_cfg.memory] unless machine_cfg.memory.nil?

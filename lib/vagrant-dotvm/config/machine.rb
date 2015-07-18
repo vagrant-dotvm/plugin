@@ -24,6 +24,16 @@ module VagrantPlugins
         attr_accessor :hosts
         attr_accessor :options
         attr_accessor :shared_folders
+        attr_accessor :box_download_checksum
+        attr_accessor :box_download_checksum_type
+        attr_accessor :box_download_client_cert
+        attr_accessor :box_download_ca_cert
+        attr_accessor :box_download_ca_path
+        attr_accessor :box_download_insecure
+        attr_accessor :box_download_location_trusted
+        attr_accessor :box_url
+        attr_accessor :communicator
+        attr_accessor :guest
 
         def initialize()
           @primary         = false
