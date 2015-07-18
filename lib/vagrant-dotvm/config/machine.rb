@@ -37,6 +37,18 @@ module VagrantPlugins
             :virtualbox    => [],
           }
           @shared_folders  = []
+
+          populate_shared_folders(
+            [
+              {
+                "host"     => "%project.host%",
+                "guest"    => "%project.guest%",
+                "disabled" => false,
+                "create"   => false,
+                "type"     => nil,
+              }
+            ]
+          )
         end
 
         def populate_networks(data)
