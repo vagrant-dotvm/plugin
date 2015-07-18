@@ -28,6 +28,7 @@ module VagrantPlugins
             machine.vm.box_url                       = machine_cfg.box_url                       unless machine_cfg.box_url.nil?
             machine.vm.communicator                  = machine_cfg.communicator                  unless machine_cfg.communicator.nil?
             machine.vm.guest                         = machine_cfg.guest                         unless machine_cfg.guest.nil?
+            machine.vm.usable_port_range             = machine_cfg.usable_port_range             unless machine_cfg.usable_port_range.nil?
 
             machine.vm.provider "virtualbox" do |vb|
               vb.customize ["modifyvm", :id, "--memory",          machine_cfg.memory] unless machine_cfg.memory.nil?
