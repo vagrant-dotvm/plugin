@@ -22,11 +22,6 @@ module VagrantPlugins
         attr_accessor :smb_host
         attr_accessor :smb_password
         attr_accessor :smb_username
-
-        def initialize()
-          @disabled = false
-          @create   = false
-        end
       end
     end
   end
