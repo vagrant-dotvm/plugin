@@ -14,9 +14,6 @@ module VagrantPlugins
 
         def initialize()
           @net      = :private_network
-          @type     = "static"
-          @mask     = "255.255.255.0"
-          @protocol = "tcp"
         end
 
         def net=(value)
