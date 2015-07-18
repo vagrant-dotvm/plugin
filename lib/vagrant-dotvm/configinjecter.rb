@@ -107,6 +107,21 @@ module VagrantPlugins
               hash[:disabled] = folder.disabled unless folder.disabled.nil?
               hash[:create]   = folder.create   unless folder.create.nil?
               hash[:type]     = folder.type     unless folder.type.nil?
+              hash[:group]             = folder.group             unless folder.group.nil?
+              hash[:mount_options]     = folder.mount_options     unless folder.mount_options.nil?
+              hash[:owner]             = folder.owner             unless folder.owner.nil?
+              hash[:nfs_export]        = folder.nfs_export        unless folder.nfs_export.nil?
+              hash[:nfs_udp]           = folder.nfs_udp           unless folder.nfs_udp.nil?
+              hash[:nfs_version]       = folder.nfs_version       unless folder.nfs_version.nil?
+              hash[:rsync__args]       = folder.rsync__args       unless folder.rsync__args.nil?
+              hash[:rsync__auto]       = folder.rsync__auto       unless folder.rsync__auto.nil?
+              hash[:rsync__chown]      = folder.rsync__chown      unless folder.rsync__chown.nil?
+              hash[:rsync__exclude]    = folder.rsync__exclude    unless folder.rsync__exclude.nil?
+              hash[:rsync__rsync_path] = folder.rsync__rsync_path unless folder.rsync__rsync_path.nil?
+              hash[:rsync__verbose]    = folder.rsync__verbose    unless folder.rsync__verbose.nil?
+              hash[:smb_host]          = folder.smb_host          unless folder.smb_host.nil?
+              hash[:smb_password]      = folder.smb_password      unless folder.smb_password.nil?
+              hash[:smb_username]      = folder.smb_username      unless folder.smb_username.nil?
 
               machine.vm.synced_folder folder.host, folder.guest, **hash
             end
