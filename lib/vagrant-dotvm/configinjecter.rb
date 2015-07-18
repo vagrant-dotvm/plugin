@@ -100,6 +100,10 @@ module VagrantPlugins
                 p.synced_folder_type = provision.synced_folder_type unless provision.synced_folder_type.nil?
                 p.temp_dir           = provision.temp_dir           unless provision.temp_dir.nil?
                 p.working_directory  = provision.working_directory  unless provision.working_directory.nil?
+                p.client_cert_path        = provision.client_cert_path        unless provision.client_cert_path.nil?
+                p.client_private_key_path = provision.client_private_key_path unless provision.client_private_key_path.nil?
+                p.puppet_node             = provision.puppet_node             unless provision.puppet_node.nil?
+                p.puppet_server           = provision.puppet_server           unless provision.puppet_server.nil?
               end
             end
 

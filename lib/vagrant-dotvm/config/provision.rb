@@ -28,6 +28,10 @@ module VagrantPlugins
         attr_accessor :synced_folder_args
         attr_accessor :temp_dir
         attr_accessor :working_directory
+        attr_accessor :client_cert_path
+        attr_accessor :client_private_key_path
+        attr_accessor :puppet_node
+        attr_accessor :puppet_server
       end
     end
   end
