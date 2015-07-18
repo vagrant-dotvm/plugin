@@ -104,9 +104,9 @@ module VagrantPlugins
 
             machine_cfg.shared_folders.each do |folder|
               hash = {}
-              hash[:disabled] = folder.disabled unless folder.disabled.nil?
-              hash[:create]   = folder.create   unless folder.create.nil?
-              hash[:type]     = folder.type     unless folder.type.nil?
+              hash[:disabled]          = folder.disabled          unless folder.disabled.nil?
+              hash[:create]            = folder.create            unless folder.create.nil?
+              hash[:type]              = folder.type              unless folder.type.nil?
               hash[:group]             = folder.group             unless folder.group.nil?
               hash[:mount_options]     = folder.mount_options     unless folder.mount_options.nil?
               hash[:owner]             = folder.owner             unless folder.owner.nil?
