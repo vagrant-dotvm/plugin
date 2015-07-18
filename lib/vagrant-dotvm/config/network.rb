@@ -11,6 +11,10 @@ module VagrantPlugins
         attr_accessor :host
         attr_accessor :protocol
         attr_accessor :bridge
+        attr_accessor :guest_ip
+        attr_accessor :host_ip
+        attr_accessor :auto_correct
+        attr_accessor :auto_config
 
         def initialize()
           @net      = :private_network
