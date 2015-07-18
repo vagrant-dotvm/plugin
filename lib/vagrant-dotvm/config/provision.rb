@@ -13,6 +13,10 @@ module VagrantPlugins
         attr_accessor :manifest_file
         attr_accessor :privileged
         attr_accessor :run
+        attr_accessor :binary_path
+        attr_accessor :hiera_config_path
+        attr_accessor :environment
+        attr_accessor :environment_path
       end
     end
   end

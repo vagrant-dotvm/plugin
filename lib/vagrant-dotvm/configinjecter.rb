@@ -71,6 +71,10 @@ module VagrantPlugins
                 p.module_path    = provision.module_path    unless provision.module_path.nil?
                 p.manifest_file  = provision.manifest_file  unless provision.manifest_file.nil?
                 p.manifests_path = provision.manifests_path unless provision.manifests_path.nil?
+                p.binary_path       = provision.binary_path       unless provision.binary_path.nil?
+                p.hiera_config_path = provision.hiera_config_path unless provision.hiera_config_path.nil?
+                p.environment       = provision.environment       unless provision.environment.nil?
+                p.environment_path  = provision.environment_path  unless provision.environment_path.nil?
               end
             end
 
