@@ -1,3 +1,8 @@
+# 0.22.0
+* Support for more options - shell, puppet provisions
+* Support for more options - shared folders
+* Remove default settings from shared folders
+
 # 0.21.0
 * Support for more options - puppet provision
 * Support for more options - vm
