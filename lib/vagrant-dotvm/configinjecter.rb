@@ -42,14 +42,14 @@ module VagrantPlugins
 
             machine_cfg.networks.each do |net|
               hash = {}
-              hash[:type]               = net.type      unless net.type.nil?
-              hash[:ip]                 = net.ip        unless net.ip.nil?
-              hash[:netmask]            = net.mask      unless net.mask.nil?
-              hash[:virtualbox__intnet] = net.interface unless net.interface.nil?
-              hash[:guest]              = net.guest     unless net.guest.nil?
-              hash[:host]               = net.host      unless net.host.nil?
-              hash[:protocol]           = net.protocol  unless net.protocol.nil?
-              hash[:bridge]             = net.bridge    unless net.bridge.nil?
+              hash[:type]               = net.type         unless net.type.nil?
+              hash[:ip]                 = net.ip           unless net.ip.nil?
+              hash[:netmask]            = net.mask         unless net.mask.nil?
+              hash[:virtualbox__intnet] = net.interface    unless net.interface.nil?
+              hash[:guest]              = net.guest        unless net.guest.nil?
+              hash[:host]               = net.host         unless net.host.nil?
+              hash[:protocol]           = net.protocol     unless net.protocol.nil?
+              hash[:bridge]             = net.bridge       unless net.bridge.nil?
               hash[:guest_ip]           = net.guest_ip     unless net.guest_ip.nil?
               hash[:host_ip]            = net.host_ip      unless net.host_ip.nil?
               hash[:auto_correct]       = net.auto_correct unless net.auto_correct.nil?
