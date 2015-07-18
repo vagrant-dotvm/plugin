@@ -62,15 +62,15 @@ module VagrantPlugins
 
             machine_cfg.provision.each do |provision|
               machine.vm.provision provision.type, run: provision.run do |p|
-                p.path           = provision.path           unless provision.path.nil?
-                p.inline         = provision.inline         unless provision.inline.nil?
-                p.args           = provision.args           unless provision.args.nil?
-                p.privileged     = provision.privileged     unless provision.privileged.nil?
-                p.source         = provision.source         unless provision.source.nil?
-                p.destination    = provision.destination    unless provision.destination.nil?
-                p.module_path    = provision.module_path    unless provision.module_path.nil?
-                p.manifest_file  = provision.manifest_file  unless provision.manifest_file.nil?
-                p.manifests_path = provision.manifests_path unless provision.manifests_path.nil?
+                p.path              = provision.path              unless provision.path.nil?
+                p.inline            = provision.inline            unless provision.inline.nil?
+                p.args              = provision.args              unless provision.args.nil?
+                p.privileged        = provision.privileged        unless provision.privileged.nil?
+                p.source            = provision.source            unless provision.source.nil?
+                p.destination       = provision.destination       unless provision.destination.nil?
+                p.module_path       = provision.module_path       unless provision.module_path.nil?
+                p.manifest_file     = provision.manifest_file     unless provision.manifest_file.nil?
+                p.manifests_path    = provision.manifests_path    unless provision.manifests_path.nil?
                 p.binary_path       = provision.binary_path       unless provision.binary_path.nil?
                 p.hiera_config_path = provision.hiera_config_path unless provision.hiera_config_path.nil?
                 p.environment       = provision.environment       unless provision.environment.nil?
