@@ -1,3 +1,9 @@
+# 0.21.0
+* Support for more options - puppet provision
+* Support for more options - vm
+* Support for more options - network
+* Fix for case when some options are missing - vm
+
 # 0.20.0
 * Now error is displayed when you specify unsupported option
 * Removal of next bunch of default parameters
