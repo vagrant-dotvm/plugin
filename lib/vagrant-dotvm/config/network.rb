@@ -12,6 +12,13 @@ module VagrantPlugins
         attr_accessor :protocol
         attr_accessor :bridge
 
+        def initialize()
+          @net      = :private_network
+          @type     = "static"
+          @mask     = "255.255.255.0"
+          @protocol = "tcp"
+        end
+
         def net=(value)
           nets = {
             "private_network" => :private_network,
