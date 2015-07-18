@@ -31,7 +31,8 @@ module VagrantPlugins
             conf.populate yaml
             conf.replace_vars! vars
           rescue Exception => e
-            raise Vagrant::Errors::VagrantError.new, "DotVM: #{e.message}"
+            file = fname[(@path.length+"/projects/".length)..-1]
+            raise Vagrant::Errors::VagrantError.new, "DotVM: #{file}: #{e.message}"
           end
 
           configs << conf
