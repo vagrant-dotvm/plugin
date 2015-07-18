@@ -20,10 +20,10 @@ module VagrantPlugins
             machine.vm.post_up_message       = machine_cfg.post_up_message
 
             machine.vm.provider "virtualbox" do |vb|
-              vb.customize ["modifyvm", :id, "--memory", machine_cfg.memory] unless machine_cfg.memory.nil?
-              vb.customize ["modifyvm", :id, "--cpus",   machine_cfg.cpus] unless machine_cfg.cpus.nil?
+              vb.customize ["modifyvm", :id, "--memory",          machine_cfg.memory] unless machine_cfg.memory.nil?
+              vb.customize ["modifyvm", :id, "--cpus",            machine_cfg.cpus]   unless machine_cfg.cpus.nil?
               vb.customize ["modifyvm", :id, "--cpuexecutioncap", machine_cfg.cpucap] unless machine_cfg.cpucap.nil?
-              vb.customize ["modifyvm", :id, "--natnet1", machine_cfg.natnet] unless machine_cfg.natnet.nil?
+              vb.customize ["modifyvm", :id, "--natnet1",         machine_cfg.natnet] unless machine_cfg.natnet.nil?
 
               machine_cfg.options[:virtualbox].each do |option|
                 vb.customize ["modifyvm", :id, option.name, option.value]
@@ -31,24 +31,16 @@ module VagrantPlugins
             end
 
             machine_cfg.networks.each do |net|
-              if net.net == :private_network
-                machine.vm.network net.net,
-                                   type: net.type,
-                                   ip: net.ip,
-                                   netmask: net.mask,
-                                   virtualbox__intnet: net.interface
-              elsif net.net == :public_network
-                machine.vm.network net.net,
-                                   type: net.type,
-                                   ip: net.ip,
-                                   netmask: net.mask,
-                                   bridge: net.bridge
-              elsif net.net == :forwarded_port
-                machine.vm.network net.net,
-                                   guest: net.guest,
-                                   host: net.host,
-                                   protocol: net.protocol
-              end
+              hash = {}
+              hash[:type]               = net.type      unless net.type.nil?
+              hash[:ip]                 = net.ip        unless net.ip.nil?
+              hash[:netmask]            = net.mask      unless net.mask.nil?
+              hash[:virtualbox__intnet] = net.interface unless net.interface.nil?
+              hash[:guest]              = net.guest     unless net.guest.nil?
+              hash[:host]               = net.host      unless net.host.nil?
+              hash[:protocol]           = net.protocol  unless net.protocol.nil?
+
+              machine.vm.network net.net, **hash
             end
 
             machine_cfg.routes.each do |route|
@@ -69,28 +61,25 @@ module VagrantPlugins
 
             machine_cfg.provision.each do |provision|
               machine.vm.provision provision.type, run: provision.run do |p|
-                if provision.type == "shell"
-                  p.path           = provision.path unless provision.path.nil?
-                  p.inline         = provision.inline unless provision.inline.nil?
-                  p.args           = provision.args
-                  p.privileged     = provision.privileged
-                elsif provision.type == "file"
-                  p.source         = provision.source
-                  p.destination    = provision.destination
-                elsif provision.type == "puppet"
-                  p.module_path    = provision.module_path
-                  p.manifest_file  = provision.manifest_file
-                  p.manifests_path = provision.manifests_path
-                end
+                p.path           = provision.path           unless provision.path.nil?
+                p.inline         = provision.inline         unless provision.inline.nil?
+                p.args           = provision.args           unless provision.args.nil?
+                p.privileged     = provision.privileged     unless provision.privileged.nil?
+                p.source         = provision.source         unless provision.source.nil?
+                p.destination    = provision.destination    unless provision.destination.nil?
+                p.module_path    = provision.module_path    unless provision.module_path.nil?
+                p.manifest_file  = provision.manifest_file  unless provision.manifest_file.nil?
+                p.manifests_path = provision.manifests_path unless provision.manifests_path.nil?
               end
             end
 
             machine_cfg.shared_folders.each do |folder|
-              machine.vm.synced_folder folder.host,
-                                       folder.guest,
-                                       disabled: folder.disabled,
-                                       create: folder.create,
-                                       type: folder.type
+              hash = {}
+              hash[:disabled] = folder.disabled unless folder.disabled.nil?
+              hash[:create]   = folder.create   unless folder.create.nil?
+              hash[:type]     = folder.type     unless folder.type.nil?
+
+              machine.vm.synced_folder folder.host, folder.guest, **hash
             end
 
             machine_cfg.authorized_keys.each do |key|
