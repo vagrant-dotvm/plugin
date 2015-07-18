@@ -11,13 +11,13 @@ module VagrantPlugins
           vc.vm.define machine_cfg.nick,
                        primary: machine_cfg.primary,
                        autostart: machine_cfg.autostart do |machine|
-            machine.vm.box                   = machine_cfg.box
-            machine.vm.hostname              = machine_cfg.name
-            machine.vm.boot_timeout          = machine_cfg.boot_timeout
-            machine.vm.box_check_update      = machine_cfg.box_check_update
-            machine.vm.box_version           = machine_cfg.box_version
-            machine.vm.graceful_halt_timeout = machine_cfg.graceful_halt_timeout
-            machine.vm.post_up_message       = machine_cfg.post_up_message
+            machine.vm.box                           = machine_cfg.box                           unless machine_cfg.box.nil?
+            machine.vm.hostname                      = machine_cfg.name                          unless machine_cfg.name.nil?
+            machine.vm.boot_timeout                  = machine_cfg.boot_timeout                  unless machine_cfg.boot_timeout.nil?
+            machine.vm.box_check_update              = machine_cfg.box_check_update              unless machine_cfg.box_check_update.nil?
+            machine.vm.box_version                   = machine_cfg.box_version                   unless machine_cfg.box_version.nil?
+            machine.vm.graceful_halt_timeout         = machine_cfg.graceful_halt_timeout         unless machine_cfg.graceful_halt_timeout.nil?
+            machine.vm.post_up_message               = machine_cfg.post_up_message               unless machine_cfg.post_up_message.nil?
             machine.vm.box_download_checksum         = machine_cfg.box_download_checksum         unless machine_cfg.box_download_checksum.nil?
             machine.vm.box_download_checksum_type    = machine_cfg.box_download_checksum_type    unless machine_cfg.box_download_checksum_type.nil?
             machine.vm.box_download_client_cert      = machine_cfg.box_download_client_cert      unless machine_cfg.box_download_client_cert.nil?
