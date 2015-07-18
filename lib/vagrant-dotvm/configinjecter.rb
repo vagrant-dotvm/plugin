@@ -39,6 +39,7 @@ module VagrantPlugins
               hash[:guest]              = net.guest     unless net.guest.nil?
               hash[:host]               = net.host      unless net.host.nil?
               hash[:protocol]           = net.protocol  unless net.protocol.nil?
+              hash[:bridge]             = net.bridge    unless net.bridge.nil?
 
               machine.vm.network net.net, **hash
             end
