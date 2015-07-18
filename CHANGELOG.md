@@ -1,3 +1,7 @@
+# 0.23.0
+* Support for puppet_server provision options
+* Added option usable_port_range
+
 # 0.22.0
 * Support for more options - shell, puppet provisions
 * Support for more options - shared folders
