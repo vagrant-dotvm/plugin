@@ -8,9 +8,11 @@ module VagrantPlugins
         vc.ssh.forward_x11 = true
 
         config.machines.each do |machine_cfg|
-          vc.vm.define machine_cfg.nick,
-                       primary: machine_cfg.primary,
-                       autostart: machine_cfg.autostart do |machine|
+          define_opts = {}
+          define_opts[:primary]   = machine_cfg.primary   unless machine_cfg.primary.nil?
+          define_opts[:autostart] = machine_cfg.autostart unless machine_cfg.autostart.nil?
+
+          vc.vm.define machine_cfg.nick, **define_opts do |machine|
             machine.vm.box                           = machine_cfg.box                           unless machine_cfg.box.nil?
             machine.vm.hostname                      = machine_cfg.name                          unless machine_cfg.name.nil?
             machine.vm.boot_timeout                  = machine_cfg.boot_timeout                  unless machine_cfg.boot_timeout.nil?
