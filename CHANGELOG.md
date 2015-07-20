@@ -1,3 +1,6 @@
+# 0.24.0
+* Fix for autostart/primary options incorrectly passed to Vagrant
+
 # 0.23.0
 * Support for puppet_server provision options
 * Added option usable_port_range
