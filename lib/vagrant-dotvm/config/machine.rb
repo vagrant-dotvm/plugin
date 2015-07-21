@@ -37,7 +37,6 @@ module VagrantPlugins
         attr_reader :usable_port_range
 
         def initialize()
-          @primary         = false
           @networks        = []
           @routes          = []
           @provision       = []
