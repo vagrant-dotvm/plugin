@@ -1,3 +1,9 @@
+# 0.25.0
+* Ability to set global options for ssh
+* Ability to set global options for winrm
+* Ability to set global options for vagrant
+* Don't set X11 forwarding by default, now it's controlled via option
+
 # 0.24.0
 * Fix for autostart/primary options incorrectly passed to Vagrant
 
