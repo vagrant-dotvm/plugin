@@ -6,6 +6,17 @@ module VagrantPlugins
       def self.inject(config, vc)
         # General settings
         vc.ssh.forward_x11 = true
+        config.options[:ssh].each do |option|
+          vc.ssh.send("#{option.name}=", option.value)
+        end
+
+        config.options[:winrm].each do |option|
+          vc.winrm.send("#{option.name}=", option.value)
+        end
+
+        config.options[:vagrant].each do |option|
+          vc.vagrant.send("#{option.name}=", option.value)
+        end
 
         config.machines.each do |machine_cfg|
           define_opts = {}
