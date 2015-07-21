@@ -68,6 +68,8 @@ module VagrantPlugins
         end
 
         def populate_networks(data)
+          raise "'networks' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+
           data.to_a.each do |conf|
             item = Network.new
             item.populate conf
@@ -76,6 +78,8 @@ module VagrantPlugins
         end
 
         def populate_routes(data)
+          raise "'routes' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+
           data.to_a.each do |conf|
             item = Route.new
             item.populate conf
@@ -84,6 +88,8 @@ module VagrantPlugins
         end
 
         def populate_provision(data)
+          raise "'provision' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+
           data.to_a.each do |conf|
             item = Provision.new
             item.populate conf
@@ -92,12 +98,16 @@ module VagrantPlugins
         end
 
         def populate_groups(data)
+          raise "'groups' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+
           data.to_a.each do |item|
             @groups << item
           end
         end
 
         def populate_authorized_keys(data)
+          raise "'authorized_keys' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+
           data.to_a.each do |conf|
             item = AuthorizedKey.new
             item.populate conf
@@ -106,6 +116,8 @@ module VagrantPlugins
         end
 
         def populate_hosts(data)
+          raise "'hosts' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+
           data.to_a.each do |conf|
             item = Host.new
             item.populate conf
@@ -114,6 +126,8 @@ module VagrantPlugins
         end
 
         def populate_options(data)
+          raise "'options' must be hash." unless data.kind_of?(Hash) || data.kind_of?(NilClass)
+
           data.to_h.each do |key, confs|
             key = key.to_sym
             raise "Invalid options category: #{key}." unless @options.has_key?(key)
