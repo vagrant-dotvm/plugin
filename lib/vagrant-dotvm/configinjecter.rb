@@ -52,6 +52,11 @@ module VagrantPlugins
               end
             end
 
+            machine.vm.provider "vmware_fusion" do |vf|
+              vf.vmx["memsize"]  = machine_cfg.memory unless machine_cfg.memory.nil?
+              vf.vmz["numvcpus"] = machine_cfg.cpus   unless machine_cfg.cpus.nil?
+            end
+
             machine_cfg.networks.each do |net|
               hash = {}
               hash[:type]               = net.type         unless net.type.nil?
