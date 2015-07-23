@@ -1,3 +1,8 @@
+# 0.26.0
+* Do validation of types in config
+* vCPUs and memory options are not passed to VMWare Fusion
+* Salt provision
+
 # 0.25.0
 * Ability to set global options for ssh
 * Ability to set global options for winrm
