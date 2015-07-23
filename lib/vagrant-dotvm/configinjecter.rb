@@ -93,33 +93,16 @@ module VagrantPlugins
 
             machine_cfg.provision.each do |provision|
               machine.vm.provision provision.type, run: provision.run do |p|
-                p.path                    = provision.path                    unless provision.path.nil?
-                p.inline                  = provision.inline                  unless provision.inline.nil?
-                p.args                    = provision.args                    unless provision.args.nil?
-                p.privileged              = provision.privileged              unless provision.privileged.nil?
-                p.source                  = provision.source                  unless provision.source.nil?
-                p.destination             = provision.destination             unless provision.destination.nil?
-                p.module_path             = provision.module_path             unless provision.module_path.nil?
-                p.manifest_file           = provision.manifest_file           unless provision.manifest_file.nil?
-                p.manifests_path          = provision.manifests_path          unless provision.manifests_path.nil?
-                p.binary_path             = provision.binary_path             unless provision.binary_path.nil?
-                p.hiera_config_path       = provision.hiera_config_path       unless provision.hiera_config_path.nil?
-                p.environment             = provision.environment             unless provision.environment.nil?
-                p.environment_path        = provision.environment_path        unless provision.environment_path.nil?
-                p.binary                  = provision.binary                  unless provision.binary.nil?
-                p.upload_path             = provision.upload_path             unless provision.upload_path.nil?
-                p.keep_color              = provision.keep_color              unless provision.keep_color.nil?
-                p.name                    = provision.name                    unless provision.name.nil?
-                p.powershell_args         = provision.powershell_args         unless provision.powershell_args.nil?
-                p.facter                  = provision.facter                  unless provision.facter.nil?
-                p.options                 = provision.options                 unless provision.options.nil?
-                p.synced_folder_type      = provision.synced_folder_type      unless provision.synced_folder_type.nil?
-                p.temp_dir                = provision.temp_dir                unless provision.temp_dir.nil?
-                p.working_directory       = provision.working_directory       unless provision.working_directory.nil?
-                p.client_cert_path        = provision.client_cert_path        unless provision.client_cert_path.nil?
-                p.client_private_key_path = provision.client_private_key_path unless provision.client_private_key_path.nil?
-                p.puppet_node             = provision.puppet_node             unless provision.puppet_node.nil?
-                p.puppet_server           = provision.puppet_server           unless provision.puppet_server.nil?
+                [
+                  :path, :inline, :args, :privileged, :source, :destination, :module_path, :manifest_file,
+                  :manifests_path, :binary_path, :hiera_config_path, :environment, :environment_path,
+                  :binary, :upload_path, :keep_color, :name, :powershell_args, :facter, :options,
+                  :synced_folder_type, :temp_dir, :working_directory, :client_cert_path, :client_private_key_path,
+                  :puppet_node, :puppet_server
+                ].each do |opt|
+                  val = provision.send(opt)
+                  p.send("#{opt}=", val) unless val.nil?
+                end
               end
             end
 
