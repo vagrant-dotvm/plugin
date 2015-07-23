@@ -89,7 +89,10 @@ module VagrantPlugins
                   :install_syndic, :install_type, :install_args, :install_command, :always_install, :bootstrap_script,
                   :bootstrap_options, :version, :minion_key, :minion_id, :minion_pub, :grains_config, :masterless,
                   :master_config, :master_key, :master_pub, :seed_master, :run_highstate, :run_overstate,
-                  :orchestrations, :colorize, :log_level,
+                  :orchestrations, :colorize, :log_level, :am_policy_hub, :extra_agent_args, :classes,
+                  :deb_repo_file, :deb_repo_line, :files_path, :force_bootstrap, :install, :mode,
+                  :policy_server_address, :repo_gpg_key_url, :run_file, :upload_path, :yum_repo_file,
+                  :yum_repo_url, :package_name,
                 ].each do |opt|
                   val = provision.send(opt)
                   p.send("#{opt}=", val) unless val.nil?

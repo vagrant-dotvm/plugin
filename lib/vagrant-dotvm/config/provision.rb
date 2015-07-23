@@ -58,6 +58,23 @@ module VagrantPlugins
         attr_accessor :orchestrations
         attr_accessor :colorize
         attr_accessor :log_level
+        attr_accessor :am_policy_hub
+        attr_accessor :am_policy_hub
+        attr_accessor :extra_agent_args
+        attr_accessor :classes
+        attr_accessor :deb_repo_file
+        attr_accessor :deb_repo_line
+        attr_accessor :files_path
+        attr_accessor :force_bootstrap
+        attr_accessor :install
+        attr_accessor :mode
+        attr_accessor :policy_server_address
+        attr_accessor :repo_gpg_key_url
+        attr_accessor :run_file
+        attr_accessor :upload_path
+        attr_accessor :yum_repo_file
+        attr_accessor :yum_repo_url
+        attr_accessor :package_name
       end
     end
   end
