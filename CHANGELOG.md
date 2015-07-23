@@ -1,3 +1,6 @@
+# 0.27.0
+* CFEngine provision
+
 # 0.26.0
 * Do validation of types in config
 * vCPUs and memory options are not passed to VMWare Fusion
