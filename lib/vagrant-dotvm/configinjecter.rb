@@ -98,7 +98,11 @@ module VagrantPlugins
                   :manifests_path, :binary_path, :hiera_config_path, :environment, :environment_path,
                   :binary, :upload_path, :keep_color, :name, :powershell_args, :facter, :options,
                   :synced_folder_type, :temp_dir, :working_directory, :client_cert_path, :client_private_key_path,
-                  :puppet_node, :puppet_server
+                  :puppet_node, :puppet_server, :minion_config, :run_highstate, :install_master, :no_minion,
+                  :install_syndic, :install_type, :install_args, :install_command, :always_install, :bootstrap_script,
+                  :bootstrap_options, :version, :minion_key, :minion_id, :minion_pub, :grains_config, :masterless,
+                  :master_config, :master_key, :master_pub, :seed_master, :run_highstate, :run_overstate,
+                  :orchestrations, :colorize, :log_level,
                 ].each do |opt|
                   val = provision.send(opt)
                   p.send("#{opt}=", val) unless val.nil?

@@ -32,6 +32,32 @@ module VagrantPlugins
         attr_accessor :client_private_key_path
         attr_accessor :puppet_node
         attr_accessor :puppet_server
+        attr_accessor :minion_config
+        attr_accessor :run_highstate
+        attr_accessor :install_master
+        attr_accessor :no_minion
+        attr_accessor :install_syndic
+        attr_accessor :install_type
+        attr_accessor :install_args
+        attr_accessor :install_command
+        attr_accessor :always_install
+        attr_accessor :bootstrap_script
+        attr_accessor :bootstrap_options
+        attr_accessor :version
+        attr_accessor :minion_key
+        attr_accessor :minion_id
+        attr_accessor :minion_pub
+        attr_accessor :grains_config
+        attr_accessor :masterless
+        attr_accessor :master_config
+        attr_accessor :master_key
+        attr_accessor :master_pub
+        attr_accessor :seed_master
+        attr_accessor :run_highstate
+        attr_accessor :run_overstate
+        attr_accessor :orchestrations
+        attr_accessor :colorize
+        attr_accessor :log_level
       end
     end
   end
