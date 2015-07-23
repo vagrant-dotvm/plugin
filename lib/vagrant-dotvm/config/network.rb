@@ -6,7 +6,7 @@ module VagrantPlugins
         attr_accessor :type
         attr_accessor :ip
         attr_accessor :netmask # mask
-        attr_accessor :interface
+        attr_accessor :virtualbox__intnet # interface
         attr_accessor :guest
         attr_accessor :host
         attr_accessor :protocol
@@ -35,6 +35,10 @@ module VagrantPlugins
 
         def mask=(value)
           @netmask = value
+        end
+
+        def interface=(value)
+          @virtualbox__intnet = value
         end
       end
     end
