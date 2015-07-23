@@ -5,7 +5,7 @@ module VagrantPlugins
         attr_reader :net
         attr_accessor :type
         attr_accessor :ip
-        attr_accessor :mask # netmask
+        attr_accessor :netmask # mask
         attr_accessor :interface
         attr_accessor :guest
         attr_accessor :host
@@ -33,8 +33,8 @@ module VagrantPlugins
           @net = nets[value]
         end
 
-        def netmask=(value)
-          @mask = value
+        def mask=(value)
+          @netmask = value
         end
       end
     end
