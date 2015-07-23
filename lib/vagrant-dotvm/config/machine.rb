@@ -3,7 +3,7 @@ module VagrantPlugins
     module Config
       class Machine < AbstractConfig
         attr_accessor :nick
-        attr_accessor :name
+        attr_accessor :hostname # name
         attr_accessor :box
         attr_accessor :memory
         attr_accessor :cpus
@@ -59,6 +59,10 @@ module VagrantPlugins
               }
             ]
           )
+        end
+
+        def name=(value)
+          @hostname = value
         end
 
         def usable_port_range=(value)

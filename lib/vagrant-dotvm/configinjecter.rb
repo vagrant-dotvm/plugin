@@ -23,7 +23,7 @@ module VagrantPlugins
 
           vc.vm.define machine_cfg.nick, **define_opts do |machine|
             machine.vm.box                           = machine_cfg.box                           unless machine_cfg.box.nil?
-            machine.vm.hostname                      = machine_cfg.name                          unless machine_cfg.name.nil?
+            machine.vm.hostname                      = machine_cfg.hostname                      unless machine_cfg.hostname.nil?
             machine.vm.boot_timeout                  = machine_cfg.boot_timeout                  unless machine_cfg.boot_timeout.nil?
             machine.vm.box_check_update              = machine_cfg.box_check_update              unless machine_cfg.box_check_update.nil?
             machine.vm.box_version                   = machine_cfg.box_version                   unless machine_cfg.box_version.nil?
