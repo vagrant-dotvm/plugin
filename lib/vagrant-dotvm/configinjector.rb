@@ -1,6 +1,6 @@
 module VagrantPlugins
   module Dotvm
-    class ConfigInjecter
+    class ConfigInjector
       BOX_OPTIONS = [
         :box,
         :hostname,

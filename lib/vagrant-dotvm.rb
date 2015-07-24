@@ -4,7 +4,7 @@ require 'yaml'
 require 'vagrant-dotvm/plugin'
 require 'vagrant-dotvm/version'
 require 'vagrant-dotvm/dotvm'
-require 'vagrant-dotvm/configinjecter'
+require 'vagrant-dotvm/configinjector'
 
 require 'vagrant-dotvm/config/abstractconfig'
 require 'vagrant-dotvm/config/root'
