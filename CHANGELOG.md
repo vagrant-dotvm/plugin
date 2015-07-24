@@ -1,3 +1,6 @@
+# 0.28.0
+* Ansible provision
+
 # 0.27.0
 * CFEngine provision
 
