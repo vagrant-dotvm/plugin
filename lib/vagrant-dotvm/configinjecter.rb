@@ -1,6 +1,181 @@
 module VagrantPlugins
   module Dotvm
     class ConfigInjecter
+      BOX_OPTIONS = [
+        :box,
+        :hostname,
+        :boot_timeout,
+        :box_check_update,
+        :box_version,
+        :graceful_halt_timeout,
+        :post_up_message,
+        :box_download_checksum,
+        :box_download_checksum_type,
+        :box_download_client_cert,
+        :box_download_ca_cert,
+        :box_download_ca_path,
+        :box_download_insecure,
+        :box_download_location_trusted,
+        :box_url,
+        :communicator,
+        :guest,
+        :usable_port_range,
+      ]
+
+      NETWORK_OPTIONS = [
+        :type,
+        :ip,
+        :netmask,
+        :virtualbox__intnet,
+        :guest,
+        :host,
+        :protocol,
+        :bridge,
+        :guest_ip,
+        :host_ip,
+        :auto_correct,
+        :auto_config,
+      ]
+
+      PROVISION_OPTIONS = [
+        :path,
+        :inline,
+        :args,
+        :privileged,
+        :source,
+        :destination,
+        :module_path,
+        :manifest_file,
+        :manifests_path,
+        :binary_path,
+        :hiera_config_path,
+        :environment,
+        :environment_path,
+        :binary,
+        :upload_path,
+        :keep_color,
+        :name,
+        :powershell_args,
+        :facter,
+        :options,
+        :synced_folder_type,
+        :temp_dir,
+        :working_directory,
+        :client_cert_path,
+        :client_private_key_path,
+        :puppet_node,
+        :puppet_server,
+        :minion_config,
+        :run_highstate,
+        :install_master,
+        :no_minion,
+        :install_syndic,
+        :install_type,
+        :install_args,
+        :install_command,
+        :always_install,
+        :bootstrap_script,
+        :bootstrap_options,
+        :version,
+        :minion_key,
+        :minion_id,
+        :minion_pub,
+        :grains_config,
+        :masterless,
+        :master_config,
+        :master_key,
+        :master_pub,
+        :seed_master,
+        :run_highstate,
+        :run_overstate,
+        :orchestrations,
+        :colorize,
+        :log_level,
+        :am_policy_hub,
+        :extra_agent_args,
+        :classes,
+        :deb_repo_file,
+        :deb_repo_line,
+        :files_path,
+        :force_bootstrap,
+        :install,
+        :mode,
+        :policy_server_address,
+        :repo_gpg_key_url,
+        :run_file,
+        :upload_path,
+        :yum_repo_file,
+        :yum_repo_url,
+        :package_name,
+        :groups,
+        :inventory_path,
+        :playbook,
+        :extra_vars,
+        :sudo,
+        :sudo_user,
+        :ask_sudo_pass,
+        :ask_vault_pass,
+        :vault_password_file,
+        :limit,
+        :verbose,
+        :tags,
+        :skip_tags,
+        :start_at_task,
+        :raw_arguments,
+        :raw_ssh_args,
+        :host_key_checking,
+        :cookbooks_path,
+        :data_bags_path,
+        :environments_path,
+        :recipe_url,
+        :roles_path,
+        :binary_env,
+        :installer_download_path,
+        :prerelease,
+        :arguments,
+        :attempts,
+        :custom_config_path,
+        :encrypted_data_bag_secret_key_path,
+        :formatter,
+        :http_proxy,
+        :http_proxy_user,
+        :http_proxy_pass,
+        :no_proxy,
+        :json,
+        :node_name,
+        :provisioning_path,
+        :run_list,
+        :file_cache_path,
+        :file_backup_path,
+        :verbose_logging,
+        :enable_reporting,
+        :client_key_path,
+        :validation_client_name,
+        :delete_node,
+        :delete_client,
+        :recipe,
+      ]
+
+      SHARED_FOLDERS_OPTIONS = [
+        :disabled,
+        :create,
+        :type,
+        :group,
+        :mount_options,
+        :owner,
+        :nfs_export,
+        :nfs_udp,
+        :nfs_version,
+        :rsync__args,
+        :rsync__auto,
+        :rsync__chown,
+        :rsync__exclude,
+        :rsync__rsync_path,
+        :rsync__verbose,
+        :smb_host,
+        :smb_password,
+        :smb_username,
+      ]
 
       public
       def self.inject(config, vc)
@@ -22,12 +197,7 @@ module VagrantPlugins
           define_opts[:autostart] = machine_cfg.autostart unless machine_cfg.autostart.nil?
 
           vc.vm.define machine_cfg.nick, **define_opts do |machine|
-            [
-              :box, :hostname, :boot_timeout, :box_check_update, :box_version, :graceful_halt_timeout, :post_up_message,
-              :box_download_checksum, :box_download_checksum_type, :box_download_client_cert, :box_download_ca_cert,
-              :box_download_ca_path, :box_download_insecure, :box_download_location_trusted, :box_url, :communicator,
-              :guest, :usable_port_range
-            ].each do |opt|
+            BOX_OPTIONS.each do |opt|
               val = machine_cfg.send(opt)
               machine.vm.send("#{opt}=", val) unless val.nil?
             end
@@ -51,10 +221,7 @@ module VagrantPlugins
             machine_cfg.networks.each do |net|
               hash = {}
 
-              [
-                :type, :ip, :netmask, :virtualbox__intnet, :guest, :host, :protocol, :bridge,
-                :guest_ip, :host_ip, :auto_correct, :auto_config,
-              ].each do |opt|
+              NETWORK_OPTIONS.each do |opt|
                 val = net.send(opt)
                 hash[opt] = val unless val.nil?
               end
@@ -80,28 +247,7 @@ module VagrantPlugins
 
             machine_cfg.provision.each do |provision|
               machine.vm.provision provision.type, run: provision.run do |p|
-                [
-                  :path, :inline, :args, :privileged, :source, :destination, :module_path, :manifest_file,
-                  :manifests_path, :binary_path, :hiera_config_path, :environment, :environment_path,
-                  :binary, :upload_path, :keep_color, :name, :powershell_args, :facter, :options,
-                  :synced_folder_type, :temp_dir, :working_directory, :client_cert_path, :client_private_key_path,
-                  :puppet_node, :puppet_server, :minion_config, :run_highstate, :install_master, :no_minion,
-                  :install_syndic, :install_type, :install_args, :install_command, :always_install, :bootstrap_script,
-                  :bootstrap_options, :version, :minion_key, :minion_id, :minion_pub, :grains_config, :masterless,
-                  :master_config, :master_key, :master_pub, :seed_master, :run_highstate, :run_overstate,
-                  :orchestrations, :colorize, :log_level, :am_policy_hub, :extra_agent_args, :classes,
-                  :deb_repo_file, :deb_repo_line, :files_path, :force_bootstrap, :install, :mode,
-                  :policy_server_address, :repo_gpg_key_url, :run_file, :upload_path, :yum_repo_file,
-                  :yum_repo_url, :package_name, :groups, :inventory_path, :playbook, :extra_vars,
-                  :sudo, :sudo_user, :ask_sudo_pass, :ask_vault_pass, :vault_password_file, :limit,
-                  :verbose, :tags, :skip_tags, :start_at_task, :raw_arguments, :raw_ssh_args, :host_key_checking,
-                  :cookbooks_path, :data_bags_path, :environments_path, :recipe_url, :roles_path, :binary_env,
-                  :installer_download_path, :prerelease, :arguments, :attempts, :custom_config_path,
-                  :encrypted_data_bag_secret_key_path, :formatter, :http_proxy, :http_proxy_user,
-                  :http_proxy_pass, :no_proxy, :json, :node_name, :provisioning_path, :run_list,
-                  :file_cache_path, :file_backup_path, :verbose_logging, :enable_reporting,
-                  :client_key_path, :validation_client_name, :delete_node, :delete_client, :recipe,
-                ].each do |opt|
+                PROVISION_OPTIONS.each do |opt|
                   val = provision.send(opt)
                   p.send("#{opt}=", val) unless val.nil?
                 end
@@ -119,11 +265,7 @@ module VagrantPlugins
             machine_cfg.shared_folders.each do |folder|
               hash = {}
 
-              [
-                :disabled, :create, :type, :group, :mount_options, :owner, :nfs_export, :nfs_udp, :nfs_version,
-                :rsync__args, :rsync__auto, :rsync__chown, :rsync__exclude, :rsync__rsync_path, :rsync__verbose,
-                :smb_host, :smb_password, :smb_username
-              ].each do |opt|
+              SHARED_FOLDERS_OPTIONS.each do |opt|
                 val = folder.send(opt)
                 hash[opt] = val unless val.nil?
               end
