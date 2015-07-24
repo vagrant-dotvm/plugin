@@ -92,7 +92,9 @@ module VagrantPlugins
                   :orchestrations, :colorize, :log_level, :am_policy_hub, :extra_agent_args, :classes,
                   :deb_repo_file, :deb_repo_line, :files_path, :force_bootstrap, :install, :mode,
                   :policy_server_address, :repo_gpg_key_url, :run_file, :upload_path, :yum_repo_file,
-                  :yum_repo_url, :package_name,
+                  :yum_repo_url, :package_name, :groups, :inventory_path, :playbook, :extra_vars,
+                  :sudo, :sudo_user, :ask_sudo_pass, :ask_vault_pass, :vault_password_file, :limit,
+                  :verbose, :tags, :skip_tags, :start_at_task, :raw_arguments, :raw_ssh_args, :host_key_checking,
                 ].each do |opt|
                   val = provision.send(opt)
                   p.send("#{opt}=", val) unless val.nil?

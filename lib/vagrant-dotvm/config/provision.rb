@@ -75,6 +75,23 @@ module VagrantPlugins
         attr_accessor :yum_repo_file
         attr_accessor :yum_repo_url
         attr_accessor :package_name
+        attr_accessor :groups
+        attr_accessor :inventory_path
+        attr_accessor :playbook
+        attr_accessor :extra_vars
+        attr_accessor :sudo
+        attr_accessor :sudo_user
+        attr_accessor :ask_sudo_pass
+        attr_accessor :ask_vault_pass
+        attr_accessor :vault_password_file
+        attr_accessor :limit
+        attr_accessor :verbose
+        attr_accessor :tags
+        attr_accessor :skip_tags
+        attr_accessor :start_at_task
+        attr_accessor :raw_arguments
+        attr_accessor :raw_ssh_args
+        attr_accessor :host_key_checking
       end
     end
   end
