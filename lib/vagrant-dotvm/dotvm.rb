@@ -43,9 +43,7 @@ module VagrantPlugins
 
       public
       def inject(vc)
-        configs = get_configs()
-
-        configs.each do |config|
+        get_configs.each do |config|
           ConfigInjector.inject(config, vc)
         end
       end
