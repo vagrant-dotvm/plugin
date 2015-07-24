@@ -91,6 +91,38 @@ module VagrantPlugins
         attr_accessor :raw_arguments
         attr_accessor :raw_ssh_args
         attr_accessor :host_key_checking
+        attr_accessor :cookbooks_path
+        attr_accessor :data_bags_path
+        attr_accessor :environments_path
+        attr_accessor :recipe_url
+        attr_accessor :roles_path
+        attr_accessor :binary_env
+        attr_accessor :installer_download_path
+        attr_accessor :prerelease
+        attr_accessor :arguments
+        attr_accessor :attempts
+        attr_accessor :custom_config_path
+        attr_accessor :encrypted_data_bag_secret_key_path
+        attr_accessor :formatter
+        attr_accessor :http_proxy
+        attr_accessor :http_proxy_user
+        attr_accessor :http_proxy_pass
+        attr_accessor :no_proxy
+        attr_accessor :json
+        attr_accessor :node_name
+        attr_accessor :provisioning_path
+        attr_accessor :run_list
+        attr_accessor :file_cache_path
+        attr_accessor :file_backup_path
+        attr_accessor :verbose_logging
+        attr_accessor :enable_reporting
+        attr_accessor :client_key_path
+        attr_accessor :validation_client_name
+        attr_accessor :delete_node
+        attr_accessor :delete_client
+        attr_accessor :recipe
+        attr_accessor :recipes # chef
+        attr_accessor :roles # chef
       end
     end
   end

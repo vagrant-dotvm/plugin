@@ -95,9 +95,23 @@ module VagrantPlugins
                   :yum_repo_url, :package_name, :groups, :inventory_path, :playbook, :extra_vars,
                   :sudo, :sudo_user, :ask_sudo_pass, :ask_vault_pass, :vault_password_file, :limit,
                   :verbose, :tags, :skip_tags, :start_at_task, :raw_arguments, :raw_ssh_args, :host_key_checking,
+                  :cookbooks_path, :data_bags_path, :environments_path, :recipe_url, :roles_path, :binary_env,
+                  :installer_download_path, :prerelease, :arguments, :attempts, :custom_config_path,
+                  :encrypted_data_bag_secret_key_path, :formatter, :http_proxy, :http_proxy_user,
+                  :http_proxy_pass, :no_proxy, :json, :node_name, :provisioning_path, :run_list,
+                  :file_cache_path, :file_backup_path, :verbose_logging, :enable_reporting,
+                  :client_key_path, :validation_client_name, :delete_node, :delete_client, :recipe,
                 ].each do |opt|
                   val = provision.send(opt)
                   p.send("#{opt}=", val) unless val.nil?
+                end
+
+                provision.recipes.to_a.each do |recipe|
+                  p.add_recipe(recipe)
+                end
+
+                provision.roles.to_a.each do |role|
+                  p.add_role(role)
                 end
               end
             end
