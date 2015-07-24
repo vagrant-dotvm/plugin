@@ -59,7 +59,6 @@ module VagrantPlugins
         attr_accessor :colorize
         attr_accessor :log_level
         attr_accessor :am_policy_hub
-        attr_accessor :am_policy_hub
         attr_accessor :extra_agent_args
         attr_accessor :classes
         attr_accessor :deb_repo_file
