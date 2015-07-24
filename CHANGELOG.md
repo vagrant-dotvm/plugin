@@ -1,3 +1,6 @@
+# 0.29.0
+* Chef provision
+
 # 0.28.0
 * Ansible provision
 
