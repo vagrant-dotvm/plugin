@@ -33,7 +33,6 @@ module VagrantPlugins
         attr_accessor :puppet_node
         attr_accessor :puppet_server
         attr_accessor :minion_config
-        attr_accessor :run_highstate
         attr_accessor :install_master
         attr_accessor :no_minion
         attr_accessor :install_syndic
@@ -70,7 +69,6 @@ module VagrantPlugins
         attr_accessor :policy_server_address
         attr_accessor :repo_gpg_key_url
         attr_accessor :run_file
-        attr_accessor :upload_path
         attr_accessor :yum_repo_file
         attr_accessor :yum_repo_url
         attr_accessor :package_name
