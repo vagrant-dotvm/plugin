@@ -44,7 +44,7 @@ module VagrantPlugins
       public
       def inject(vc)
         get_configs.each do |config|
-          ConfigInjector.inject(config, vc)
+          Injector::Root.inject config: config, vc: vc
         end
       end
 
