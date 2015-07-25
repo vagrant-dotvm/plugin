@@ -124,8 +124,8 @@ module VagrantPlugins
         attr_accessor :pillar
 
         attr_accessor :images
-        attr_accessor :build_images
-        attr_accessor :runs
+        attr_reader :build_images
+        attr_reader :runs
 
         def initialize
           @build_images = []

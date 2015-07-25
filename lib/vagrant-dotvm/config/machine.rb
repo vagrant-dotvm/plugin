@@ -10,20 +10,20 @@ module VagrantPlugins
         attr_accessor :cpucap
         attr_accessor :primary
         attr_accessor :natnet
-        attr_accessor :networks
-        attr_accessor :routes
-        attr_accessor :provision
-        attr_accessor :groups
-        attr_accessor :authorized_keys
+        attr_reader :networks
+        attr_reader :routes
+        attr_reader :provision
+        attr_reader :groups
+        attr_reader :authorized_keys
         attr_accessor :boot_timeout
         attr_accessor :box_check_update
         attr_accessor :box_version
         attr_accessor :graceful_halt_timeout
         attr_accessor :post_up_message
         attr_accessor :autostart
-        attr_accessor :hosts
-        attr_accessor :options
-        attr_accessor :shared_folders
+        attr_reader :hosts
+        attr_reader :options
+        attr_reader :shared_folders
         attr_accessor :box_download_checksum
         attr_accessor :box_download_checksum_type
         attr_accessor :box_download_client_cert
