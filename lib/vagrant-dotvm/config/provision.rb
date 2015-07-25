@@ -122,6 +122,35 @@ module VagrantPlugins
         attr_accessor :recipes # chef
         attr_accessor :roles # chef
         attr_accessor :pillar
+
+        attr_accessor :images
+        attr_accessor :build_images
+        attr_accessor :runs
+
+        def initialize
+          @build_images = []
+          @runs         = []
+        end
+
+        def populate_build_images(data)
+          raise "'build_images' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+
+          data.to_a.each do |conf|
+            item = BuildImage.new
+            item.populate conf
+            @build_images << item
+          end
+        end
+
+        def populate_runs(data)
+          raise "'runs' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+
+          data.to_a.each do |conf|
+            item = Run.new
+            item.populate conf
+            @runs << item
+          end
+        end
       end
     end
   end

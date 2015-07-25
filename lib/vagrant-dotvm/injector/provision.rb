@@ -119,6 +119,16 @@ module VagrantPlugins
           :delete_node,
           :delete_client,
           :recipe,
+          :images,
+        ]
+
+        RUNS_OPTIONS = [
+          :image,
+          :cmd,
+          :args,
+          :auto_assign_name,
+          :daemonize,
+          :restart,
         ]
 
         public
@@ -138,6 +148,22 @@ module VagrantPlugins
             end
 
             p.pillar provision_cfg.pillar unless provision_cfg.pillar.nil?
+
+            provision_cfg.build_images.to_a.each do |image|
+              args = {}
+              args[:args] = image.args unless image.args.nil?
+              p.build_image image.image, **args
+            end
+
+            provision_cfg.runs.to_a.each do |run|
+              args = {}
+              RUNS_OPTIONS.each do |opt|
+                val = run.send(opt)
+                args[opt] = val unless val.nil?
+              end
+
+              p.run run.name, **args
+            end
           end
         end
       end
