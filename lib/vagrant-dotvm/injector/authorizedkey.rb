@@ -10,7 +10,7 @@ module VagrantPlugins
           end
 
           machine.vm.provision "shell" do |s|
-            s.path       = File.dirname(__FILE__) + "/../../../utils/authorize_key.sh"
+            s.path       = "#{UTILS_PATH}/authorize_key.sh"
             s.args       = [pubkey]
             s.privileged = false
           end

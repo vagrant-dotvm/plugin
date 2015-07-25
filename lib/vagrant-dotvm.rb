@@ -3,6 +3,7 @@ require 'yaml'
 
 require 'vagrant-dotvm/plugin'
 require 'vagrant-dotvm/version'
+require 'vagrant-dotvm/pathes'
 require 'vagrant-dotvm/dotvm'
 
 require 'vagrant-dotvm/injector/root'
