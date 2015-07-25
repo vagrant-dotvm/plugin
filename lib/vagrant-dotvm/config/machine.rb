@@ -46,77 +46,77 @@ module VagrantPlugins
           @usable_port_range = Range.new(m[0][0].to_i, m[0][1].to_i)
         end
 
-        def networks=(data)
-          raise "'networks' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+        def networks=(networks)
+          raise "'networks' must be array." unless networks.kind_of?(Array) || networks.kind_of?(NilClass)
 
           @networks = []
-          data.to_a.each do |conf|
+          networks.to_a.each do |conf|
             item = Network.new
             item.populate conf
             @networks << item
           end
         end
 
-        def routes=(data)
-          raise "'routes' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+        def routes=(routes)
+          raise "'routes' must be array." unless routes.kind_of?(Array) || routes.kind_of?(NilClass)
 
           @routes = []
-          data.to_a.each do |conf|
+          routes.to_a.each do |conf|
             item = Route.new
             item.populate conf
             @routes << item
           end
         end
 
-        def provision=(data)
-          raise "'provision' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+        def provision=(provision)
+          raise "'provision' must be array." unless provision.kind_of?(Array) || provision.kind_of?(NilClass)
 
           @provision = []
-          data.to_a.each do |conf|
+          provision.to_a.each do |conf|
             item = Provision.new
             item.populate conf
             @provision << item
           end
         end
 
-        def groups=(data)
-          raise "'groups' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+        def groups=(groups)
+          raise "'groups' must be array." unless groups.kind_of?(Array) || groups.kind_of?(NilClass)
 
           @groups = []
-          data.to_a.each do |item|
+          groups.to_a.each do |item|
             @groups << item
           end
         end
 
-        def authorized_keys=(data)
-          raise "'authorized_keys' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+        def authorized_keys=(keys)
+          raise "'authorized_keys' must be array." unless keys.kind_of?(Array) || keys.kind_of?(NilClass)
 
           @authorized_keys = []
-          data.to_a.each do |conf|
+          keys.to_a.each do |conf|
             item = AuthorizedKey.new
             item.populate conf
             @authorized_keys << item
           end
         end
 
-        def hosts=(data)
-          raise "'hosts' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+        def hosts=(hosts)
+          raise "'hosts' must be array." unless hosts.kind_of?(Array) || hosts.kind_of?(NilClass)
 
           @hosts = []
-          data.to_a.each do |conf|
+          hosts.to_a.each do |conf|
             item = Host.new
             item.populate conf
             @hosts << item
           end
         end
 
-        def options=(data)
-          raise "'options' must be hash." unless data.kind_of?(Hash) || data.kind_of?(NilClass)
+        def options=(options)
+          raise "'options' must be hash." unless options.kind_of?(Hash) || options.kind_of?(NilClass)
 
           @options = {
             :virtualbox    => [],
           }
-          data.to_h.each do |key, confs|
+          options.to_h.each do |key, confs|
             key = key.to_sym
             raise "Invalid options category: #{key}." unless @options.has_key?(key)
 
@@ -128,9 +128,9 @@ module VagrantPlugins
           end
         end
 
-        def shared_folders=(data)
+        def shared_folders=(shared_folders)
           @shared_folders = []
-          data.to_a.each do |conf|
+          shared_folders.to_a.each do |conf|
             item = SharedFolder.new
             item.populate conf
             @shared_folders << item
