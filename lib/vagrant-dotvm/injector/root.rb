@@ -3,16 +3,10 @@ module VagrantPlugins
     module Injector
       class Root < AbstractInjector
         def self.inject(config: nil, vc: nil)
-          config.options.to_h[:ssh].to_a.each do |option|
-            vc.ssh.send("#{option.name}=", option.value)
-          end
-
-          config.options.to_h[:winrm].to_a.each do |option|
-            vc.winrm.send("#{option.name}=", option.value)
-          end
-
-          config.options.to_h[:vagrant].to_a.each do |option|
-            vc.vagrant.send("#{option.name}=", option.value)
+          config.options.to_h.each do |category, options|
+            options.to_a.each do |option|
+              vc.call(category).call("#{option.name}=", option.value)
+            end
           end
 
           config.machines.each do |machine_cfg|
