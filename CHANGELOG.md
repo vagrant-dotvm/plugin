@@ -1,3 +1,6 @@
+# 0.30.0
+* Ability to set pillar data
+
 # 0.29.0
 * Chef provision
 
