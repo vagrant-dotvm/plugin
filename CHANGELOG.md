@@ -1,3 +1,7 @@
+# 0.31.0
+* Authorized keys and hosts were broken. It has been fixed.
+* Docker provision
+
 # 0.30.0
 * Ability to set pillar data
 
