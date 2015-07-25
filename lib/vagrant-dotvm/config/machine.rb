@@ -36,31 +36,6 @@ module VagrantPlugins
         attr_accessor :guest
         attr_reader :usable_port_range
 
-        def initialize()
-          @networks        = []
-          @routes          = []
-          @provision       = []
-          @groups          = []
-          @authorized_keys = []
-          @hosts           = []
-          @options         = {
-            :virtualbox    => [],
-          }
-          @shared_folders  = []
-
-          populate_shared_folders(
-            [
-              {
-                "host"     => "%project.host%",
-                "guest"    => "%project.guest%",
-                "disabled" => false,
-                "create"   => false,
-                "type"     => nil,
-              }
-            ]
-          )
-        end
-
         def name=(value)
           @hostname = value
         end
@@ -71,9 +46,10 @@ module VagrantPlugins
           @usable_port_range = Range.new(m[0][0].to_i, m[0][1].to_i)
         end
 
-        def populate_networks(data)
+        def networks=(data)
           raise "'networks' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
 
+          @networks = []
           data.to_a.each do |conf|
             item = Network.new
             item.populate conf
@@ -81,9 +57,10 @@ module VagrantPlugins
           end
         end
 
-        def populate_routes(data)
+        def routes=(data)
           raise "'routes' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
 
+          @routes = []
           data.to_a.each do |conf|
             item = Route.new
             item.populate conf
@@ -91,9 +68,10 @@ module VagrantPlugins
           end
         end
 
-        def populate_provision(data)
+        def provision=(data)
           raise "'provision' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
 
+          @provision = []
           data.to_a.each do |conf|
             item = Provision.new
             item.populate conf
@@ -101,17 +79,19 @@ module VagrantPlugins
           end
         end
 
-        def populate_groups(data)
+        def groups=(data)
           raise "'groups' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
 
+          @groups = []
           data.to_a.each do |item|
             @groups << item
           end
         end
 
-        def populate_authorized_keys(data)
+        def authorized_keys=(data)
           raise "'authorized_keys' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
 
+          @authorized_keys = []
           data.to_a.each do |conf|
             item = AuthorizedKey.new
             item.populate conf
@@ -119,9 +99,10 @@ module VagrantPlugins
           end
         end
 
-        def populate_hosts(data)
+        def hosts=(data)
           raise "'hosts' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
 
+          @hosts = []
           data.to_a.each do |conf|
             item = Host.new
             item.populate conf
@@ -129,9 +110,12 @@ module VagrantPlugins
           end
         end
 
-        def populate_options(data)
+        def options=(data)
           raise "'options' must be hash." unless data.kind_of?(Hash) || data.kind_of?(NilClass)
 
+          @options = {
+            :virtualbox    => [],
+          }
           data.to_h.each do |key, confs|
             key = key.to_sym
             raise "Invalid options category: #{key}." unless @options.has_key?(key)
@@ -144,12 +128,24 @@ module VagrantPlugins
           end
         end
 
-        def populate_shared_folders(data)
+        def shared_folders=(data)
+          @shared_folders = []
           data.to_a.each do |conf|
             item = SharedFolder.new
             item.populate conf
             @shared_folders << item
           end
+
+          settings = {
+            "host"     => "%project.host%",
+            "guest"    => "%project.guest%",
+            "disabled" => false,
+            "create"   => false,
+            "type"     => nil,
+          }
+          item = SharedFolder.new
+          item.populate settings
+          @shared_folders << item
         end
 
       end

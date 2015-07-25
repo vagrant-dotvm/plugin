@@ -50,32 +50,32 @@ module VagrantPlugins
               vf.vmz["numvcpus"] = machine_cfg.cpus   unless machine_cfg.cpus.nil?
             end
 
-            machine_cfg.networks.each do |net|
+            machine_cfg.networks.to_a.each do |net|
               Network.inject net: net,
                              machine: machine
             end
 
-            machine_cfg.routes.each do |route|
+            machine_cfg.routes.to_a.each do |route|
               Route.inject route: route,
                            machine: machine
             end
 
-            machine_cfg.hosts.each do |host|
+            machine_cfg.hosts.to_a.each do |host|
               Host.inject host: host,
                        machine: machine
             end
 
-            machine_cfg.provision.each do |provision|
+            machine_cfg.provision.to_a.each do |provision|
               Provision.inject provision_cfg: provision,
                                machine: machine
             end
 
-            machine_cfg.shared_folders.each do |folder|
+            machine_cfg.shared_folders.to_a.each do |folder|
               SharedFolder.inject folder: folder,
                                   machine: machine
             end
 
-            machine_cfg.authorized_keys.each do |key|
+            machine_cfg.authorized_keys.to_a.each do |key|
               AuthorizedKey.inject key: key,
                                    machine: machine
             end
@@ -83,7 +83,7 @@ module VagrantPlugins
             if Vagrant.has_plugin?("vagrant-group")
               vc.group.groups = {} unless vc.group.groups.kind_of?(Hash)
 
-              machine_cfg.groups.each do |group|
+              machine_cfg.groups.to_a.each do |group|
                 vc.group.groups[group] = [] unless vc.group.groups.has_key?(group)
                 vc.group.groups[group] << machine_cfg.nick
               end
