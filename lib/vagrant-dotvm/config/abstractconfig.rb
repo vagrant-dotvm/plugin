@@ -4,15 +4,8 @@ module VagrantPlugins
       class AbstractConfig
         def populate(data)
           data.each do |key, value|
-            if respond_to?("populate_#{key}")
-              m = method("populate_#{key}")
-            elsif respond_to? "#{key}="
-              m = method("#{key}=")
-            else
-              raise "Invalid configuration option: #{key}."
-            end
-
-            m.call(value)
+            raise "Invalid configuration option: #{key}." until respond_to? "#{key}="
+            send("#{key}=", value)
           end
         end
 
