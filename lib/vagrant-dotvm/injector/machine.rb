@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
-      class Machine
+      class Machine < AbstractInjector
         BOX_OPTIONS = [
           :box,
           :hostname,

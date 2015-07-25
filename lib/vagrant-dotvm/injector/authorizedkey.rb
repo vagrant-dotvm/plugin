@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
-      class AuthorizedKey
+      class AuthorizedKey < AbstractInjector
         def self.inject(key: nil, machine: nil)
           if key.type == "file"
             pubkey = File.readlines(File.expand_path(key.path)).first.strip

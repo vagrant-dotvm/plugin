@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
-      class Network
+      class Network < AbstractInjector
         OPTIONS = [
           :type,
           :ip,
@@ -18,14 +18,7 @@ module VagrantPlugins
         ]
 
         def self.inject(net: nil, machine: nil)
-          hash = {}
-
-          OPTIONS.each do |opt|
-            val = net.send(opt)
-            hash[opt] = val unless val.nil?
-          end
-
-          machine.vm.network net.net, **hash
+          machine.vm.network net.net, **generate_hash(net, OPTIONS)
         end
       end
     end

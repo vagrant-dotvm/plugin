@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
-      class Route
+      class Route < AbstractInjector
         def self.inject(route: nil, machine: nil)
           machine.vm.provision "shell", run: "always" do |s|
             s.path       = "#{UTILS_PATH}/setup_route.sh"

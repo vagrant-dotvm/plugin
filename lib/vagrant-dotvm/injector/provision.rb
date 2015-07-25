@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
-      class Provision
+      class Provision < AbstractInjector
         OPTIONS = [
           :path,
           :inline,
@@ -134,10 +134,7 @@ module VagrantPlugins
         public
         def self.inject(provision_cfg: nil, machine: nil)
           machine.vm.provision provision_cfg.type, run: provision_cfg.run do |p|
-            OPTIONS.each do |opt|
-              val = provision_cfg.send(opt)
-              p.send("#{opt}=", val) unless val.nil?
-            end
+            rewrite_options(provision_cfg, p, OPTIONS)
 
             provision_cfg.recipes.to_a.each do |recipe|
               p.add_recipe(recipe)
@@ -150,19 +147,11 @@ module VagrantPlugins
             p.pillar provision_cfg.pillar unless provision_cfg.pillar.nil?
 
             provision_cfg.build_images.to_a.each do |image|
-              args = {}
-              args[:args] = image.args unless image.args.nil?
-              p.build_image image.image, **args
+              p.build_image image.image, **generate_hash(image, [:args])
             end
 
             provision_cfg.runs.to_a.each do |run|
-              args = {}
-              RUNS_OPTIONS.each do |opt|
-                val = run.send(opt)
-                args[opt] = val unless val.nil?
-              end
-
-              p.run run.name, **args
+              p.run run.name, **generate_hash(run, RUNS_OPTIONS)
             end
           end
         end

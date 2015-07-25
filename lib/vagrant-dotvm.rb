@@ -6,6 +6,7 @@ require 'vagrant-dotvm/version'
 require 'vagrant-dotvm/pathes'
 require 'vagrant-dotvm/dotvm'
 
+require 'vagrant-dotvm/injector/abstractinjector'
 require 'vagrant-dotvm/injector/root'
 require 'vagrant-dotvm/injector/machine'
 require 'vagrant-dotvm/injector/provision'

@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
-      class Root
+      class Root < AbstractInjector
         def self.inject(config: nil, vc: nil)
           config.options[:ssh].each do |option|
             vc.ssh.send("#{option.name}=", option.value)

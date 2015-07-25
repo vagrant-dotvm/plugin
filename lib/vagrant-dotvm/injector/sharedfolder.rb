@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
-      class SharedFolder
+      class SharedFolder < AbstractInjector
         OPTIONS = [
           :disabled,
           :create,
@@ -24,14 +24,7 @@ module VagrantPlugins
         ]
 
         def self.inject(folder: nil, machine: nil)
-          hash = {}
-
-          OPTIONS.each do |opt|
-            val = folder.send(opt)
-            hash[opt] = val unless val.nil?
-          end
-
-          machine.vm.synced_folder folder.host, folder.guest, **hash
+          machine.vm.synced_folder folder.host, folder.guest, **generate_hash(folder, OPTIONS)
         end
       end
     end
