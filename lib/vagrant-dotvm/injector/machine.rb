@@ -40,7 +40,7 @@ module VagrantPlugins
               vb.customize ["modifyvm", :id, "--cpuexecutioncap", machine_cfg.cpucap] unless machine_cfg.cpucap.nil?
               vb.customize ["modifyvm", :id, "--natnet1",         machine_cfg.natnet] unless machine_cfg.natnet.nil?
 
-              machine_cfg.options[:virtualbox].each do |option|
+              machine_cfg.options.to_h[:virtualbox].to_a.each do |option|
                 vb.customize ["modifyvm", :id, option.name, option.value]
               end
             end
