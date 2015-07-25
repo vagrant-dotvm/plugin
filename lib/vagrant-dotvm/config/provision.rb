@@ -127,25 +127,22 @@ module VagrantPlugins
         attr_reader :build_images
         attr_reader :runs
 
-        def initialize
+        def build_images=(build_images)
+          raise "'build_images' must be array." unless build_images.kind_of?(Array) || build_images.kind_of?(NilClass)
+
           @build_images = []
-          @runs         = []
-        end
-
-        def populate_build_images(data)
-          raise "'build_images' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
-
-          data.to_a.each do |conf|
+          build_images.to_a.each do |conf|
             item = BuildImage.new
             item.populate conf
             @build_images << item
           end
         end
 
-        def populate_runs(data)
-          raise "'runs' must be array." unless data.kind_of?(Array) || data.kind_of?(NilClass)
+        def runs=(runs)
+          raise "'runs' must be array." unless runs.kind_of?(Array) || runs.kind_of?(NilClass)
 
-          data.to_a.each do |conf|
+          @runs = []
+          runs.to_a.each do |conf|
             item = Run.new
             item.populate conf
             @runs << item
