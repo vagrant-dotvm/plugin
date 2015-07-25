@@ -136,6 +136,8 @@ module VagrantPlugins
             provision_cfg.roles.to_a.each do |role|
               p.add_role(role)
             end
+
+            p.pillar provision_cfg.pillar unless provision_cfg.pillar.nil?
           end
         end
       end

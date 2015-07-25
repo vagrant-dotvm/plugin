@@ -121,6 +121,7 @@ module VagrantPlugins
         attr_accessor :recipe
         attr_accessor :recipes # chef
         attr_accessor :roles # chef
+        attr_accessor :pillar
       end
     end
   end
