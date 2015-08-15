@@ -10,29 +10,37 @@ module VagrantPlugins
         end
 
         def replace_vars(vars, target)
+          replaced = 0
+
           if target.kind_of?(Array)
             target.each do |item|
-              replace_vars(vars, item)
+              replaced += replace_vars(vars, item)
             end
           elsif target.kind_of?(Hash)
             target.each do |name, item|
-              replace_vars(vars, item)
+              replaced += replace_vars(vars, item)
             end
           elsif target.kind_of?(String)
             vars.each do |k, v|
               pattern = "%#{k}%"
-              target.gsub! pattern, v
+              replaced+=1 unless (target.gsub! pattern, v).kind_of?(NilClass)
             end
           elsif target.kind_of?(AbstractConfig)
-            target.replace_vars!(vars)
+            replaced += target.replace_vars!(vars)
           end
+
+          replaced
         end
 
         def replace_vars!(vars)
+          replaced = 0
+
           instance_variables.each do |var_name|
             var = instance_variable_get(var_name)
-            replace_vars(vars, var)
+            replaced += replace_vars(vars, var)
           end
+
+          replaced
         end
       end
     end
