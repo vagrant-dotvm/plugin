@@ -11,6 +11,20 @@ module VagrantPlugins
       end
 
       private
+      def get_globals
+        globals = {}
+
+        Dir[@path + "/globals/*.yaml"].each do |fname|
+          yaml = YAML::load(File.read(fname))
+          yaml.each do |name, value|
+            globals[name] = value
+          end
+        end
+
+        globals
+      end
+
+      private
       def get_configs()
         configs = []
 
@@ -24,6 +38,10 @@ module VagrantPlugins
 
           ENV.each_pair do |name, value|
             vars['env.' + name] = value
+          end
+
+          get_globals.each do |name, value|
+            vars['global.' + name] = value
           end
 
           begin
