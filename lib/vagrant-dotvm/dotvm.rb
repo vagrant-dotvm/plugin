@@ -29,6 +29,11 @@ module VagrantPlugins
           begin
             conf = Config::Root.new
             conf.populate yaml
+
+            conf.vars.to_h.each do |name, value|
+              vars['local.' + name] = value
+            end
+
             conf.replace_vars! vars
           rescue Exception => e
             file = fname[(@path.length+"/projects/".length)..-1]
