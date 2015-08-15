@@ -34,7 +34,12 @@ module VagrantPlugins
               vars['local.' + name] = value
             end
 
-            conf.replace_vars! vars
+            for _ in (0..5)
+              last = conf.replace_vars! vars
+              break if last == 0
+            end
+
+            raise "Too deep variables relations, possible recurrence." unless last == 0
           rescue Exception => e
             file = fname[(@path.length+"/projects/".length)..-1]
             raise Vagrant::Errors::VagrantError.new, "DotVM: #{file}: #{e.message}"
