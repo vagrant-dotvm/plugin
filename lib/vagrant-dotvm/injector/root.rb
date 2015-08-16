@@ -5,7 +5,7 @@ module VagrantPlugins
         def self.inject(config: nil, vc: nil)
           config.options.to_h.each do |category, options|
             options.to_a.each do |option|
-              vc.call(category).call("#{option.name}=", option.value)
+              vc.send(category).send("#{option.name}=", option.value)
             end
           end
 

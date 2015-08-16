@@ -17,7 +17,7 @@ module VagrantPlugins
           end
         end
 
-        def options=(data)
+        def options=(options)
           raise "'options' must be hash." unless options.kind_of?(Hash) || options.kind_of?(NilClass)
 
           @options  = {
