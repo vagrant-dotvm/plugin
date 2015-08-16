@@ -22,45 +22,57 @@ module VagrantPlugins
       end
 
       private
+      def collect_vars(vars = {})
+        ENV.each_pair do |name, value|
+          vars['env.' + name] = value
+        end
+
+        get_globals.each do |name, value|
+          vars['global.' + name] = value
+        end
+
+        vars
+      end
+
+      private
+      def process_config(fname)
+        yaml = YAML::load(File.read(fname)) || {}
+
+        vars = collect_vars(
+          {
+            'project.host' => File.dirname(fname),
+            'project.guest' => '/dotvm/project',
+          }
+        )
+
+        begin
+          conf = Config::Root.new
+          conf.populate yaml
+
+          conf.vars.to_h.each do |name, value|
+            vars['local.' + name] = value
+          end
+
+          for _ in (0..5)
+            last = conf.replace_vars! vars
+            break if last == 0
+          end
+
+          raise 'Too deep variables relations, possible recurrence.' unless last == 0
+        rescue StandardError => e
+          file = fname[(@path.length + '/projects/'.length)..-1]
+          raise Vagrant::Errors::VagrantError.new, "DotVM: #{file}: #{e.message}"
+        end
+
+        conf
+      end
+
+      private
       def get_configs
         configs = []
 
         Dir[@path + '/projects/*/*.yaml'].each do |fname|
-          yaml = YAML::load(File.read(fname)) || {}
-
-          vars = {
-            'project.host' => File.dirname(fname),
-            'project.guest' => '/dotvm/project',
-          }
-
-          ENV.each_pair do |name, value|
-            vars['env.' + name] = value
-          end
-
-          get_globals.each do |name, value|
-            vars['global.' + name] = value
-          end
-
-          begin
-            conf = Config::Root.new
-            conf.populate yaml
-
-            conf.vars.to_h.each do |name, value|
-              vars['local.' + name] = value
-            end
-
-            for _ in (0..5)
-              last = conf.replace_vars! vars
-              break if last == 0
-            end
-
-            raise 'Too deep variables relations, possible recurrence.' unless last == 0
-          rescue StandardError => e
-            file = fname[(@path.length + '/projects/'.length)..-1]
-            raise Vagrant::Errors::VagrantError.new, "DotVM: #{file}: #{e.message}"
-          end
-
-          configs << conf
+          configs << process_config(fname)
         end
 
         return configs
