@@ -58,7 +58,7 @@ module VagrantPlugins
             end
 
             raise "Too deep variables relations, possible recurrence." unless last == 0
-          rescue Exception => e
+          rescue StandardError => e
             file = fname[(@path.length + "/projects/".length)..-1]
             raise Vagrant::Errors::VagrantError.new, "DotVM: #{file}: #{e.message}"
           end
