@@ -2,8 +2,16 @@ module VagrantPlugins
   module Dotvm
     module Config
       class Root < AbstractConfig
+        OPTIONS_CATEGORIES = [
+          :ssh,
+          :winrm,
+          :vagrant,
+        ]
+
+        include OptionsSetter
+
         attr_reader :machines
-        attr_reader :options
+        attr_reader :options # mixin
         attr_reader :vars
 
         def machines=(machines)
@@ -14,26 +22,6 @@ module VagrantPlugins
             machine = Machine.new
             machine.populate item
             @machines << machine
-          end
-        end
-
-        def options=(options)
-          raise "'options' must be hash." unless options.kind_of?(Hash) || options.kind_of?(NilClass)
-
-          @options  = {
-            ssh:     [],
-            winrm:   [],
-            vagrant: [],
-          }
-          options.to_h.each do |key, confs|
-            key = key.to_sym
-            raise "Invalid options category: #{key}." unless @options.has_key?(key)
-
-            confs.to_a.each do |conf|
-              item = Option.new
-              item.populate conf
-              @options[key] << item
-            end
           end
         end
 

@@ -2,6 +2,12 @@ module VagrantPlugins
   module Dotvm
     module Config
       class Machine < AbstractConfig
+        include OptionsSetter
+
+        OPTIONS_CATEGORIES = [
+          :virtualbox,
+        ]
+
         attr_accessor :nick
         attr_accessor :hostname # name
         attr_accessor :box
@@ -22,7 +28,7 @@ module VagrantPlugins
         attr_accessor :post_up_message
         attr_accessor :autostart
         attr_reader :hosts
-        attr_reader :options
+        attr_reader :options # mixin
         attr_reader :shared_folders
         attr_accessor :box_download_checksum
         attr_accessor :box_download_checksum_type
@@ -107,24 +113,6 @@ module VagrantPlugins
             item = Host.new
             item.populate conf
             @hosts << item
-          end
-        end
-
-        def options=(options)
-          raise "'options' must be hash." unless options.kind_of?(Hash) || options.kind_of?(NilClass)
-
-          @options = {
-            virtualbox: [],
-          }
-          options.to_h.each do |key, confs|
-            key = key.to_sym
-            raise "Invalid options category: #{key}." unless @options.has_key?(key)
-
-            confs.to_a.each do |conf|
-              item = Option.new
-              item.populate conf
-              @options[key] << item
-            end
           end
         end
 
