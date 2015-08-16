@@ -22,12 +22,12 @@ module VagrantPlugins
 
         def net=(value)
           nets = {
-            "private_network" => :private_network,
-            "private"         => :private_network,
-            "public_network"  => :public_network,
-            "public"          => :public_network,
-            "forwarded_port"  => :forwarded_port,
-            "port"            => :forwarded_port,
+            'private_network' => :private_network,
+            'private'         => :private_network,
+            'public_network'  => :public_network,
+            'public'          => :public_network,
+            'forwarded_port'  => :forwarded_port,
+            'port'            => :forwarded_port,
           }
 
           @net = nets[value]

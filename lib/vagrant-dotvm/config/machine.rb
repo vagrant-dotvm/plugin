@@ -42,7 +42,7 @@ module VagrantPlugins
 
         def usable_port_range=(value)
           m = value.scan(/^(\d+)\.\.(\d+)$/)
-          raise "Invalid usable_port_range, it must be in A..B format." if m.length == 0
+          raise 'Invalid usable_port_range, it must be in A..B format.' if m.length == 0
           @usable_port_range = Range.new(m[0][0].to_i, m[0][1].to_i)
         end
 
@@ -137,11 +137,11 @@ module VagrantPlugins
           end
 
           settings = {
-            "host"     => "%project.host%",
-            "guest"    => "%project.guest%",
-            "disabled" => false,
-            "create"   => false,
-            "type"     => nil,
+            'host'     => '%project.host%',
+            'guest'    => '%project.guest%',
+            'disabled' => false,
+            'create'   => false,
+            'type'     => nil,
           }
           item = SharedFolder.new
           item.populate settings

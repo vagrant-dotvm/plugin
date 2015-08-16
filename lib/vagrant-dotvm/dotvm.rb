@@ -25,7 +25,7 @@ module VagrantPlugins
       def get_configs
         configs = []
 
-        Dir[@path + "/projects/*/*.yaml"].each do |fname|
+        Dir[@path + '/projects/*/*.yaml'].each do |fname|
           yaml = YAML::load(File.read(fname)) || {}
 
           vars = {
@@ -56,7 +56,7 @@ module VagrantPlugins
 
             raise 'Too deep variables relations, possible recurrence.' unless last == 0
           rescue StandardError => e
-            file = fname[(@path.length + "/projects/".length)..-1]
+            file = fname[(@path.length + '/projects/'.length)..-1]
             raise Vagrant::Errors::VagrantError.new, "DotVM: #{file}: #{e.message}"
           end
 
