@@ -25,7 +25,7 @@ module VagrantPlugins
       end
 
       private
-      def get_configs()
+      def get_configs
         configs = []
 
         Dir[@path + "/projects/*/*.yaml"].each do |fname|

@@ -16,7 +16,7 @@ module VagrantPlugins
         attr_accessor :auto_correct
         attr_accessor :auto_config
 
-        def initialize()
+        def initialize
           @net      = :private_network
         end
 
