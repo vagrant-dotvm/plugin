@@ -114,7 +114,7 @@ module VagrantPlugins
           raise "'options' must be hash." unless options.kind_of?(Hash) || options.kind_of?(NilClass)
 
           @options = {
-            :virtualbox    => [],
+            virtualbox: [],
           }
           options.to_h.each do |key, confs|
             key = key.to_sym
