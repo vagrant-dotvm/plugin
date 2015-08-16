@@ -16,13 +16,7 @@ module VagrantPlugins
 
         def machines=(machines)
           raise "'machines' must be array." unless machines.kind_of?(Array) || machines.kind_of?(NilClass)
-
-          @machines = []
-          machines.to_a.each do |item|
-            machine = Machine.new
-            machine.populate item
-            @machines << machine
-          end
+          @machines = convert_array(machines, Machine.name)
         end
 
         def vars=(vars)

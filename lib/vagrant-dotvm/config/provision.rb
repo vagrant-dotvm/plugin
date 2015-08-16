@@ -129,24 +129,12 @@ module VagrantPlugins
 
         def build_images=(build_images)
           raise "'build_images' must be array." unless build_images.kind_of?(Array) || build_images.kind_of?(NilClass)
-
-          @build_images = []
-          build_images.to_a.each do |conf|
-            item = BuildImage.new
-            item.populate conf
-            @build_images << item
-          end
+          @build_images = convert_array(build_images, BuildImage.name)
         end
 
         def runs=(runs)
           raise "'runs' must be array." unless runs.kind_of?(Array) || runs.kind_of?(NilClass)
-
-          @runs = []
-          runs.to_a.each do |conf|
-            item = Run.new
-            item.populate conf
-            @runs << item
-          end
+          @runs = convert_array(runs, Run.name)
         end
       end
     end

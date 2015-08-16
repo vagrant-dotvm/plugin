@@ -54,35 +54,17 @@ module VagrantPlugins
 
         def networks=(networks)
           raise "'networks' must be array." unless networks.kind_of?(Array) || networks.kind_of?(NilClass)
-
-          @networks = []
-          networks.to_a.each do |conf|
-            item = Network.new
-            item.populate conf
-            @networks << item
-          end
+          @networks = convert_array(networks, Network.name)
         end
 
         def routes=(routes)
           raise "'routes' must be array." unless routes.kind_of?(Array) || routes.kind_of?(NilClass)
-
-          @routes = []
-          routes.to_a.each do |conf|
-            item = Route.new
-            item.populate conf
-            @routes << item
-          end
+          @routes = convert_array(routes, Route.name)
         end
 
         def provision=(provision)
           raise "'provision' must be array." unless provision.kind_of?(Array) || provision.kind_of?(NilClass)
-
-          @provision = []
-          provision.to_a.each do |conf|
-            item = Provision.new
-            item.populate conf
-            @provision << item
-          end
+          @provision = convert_array(provision, Provision.name)
         end
 
         def groups=(groups)
@@ -96,33 +78,16 @@ module VagrantPlugins
 
         def authorized_keys=(keys)
           raise "'authorized_keys' must be array." unless keys.kind_of?(Array) || keys.kind_of?(NilClass)
-
-          @authorized_keys = []
-          keys.to_a.each do |conf|
-            item = AuthorizedKey.new
-            item.populate conf
-            @authorized_keys << item
-          end
+          @authorized_keys = convert_array(keys, AuthorizedKey.name)
         end
 
         def hosts=(hosts)
           raise "'hosts' must be array." unless hosts.kind_of?(Array) || hosts.kind_of?(NilClass)
-
-          @hosts = []
-          hosts.to_a.each do |conf|
-            item = Host.new
-            item.populate conf
-            @hosts << item
-          end
+          @hosts = convert_array(hosts, Host.name)
         end
 
         def shared_folders=(shared_folders)
-          @shared_folders = []
-          shared_folders.to_a.each do |conf|
-            item = SharedFolder.new
-            item.populate conf
-            @shared_folders << item
-          end
+          @shared_folders = convert_array(shared_folders, SharedFolder.name)
 
           settings = {
             'host'     => '%project.host%',

@@ -12,6 +12,23 @@ module VagrantPlugins
           end
         end
 
+        # Converts array of hashes into array of specialized objects.
+        #
+        # @param data [Array] Array of hashes
+        # @param type [String] Specialized class name
+        # @return [Array] Array of specialized objects.
+        def convert_array(data, type)
+          result = []
+
+          data.to_a.each do |item|
+            object = Kernel.const_get(type).new
+            object.populate item
+            result << object
+          end
+
+          result
+        end
+
         # Replaces variables in target object.
         #
         # @param vars [Hash] Hash of variables to be replaced.
