@@ -21,7 +21,7 @@ module VagrantPlugins
           result = []
 
           data.to_a.each do |item|
-            object = Kernel.const_get(type).new
+            object = Object.const_get(type).new
             object.populate item
             result << object
           end
