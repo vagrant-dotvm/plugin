@@ -22,36 +22,34 @@ module VagrantPlugins
       end
 
       private
-      def collect_vars(vars = {})
-        ENV.each_pair do |name, value|
-          vars['env.' + name] = value
+      def prefix_vars(vars, prefix)
+        result = {}
+
+        vars.each do |name, value|
+          result[prefix + name] = value
         end
 
-        get_globals.each do |name, value|
-          vars['global.' + name] = value
-        end
-
-        vars
+        result
       end
 
       private
       def process_config(fname)
         yaml = YAML::load(File.read(fname)) || {}
 
-        vars = collect_vars(
-          {
-            'project.host' => File.dirname(fname),
-            'project.guest' => '/dotvm/project',
-          }
-        )
-
         begin
           conf = Config::Root.new
           conf.populate yaml
 
-          conf.vars.to_h.each do |name, value|
-            vars['local.' + name] = value
-          end
+          vars = {}
+          vars.merge! prefix_vars(ENV, 'env.')
+          vars.merge! prefix_vars(get_globals, 'global.')
+          vars.merge! prefix_vars(conf.vars.to_h, 'local.')
+          vars.merge!(
+            {
+              'project.host'  => File.dirname(fname),
+              'project.guest' => '/dotvm/project',
+            }
+          )
 
           for _ in (0..5)
             last = conf.replace_vars! vars
