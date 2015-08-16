@@ -2,6 +2,9 @@ module VagrantPlugins
   module Dotvm
     module Config
       class AbstractConfig
+        # Populates current object with provided data.
+        #
+        # @param data [Hash] Hash with data
         def populate(data)
           data.each do |key, value|
             raise "Invalid configuration option: #{key}." until respond_to? "#{key}="
@@ -9,6 +12,11 @@ module VagrantPlugins
           end
         end
 
+        # Replaces variables in target object.
+        #
+        # @param vars [Hash] Hash of variables to be replaced.
+        # @param target [Object] Object to operate on.
+        # @return [Number] Number of performed replaces.
         def replace_vars(vars, target)
           replaced = 0
 
@@ -32,6 +40,11 @@ module VagrantPlugins
           replaced
         end
 
+        # Search for variables within this object
+        # and performs replaces of them.
+        #
+        # @param vars [Hash] Hash of variables to be replaced.
+        # @return [Number] Number of performed replaces.
         def replace_vars!(vars)
           replaced = 0
 
