@@ -23,7 +23,7 @@ module VagrantPlugins
           elsif target.kind_of?(String)
             vars.each do |k, v|
               pattern = "%#{k}%"
-              replaced+=1 unless (target.gsub! pattern, v).kind_of?(NilClass)
+              replaced += 1 unless (target.gsub! pattern, v).kind_of?(NilClass)
             end
           elsif target.kind_of?(AbstractConfig)
             replaced += target.replace_vars!(vars)
