@@ -15,7 +15,7 @@ module VagrantPlugins
         globals = {}
 
         Dir[@path + "/globals/*.yaml"].each do |fname|
-          yaml = YAML::load(File.read(fname))
+          yaml = YAML::load(File.read(fname)) || {}
           yaml.each do |name, value|
             globals[name] = value
           end
@@ -29,7 +29,7 @@ module VagrantPlugins
         configs = []
 
         Dir[@path + "/projects/*/*.yaml"].each do |fname|
-          yaml = YAML::load(File.read(fname))
+          yaml = YAML::load(File.read(fname)) || {}
 
           vars = {
             'project.host' => File.dirname(fname),
