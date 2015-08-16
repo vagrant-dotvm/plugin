@@ -3,13 +3,13 @@ module VagrantPlugins
     module Injector
       class AuthorizedKey < AbstractInjector
         def self.inject(key: nil, machine: nil)
-          if key.type == "file"
+          if key.type == 'file'
             pubkey = File.readlines(File.expand_path(key.path)).first.strip
-          elsif key.type == "static"
+          elsif key.type == 'static'
             pubkey = key.key
           end
 
-          machine.vm.provision "shell" do |s|
+          machine.vm.provision 'shell' do |s|
             s.path       = "#{UTILS_PATH}/authorize_key.sh"
             s.args       = [pubkey]
             s.privileged = false

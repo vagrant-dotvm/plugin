@@ -11,7 +11,7 @@ module VagrantPlugins
       def get_globals
         globals = {}
 
-        Dir[@path + "/globals/*.yaml"].each do |fname|
+        Dir[@path + '/globals/*.yaml'].each do |fname|
           yaml = YAML::load(File.read(fname)) || {}
           yaml.each do |name, value|
             globals[name] = value
@@ -54,7 +54,7 @@ module VagrantPlugins
               break if last == 0
             end
 
-            raise "Too deep variables relations, possible recurrence." unless last == 0
+            raise 'Too deep variables relations, possible recurrence.' unless last == 0
           rescue StandardError => e
             file = fname[(@path.length + "/projects/".length)..-1]
             raise Vagrant::Errors::VagrantError.new, "DotVM: #{file}: #{e.message}"

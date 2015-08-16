@@ -34,20 +34,20 @@ module VagrantPlugins
               machine.vm.send("#{opt}=", val) unless val.nil?
             end
 
-            machine.vm.provider "virtualbox" do |vb|
-              vb.customize ["modifyvm", :id, "--memory",          machine_cfg.memory] unless machine_cfg.memory.nil?
-              vb.customize ["modifyvm", :id, "--cpus",            machine_cfg.cpus]   unless machine_cfg.cpus.nil?
-              vb.customize ["modifyvm", :id, "--cpuexecutioncap", machine_cfg.cpucap] unless machine_cfg.cpucap.nil?
-              vb.customize ["modifyvm", :id, "--natnet1",         machine_cfg.natnet] unless machine_cfg.natnet.nil?
+            machine.vm.provider 'virtualbox' do |vb|
+              vb.customize ['modifyvm', :id, '--memory',          machine_cfg.memory] unless machine_cfg.memory.nil?
+              vb.customize ['modifyvm', :id, '--cpus',            machine_cfg.cpus]   unless machine_cfg.cpus.nil?
+              vb.customize ['modifyvm', :id, '--cpuexecutioncap', machine_cfg.cpucap] unless machine_cfg.cpucap.nil?
+              vb.customize ['modifyvm', :id, '--natnet1',         machine_cfg.natnet] unless machine_cfg.natnet.nil?
 
               machine_cfg.options.to_h[:virtualbox].to_a.each do |option|
-                vb.customize ["modifyvm", :id, option.name, option.value]
+                vb.customize ['modifyvm', :id, option.name, option.value]
               end
             end
 
-            machine.vm.provider "vmware_fusion" do |vf|
-              vf.vmx["memsize"]  = machine_cfg.memory unless machine_cfg.memory.nil?
-              vf.vmz["numvcpus"] = machine_cfg.cpus   unless machine_cfg.cpus.nil?
+            machine.vm.provider 'vmware_fusion' do |vf|
+              vf.vmx['memsize']  = machine_cfg.memory unless machine_cfg.memory.nil?
+              vf.vmz['numvcpus'] = machine_cfg.cpus   unless machine_cfg.cpus.nil?
             end
 
             machine_cfg.networks.to_a.each do |net|
@@ -80,7 +80,7 @@ module VagrantPlugins
                                    machine: machine
             end
 
-            if Vagrant.has_plugin?("vagrant-group")
+            if Vagrant.has_plugin?('vagrant-group')
               vc.group.groups = {} unless vc.group.groups.kind_of?(Hash)
 
               machine_cfg.groups.to_a.each do |group|
