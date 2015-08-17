@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Config
-      class InvalidConfigError < StandardError
+      class InvalidConfigError < ArgumentError
       end
     end
   end
