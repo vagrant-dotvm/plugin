@@ -1,3 +1,6 @@
+# This script adds specified pubkey into authorized_keys file.
+# Duplicates are avoided.
+
 PUBKEY="$1"
 SSH="$HOME/.ssh"
 KEYS="$SSH/authorized_keys"

@@ -1,3 +1,6 @@
+# This script removes previously set route to
+# specific destination and then setup new one.
+
 DESTINATION="$1"
 GATEWAY="$2"
 

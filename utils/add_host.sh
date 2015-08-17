@@ -1,3 +1,5 @@
+# This script adds new host entry and avoid duplicates.
+
 quote() {
     sed 's/[]\.|$(){}?+*^]/\\&/g' <<< "$*"
 }
