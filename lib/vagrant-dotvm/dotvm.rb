@@ -3,7 +3,7 @@ module VagrantPlugins
     class Dotvm
 
       def initialize(path = nil)
-        path = Dir.pwd unless path
+        raise "path must be set." until path
         @path = path
       end
 
