@@ -15,12 +15,12 @@ module VagrantPlugins
         attr_reader :vars
 
         def machines=(machines)
-          raise InvalidConfigError.new "'machines' must be array." unless machines.kind_of?(Array) || machines.kind_of?(NilClass)
+          ensure_array machines, 'machines'
           @machines = convert_array(machines, Machine.name)
         end
 
         def vars=(vars)
-          raise InvalidConfigError.new "'vars' must be hash." unless vars.kind_of?(Hash) || vars.kind_of?(NilClass)
+          ensure_hash vars 'vars'
           @vars = vars
         end
       end

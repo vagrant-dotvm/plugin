@@ -53,22 +53,22 @@ module VagrantPlugins
         end
 
         def networks=(networks)
-          raise InvalidConfigError.new "'networks' must be array." unless networks.kind_of?(Array) || networks.kind_of?(NilClass)
+          ensure_array networks, 'networks'
           @networks = convert_array(networks, Network.name)
         end
 
         def routes=(routes)
-          raise InvalidConfigError.new "'routes' must be array." unless routes.kind_of?(Array) || routes.kind_of?(NilClass)
+          ensure_array routes, 'routes'
           @routes = convert_array(routes, Route.name)
         end
 
         def provision=(provision)
-          raise InvalidConfigError.new "'provision' must be array." unless provision.kind_of?(Array) || provision.kind_of?(NilClass)
+          ensure_array provision, 'provision'
           @provision = convert_array(provision, Provision.name)
         end
 
         def groups=(groups)
-          raise InvalidConfigError.new "'groups' must be array." unless groups.kind_of?(Array) || groups.kind_of?(NilClass)
+          ensure_array groups, 'groups'
 
           @groups = []
           groups.to_a.each do |item|
@@ -77,12 +77,12 @@ module VagrantPlugins
         end
 
         def authorized_keys=(keys)
-          raise InvalidConfigError.new "'authorized_keys' must be array." unless keys.kind_of?(Array) || keys.kind_of?(NilClass)
+          ensure_array keys, 'authorized_keys'
           @authorized_keys = convert_array(keys, AuthorizedKey.name)
         end
 
         def hosts=(hosts)
-          raise InvalidConfigError.new "'hosts' must be array." unless hosts.kind_of?(Array) || hosts.kind_of?(NilClass)
+          ensure_array hosts, 'hosts'
           @hosts = convert_array(hosts, Host.name)
         end
 

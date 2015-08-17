@@ -3,7 +3,7 @@ module VagrantPlugins
     module Config
       module OptionsSetter
         def options=(options)
-          raise InvalidConfigError.new "'options' must be hash." unless options.kind_of?(Hash) || options.kind_of?(NilClass)
+          ensure_hash options, 'options'
 
           @options  = {}
           self.class::OPTIONS_CATEGORIES.each do |cat|
