@@ -7,7 +7,7 @@ module VagrantPlugins
         # @param data [Hash] Hash with data
         def populate(data)
           data.each do |key, value|
-            raise "Invalid configuration option: #{key}." until respond_to? "#{key}="
+            raise InvalidConfigError.new "Invalid configuration option: #{key}." until respond_to? "#{key}="
             send("#{key}=", value)
           end
         end

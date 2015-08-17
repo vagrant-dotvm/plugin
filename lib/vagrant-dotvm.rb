@@ -17,6 +17,7 @@ require 'vagrant-dotvm/injector/route'
 require 'vagrant-dotvm/injector/network'
 
 require 'vagrant-dotvm/config/optionssetter'
+require 'vagrant-dotvm/config/invalidconfigerror'
 require 'vagrant-dotvm/config/abstractconfig'
 require 'vagrant-dotvm/config/root'
 require 'vagrant-dotvm/config/machine'

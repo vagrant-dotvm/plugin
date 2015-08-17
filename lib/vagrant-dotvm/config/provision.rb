@@ -128,12 +128,12 @@ module VagrantPlugins
         attr_reader :runs
 
         def build_images=(build_images)
-          raise "'build_images' must be array." unless build_images.kind_of?(Array) || build_images.kind_of?(NilClass)
+          raise InvalidConfigError.new "'build_images' must be array." unless build_images.kind_of?(Array) || build_images.kind_of?(NilClass)
           @build_images = convert_array(build_images, BuildImage.name)
         end
 
         def runs=(runs)
-          raise "'runs' must be array." unless runs.kind_of?(Array) || runs.kind_of?(NilClass)
+          raise InvalidConfigError.new "'runs' must be array." unless runs.kind_of?(Array) || runs.kind_of?(NilClass)
           @runs = convert_array(runs, Run.name)
         end
       end

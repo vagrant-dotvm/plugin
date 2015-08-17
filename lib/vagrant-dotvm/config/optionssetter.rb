@@ -3,7 +3,7 @@ module VagrantPlugins
     module Config
       module OptionsSetter
         def options=(options)
-          raise "'options' must be hash." unless options.kind_of?(Hash) || options.kind_of?(NilClass)
+          raise InvalidConfigError.new "'options' must be hash." unless options.kind_of?(Hash) || options.kind_of?(NilClass)
 
           @options  = {}
           self.class::OPTIONS_CATEGORIES.each do |cat|
@@ -12,7 +12,7 @@ module VagrantPlugins
 
           options.to_h.each do |key, confs|
             key = key.to_sym
-            raise "Invalid options category: #{key}." unless @options.has_key?(key)
+            raise InvalidConfigError.new "Invalid options category: #{key}." unless @options.has_key?(key)
 
             confs.to_a.each do |conf|
               item = Option.new
