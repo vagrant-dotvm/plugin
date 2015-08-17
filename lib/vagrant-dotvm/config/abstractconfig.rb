@@ -12,12 +12,8 @@ module VagrantPlugins
           end
         end
 
-        def ensure_array(value, name)
-          raise InvalidConfigError.new "'#{name}' must be array." unless value.kind_of?(Array) || value.kind_of?(NilClass)
-        end
-
-        def ensure_hash(value, name)
-          raise InvalidConfigError.new "'#{name}' must be hash." unless value.kind_of?(Hash) || value.kind_of?(NilClass)
+        def ensure_type(value, type, name='')
+          raise InvalidConfigError.new "'#{name}' must be #{type.name}." unless value.kind_of?(type) || value.kind_of?(NilClass)
         end
 
         # Converts array of hashes into array of specialized objects.

@@ -128,12 +128,12 @@ module VagrantPlugins
         attr_reader :runs
 
         def build_images=(build_images)
-          ensure_array build_images, 'build_images'
+          ensure_type build_images, Array, 'build_images'
           @build_images = convert_array(build_images, BuildImage.name)
         end
 
         def runs=(runs)
-          ensure_array runs, 'runs'
+          ensure_type runs, Array, 'runs'
           @runs = convert_array(runs, Run.name)
         end
       end

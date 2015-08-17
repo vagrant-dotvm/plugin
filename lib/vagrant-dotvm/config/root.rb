@@ -15,12 +15,12 @@ module VagrantPlugins
         attr_reader :vars
 
         def machines=(machines)
-          ensure_array machines, 'machines'
+          ensure_type machines, Array, 'machines'
           @machines = convert_array(machines, Machine.name)
         end
 
         def vars=(vars)
-          ensure_hash vars 'vars'
+          ensure_type vars, Hash, 'vars'
           @vars = vars
         end
       end

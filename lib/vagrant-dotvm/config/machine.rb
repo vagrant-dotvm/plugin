@@ -53,22 +53,22 @@ module VagrantPlugins
         end
 
         def networks=(networks)
-          ensure_array networks, 'networks'
+          ensure_type networks, Array, 'networks'
           @networks = convert_array(networks, Network.name)
         end
 
         def routes=(routes)
-          ensure_array routes, 'routes'
+          ensure_type routes, Array, 'routes'
           @routes = convert_array(routes, Route.name)
         end
 
         def provision=(provision)
-          ensure_array provision, 'provision'
+          ensure_type provision, Array, 'provision'
           @provision = convert_array(provision, Provision.name)
         end
 
         def groups=(groups)
-          ensure_array groups, 'groups'
+          ensure_type groups, Array, 'groups'
 
           @groups = []
           groups.to_a.each do |item|
@@ -77,17 +77,17 @@ module VagrantPlugins
         end
 
         def authorized_keys=(keys)
-          ensure_array keys, 'authorized_keys'
+          ensure_type keys, Array, 'authorized_keys'
           @authorized_keys = convert_array(keys, AuthorizedKey.name)
         end
 
         def hosts=(hosts)
-          ensure_array hosts, 'hosts'
+          ensure_type hosts, Array, 'hosts'
           @hosts = convert_array(hosts, Host.name)
         end
 
         def shared_folders=(shared_folders)
-          ensure_array shared_folders, 'shared_folders'
+          ensure_type shared_folders, Array, 'shared_folders'
           @shared_folders = convert_array(shared_folders, SharedFolder.name)
 
           settings = {
