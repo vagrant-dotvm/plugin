@@ -12,7 +12,7 @@ module VagrantPlugins
           end
         end
 
-        def ensure_type(value, type, name='')
+        def ensure_type(value, type, name = '')
           raise InvalidConfigError.new "'#{name}' must be #{type.name}." unless value.kind_of?(type) || value.kind_of?(NilClass)
         end
 
