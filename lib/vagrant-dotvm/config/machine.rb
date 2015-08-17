@@ -87,6 +87,7 @@ module VagrantPlugins
         end
 
         def shared_folders=(shared_folders)
+          ensure_array shared_folders, 'shared_folders'
           @shared_folders = convert_array(shared_folders, SharedFolder.name)
 
           settings = {
