@@ -1,3 +1,12 @@
+# 0.32.1
+* Bugfix for situation when configuration file is empty
+* Bugfix for situation when configuration doesn't have machines
+
+# 0.32.0
+* Local variables
+* Global variables
+* Refering another variables within variable
+
 # 0.31.0
 * Authorized keys and hosts were broken. It has been fixed.
 * Docker provision
