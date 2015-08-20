@@ -8,6 +8,7 @@ module VagrantPlugins
           :virtualbox,
         ]
 
+        attr_reader :parent
         attr_accessor :nick
         attr_accessor :hostname # name
         attr_accessor :box
@@ -41,6 +42,10 @@ module VagrantPlugins
         attr_accessor :communicator
         attr_accessor :guest
         attr_reader :usable_port_range
+
+        def initialize(parent)
+          @parent = parent
+        end
 
         def name=(value)
           @hostname = value
@@ -91,8 +96,8 @@ module VagrantPlugins
           @shared_folders = convert_array(shared_folders, SharedFolder.name)
 
           settings = {
-            'host'     => '%project.host%',
-            'guest'    => '%project.guest%',
+            'host'     => @parent.variables['dotvm.project.host_dir'],
+            'guest'    => @parent.variables['dotvm.project.guest_dir'],
             'disabled' => false,
             'create'   => false,
             'type'     => nil,

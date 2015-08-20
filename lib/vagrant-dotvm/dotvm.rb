@@ -8,79 +8,107 @@ module VagrantPlugins
       end
 
       private
-      def get_globals
-        globals = {}
-
-        Dir[@path + '/globals/*.yaml'].each do |fname|
-          yaml = YAML::load(File.read(fname)) || {}
-          yaml.each do |name, value|
-            globals[name] = value
-          end
-        end
-
-        globals
-      end
-
-      private
-      def prefix_vars(vars, prefix)
+      def parse_variables(path)
         result = {}
 
-        vars.each do |name, value|
-          result[prefix + name] = value
+        Dir[path].each do |fname|
+          yaml = YAML::load(File.read(fname)) || {}
+          yaml.each do |name, value|
+            raise "Variable #{name} already exists." if result.has_key? name
+            result[name] = value
+          end
         end
 
         result
       end
 
       private
-      def process_config(fname)
-        yaml = YAML::load(File.read(fname)) || {}
-
-        begin
-          conf = Config::Root.new
-          conf.populate yaml
-
-          vars = {}
-          vars.merge! prefix_vars(ENV, 'env.')
-          vars.merge! prefix_vars(get_globals, 'global.')
-          vars.merge! prefix_vars(conf.vars.to_h, 'local.')
-          vars.merge!(
-            {
-              'project.host'  => File.dirname(fname),
-              'project.guest' => '/dotvm/project',
-            }
-          )
-
-          for _ in (0..5)
-            last = conf.replace_vars! vars
-            break if last == 0
+      def _replace_vars(target, vars_array)
+        if target.is_a? Hash
+          target.each do |k, v|
+            target[k] = replace_vars v, vars_array
           end
+        elsif target.is_a? Array
+          target.map! do |v|
+            replace_vars v, vars_array
+          end
+        elsif target.is_a? String
+          vars_array.each do |vars|
+            vars.each do |k, v|
+              pattern = "%#{k}%"
 
-          raise 'Too deep variables relations, possible recurrence.' unless last == 0
-        rescue VagrantPlugins::Dotvm::Config::InvalidConfigError => e
-          file = fname[(@path.length + '/projects/'.length)..-1]
-          raise Vagrant::Errors::VagrantError.new, "DotVM: #{file}: #{e.message}"
+              if target.include? pattern
+                @replaced += 1
+
+                if target == pattern
+                  target = v
+                else
+                  target = target.gsub pattern, v
+                end
+              end
+            end
+          end
         end
 
-        conf
+        target
       end
 
       private
-      def get_configs
-        configs = []
-
-        Dir[@path + '/projects/*/*.yaml'].each do |fname|
-          configs << process_config(fname)
+      def replace_vars(target, vars)
+        0.upto(15).each do |_|
+          @replaced = 0
+          target = _replace_vars target, vars
+          return target if @replaced == 0
         end
 
-        return configs
+        raise 'Too deep variables relations, possible recurrence.'
+      end
+
+      private
+      def process_configuration
+        instance = Config::Instance.new
+        instance.variables.append_group 'env', ENV
+        instance.variables.append_group 'global', (parse_variables "#{@path}/variables/*.yaml")
+
+        Dir["#{@path}/options/*.yaml"].each do |file|
+          yaml = YAML::load(File.read(file)) || {}
+          yaml = replace_vars yaml, [instance.variables]
+          instance.options = yaml
+        end
+
+        Dir["#{@path}/projects/*"].each do |dir|
+          project = instance.new_project
+          project.variables.append_group 'project', (parse_variables "#{dir}/variables/*.yaml")
+          project.variables.append_group(
+            'dotvm',
+            {
+              'project.host_dir' => dir,
+              'project.guest_dir' => DOTVM_PROJECT_PATH,
+            }
+          )
+
+          Dir["#{dir}/machines/*.yaml"].each do |file|
+            begin
+              yaml = YAML::load(File.read(file)) || []
+              yaml = replace_vars yaml, [instance.variables, project.variables]
+
+              yaml.each do |machine_yaml|
+                machine = project.new_machine
+                machine.populate machine_yaml
+              end
+            rescue VagrantPlugins::Dotvm::Config::InvalidConfigError => e
+              raise Vagrant::Errors::VagrantError.new, "DotVM: #{file}: #{e.message}"
+            end
+          end
+        end
+
+        instance
       end
 
       public
       def inject(vc)
-        get_configs.each do |config|
-          Injector::Root.inject config: config, vc: vc
-        end
+        instance = process_configuration
+        Injector::Instance.inject instance, vc
       end
 
     end # DotVm
