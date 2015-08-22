@@ -48,7 +48,6 @@ module VagrantPlugins
 
           Dir["#{dir}/machines/*.yaml"].each do |file|
             begin
-              yaml = 
               yaml = Replacer.new
                      .on(YAML::load(File.read(file)) || [])
                      .using(instance.variables.merge(project.variables))
