@@ -51,7 +51,7 @@ module VagrantPlugins
                 target = v
                 break unless v.is_a? String # value is no longer string, so replace cannot be performed
               else
-                if not v.respond_to? :to_s
+                unless v.respond_to? :to_s
                   raise 'Non-string values cannot be joined together.'
                 end
 
