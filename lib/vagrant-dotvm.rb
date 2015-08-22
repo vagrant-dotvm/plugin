@@ -7,6 +7,7 @@ require 'vagrant-dotvm/paths'
 require 'vagrant-dotvm/dotvm'
 
 require 'vagrant-dotvm/variables'
+require 'vagrant-dotvm/replacer'
 
 require 'vagrant-dotvm/injector/abstractinjector'
 require 'vagrant-dotvm/injector/instance'

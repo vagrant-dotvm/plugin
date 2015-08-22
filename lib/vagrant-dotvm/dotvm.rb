@@ -23,60 +23,16 @@ module VagrantPlugins
       end
 
       private
-      def _replace_vars(target, vars)
-        if target.is_a? Hash
-          target.each do |k, v|
-            target[k] = _replace_vars v, vars
-          end
-        elsif target.is_a? Array
-          target.map! do |v|
-            _replace_vars v, vars
-          end
-        elsif target.is_a? String
-          vars.each do |k, v|
-            pattern = "%#{k}%"
-
-            if target.include? pattern
-              @replaced += 1
-
-              if target == pattern
-                target = v
-                break unless v.is_a? String # value is no longer string, so replace cannot be performed
-              else
-                if not v.respond_to? :to_s
-                  raise VagrantPlugins::Dotvm::Config::InvalidConfigError.new 'Non-string values cannot be joined together.'
-                end
-
-                target = target.gsub pattern, v.to_s
-              end
-            end
-          end
-        end
-
-        target
-      end
-
-      private
-      def replace_vars(target, vars)
-        0.upto(15).each do |_|
-          @replaced = 0
-          target = _replace_vars target, vars
-          return target if @replaced == 0
-        end
-
-        raise 'Too deep variables relations, possible recurrence.'
-      end
-
-      private
       def process_configuration
         instance = Config::Instance.new
         instance.variables.append_group 'env', ENV
         instance.variables.append_group 'global', (parse_variables "#{@path}/variables/*.yaml")
 
         Dir["#{@path}/options/*.yaml"].each do |file|
-          yaml = YAML::load(File.read(file)) || {}
-          yaml = replace_vars yaml, instance.variables
-          instance.options = yaml
+          instance.options = Replacer.new
+                 .on(YAML::load(File.read(file)) || {})
+                 .using(instance.variables)
+                 .result
         end
 
         Dir["#{@path}/projects/*"].each do |dir|
@@ -92,8 +48,11 @@ module VagrantPlugins
 
           Dir["#{dir}/machines/*.yaml"].each do |file|
             begin
-              yaml = YAML::load(File.read(file)) || []
-              yaml = replace_vars yaml, instance.variables.merge(project.variables)
+              yaml = 
+              yaml = Replacer.new
+                     .on(YAML::load(File.read(file)) || [])
+                     .using(instance.variables.merge(project.variables))
+                     .result
 
               yaml.each do |machine_yaml|
                 machine = project.new_machine
