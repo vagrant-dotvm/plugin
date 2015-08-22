@@ -23,20 +23,26 @@ module VagrantPlugins
       end
 
       private
-      def process_configuration
-        instance = Config::Instance.new
-        instance.variables.append_group 'env', ENV
-        instance.variables.append_group 'global', (parse_variables "#{@path}/variables/*.yaml")
+      def init_instance
+        @instance = Config::Instance.new
+        @instance.variables.append_group 'env', ENV
+        @instance.variables.append_group 'global', (parse_variables "#{@path}/variables/*.yaml")
+      end
 
+      private
+      def load_options
         Dir["#{@path}/options/*.yaml"].each do |file|
-          instance.options = Replacer.new
-                 .on(YAML::load(File.read(file)) || {})
-                 .using(instance.variables)
-                 .result
+          @instance.options = Replacer.new
+                              .on(YAML::load(File.read(file)) || {})
+                              .using(@instance.variables)
+                              .result
         end
+      end
 
+      private
+      def load_projects
         Dir["#{@path}/projects/*"].each do |dir|
-          project = instance.new_project
+          project = @instance.new_project
           project.variables.append_group 'project', (parse_variables "#{dir}/variables/*.yaml")
           project.variables.append_group(
             'dotvm',
@@ -50,7 +56,7 @@ module VagrantPlugins
             begin
               yaml = Replacer.new
                      .on(YAML::load(File.read(file)) || [])
-                     .using(instance.variables.merge(project.variables))
+                     .using(@instance.variables.merge(project.variables))
                      .result
 
               yaml.each do |machine_yaml|
@@ -62,14 +68,14 @@ module VagrantPlugins
             end
           end
         end
-
-        instance
       end
 
       public
       def inject(vc)
-        instance = process_configuration
-        Injector::Instance.inject instance, vc
+        init_instance
+        load_options
+        load_projects
+        Injector::Instance.inject @instance, vc
       end
 
     end # DotVm
