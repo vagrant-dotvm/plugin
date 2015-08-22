@@ -13,6 +13,7 @@ module VagrantPlugins
             s.path       = "#{UTILS_PATH}/authorize_key.sh"
             s.args       = [pubkey]
             s.privileged = false
+            s.name       = "authorized ssh key #{pubkey.split[2]}"
           end
         end
       end

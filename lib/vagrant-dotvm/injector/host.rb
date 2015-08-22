@@ -7,6 +7,7 @@ module VagrantPlugins
             s.path       = "#{UTILS_PATH}/add_host.sh"
             s.args       = [host.ip, host.host]
             s.privileged = true
+            s.name       = "host #{host.host} -> #{host.ip}"
           end
         end
       end
