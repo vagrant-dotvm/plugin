@@ -31,6 +31,30 @@ module VagrantPlugins
       end
 
       private
+      def process_string(target)
+        @vars.each do |k, v|
+          pattern = "%#{k}%"
+
+          if target.include? pattern
+            @replaced += 1
+
+            if target == pattern
+              target = v
+              break unless v.is_a? String # value is no longer string, so replace cannot be performed
+            else
+              unless v.respond_to? :to_s
+                raise 'Non-string values cannot be joined together.'
+              end
+
+              target = target.gsub pattern, v.to_s
+            end
+          end
+        end
+
+        target
+      end
+
+      private
       def _replace_vars(target)
         if target.is_a? Hash
           target.each do |k, v|
@@ -41,24 +65,7 @@ module VagrantPlugins
             _replace_vars v
           end
         elsif target.is_a? String
-          @vars.each do |k, v|
-            pattern = "%#{k}%"
-
-            if target.include? pattern
-              @replaced += 1
-
-              if target == pattern
-                target = v
-                break unless v.is_a? String # value is no longer string, so replace cannot be performed
-              else
-                unless v.respond_to? :to_s
-                  raise 'Non-string values cannot be joined together.'
-                end
-
-                target = target.gsub pattern, v.to_s
-              end
-            end
-          end
+          target = process_string target
         end
 
         target
