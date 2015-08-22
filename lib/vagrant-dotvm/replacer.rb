@@ -56,15 +56,16 @@ module VagrantPlugins
 
       private
       def _replace_vars(target)
-        if target.is_a? Hash
+        case target
+        when Hash
           target.each do |k, v|
             target[k] = _replace_vars v
           end
-        elsif target.is_a? Array
+        when Array
           target.map! do |v|
             _replace_vars v
           end
-        elsif target.is_a? String
+        when String
           target = process_string target
         end
 
