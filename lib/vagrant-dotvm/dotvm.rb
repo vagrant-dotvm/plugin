@@ -23,28 +23,26 @@ module VagrantPlugins
       end
 
       private
-      def _replace_vars(target, vars_array)
+      def _replace_vars(target, vars)
         if target.is_a? Hash
           target.each do |k, v|
-            target[k] = replace_vars v, vars_array
+            target[k] = _replace_vars v, vars
           end
         elsif target.is_a? Array
           target.map! do |v|
-            replace_vars v, vars_array
+            _replace_vars v, vars
           end
         elsif target.is_a? String
-          vars_array.each do |vars|
-            vars.each do |k, v|
-              pattern = "%#{k}%"
+          vars.each do |k, v|
+            pattern = "%#{k}%"
 
-              if target.include? pattern
-                @replaced += 1
+            if target.include? pattern
+              @replaced += 1
 
-                if target == pattern
-                  target = v
-                else
-                  target = target.gsub pattern, v
-                end
+              if target == pattern
+                target = v
+              else
+                target = target.gsub pattern, v
               end
             end
           end
@@ -72,7 +70,7 @@ module VagrantPlugins
 
         Dir["#{@path}/options/*.yaml"].each do |file|
           yaml = YAML::load(File.read(file)) || {}
-          yaml = replace_vars yaml, [instance.variables]
+          yaml = replace_vars yaml, instance.variables
           instance.options = yaml
         end
 
@@ -90,7 +88,7 @@ module VagrantPlugins
           Dir["#{dir}/machines/*.yaml"].each do |file|
             begin
               yaml = YAML::load(File.read(file)) || []
-              yaml = replace_vars yaml, [instance.variables, project.variables]
+              yaml = replace_vars yaml, instance.variables.merge(project.variables)
 
               yaml.each do |machine_yaml|
                 machine = project.new_machine
