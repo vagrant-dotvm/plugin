@@ -41,8 +41,13 @@ module VagrantPlugins
 
               if target == pattern
                 target = v
+                break unless v.is_a? String # value is no longer string, so replace cannot be performed
               else
-                target = target.gsub pattern, v
+                if not v.respond_to? :to_s
+                  raise VagrantPlugins::Dotvm::Config::InvalidConfigError.new 'Non-string values cannot be joined together.'
+                end
+
+                target = target.gsub pattern, v.to_s
               end
             end
           end
