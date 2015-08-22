@@ -1,3 +1,8 @@
+# 0.33.0
+* Better handling of errors in configuration
+* Fixed ability to set vCPUs in VMWare Fusion
+* Technical improvements
+
 # 0.32.1
 * Bugfix for situation when configuration file is empty
 * Bugfix for situation when configuration doesn't have machines
