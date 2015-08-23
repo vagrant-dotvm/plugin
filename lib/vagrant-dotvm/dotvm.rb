@@ -45,10 +45,17 @@ module VagrantPlugins
           project = @instance.new_project
           project.variables.append_group 'project', (parse_variables "#{dir}/variables/*.yaml")
           project.variables.append_group(
-            'dotvm',
+            'host',
             {
-              'project.host_dir' => dir,
-              'project.guest_dir' => DOTVM_PROJECT_PATH,
+              'project_dir' => dir,
+              'files_dir' => "#{dir}/files",
+            }
+          )
+          project.variables.append_group(
+            'guest',
+            {
+              'project_dir' => DOTVM_PROJECT_PATH,
+              'files_dir' => "#{DOTVM_PROJECT_PATH}/files"
             }
           )
 

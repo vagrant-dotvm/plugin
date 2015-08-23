@@ -96,8 +96,8 @@ module VagrantPlugins
           @shared_folders = convert_array(shared_folders, SharedFolder.name)
 
           settings = {
-            'host'     => @parent.variables['dotvm.project.host_dir'],
-            'guest'    => @parent.variables['dotvm.project.guest_dir'],
+            'host'     => @parent.variables['host.project_dir'],
+            'guest'    => @parent.variables['guest.project_dir'],
             'disabled' => false,
             'create'   => false,
             'type'     => nil,
