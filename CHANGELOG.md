@@ -1,3 +1,10 @@
+# 0.34.0
+* New configuration directory layout
+* Removed local variables
+* Introduced project variables
+* Removed examples, will be stored in separate repository
+* Technical improvements
+
 # 0.33.0
 * Better handling of errors in configuration
 * Fixed ability to set vCPUs in VMWare Fusion
