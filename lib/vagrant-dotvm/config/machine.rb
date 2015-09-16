@@ -95,6 +95,7 @@ module VagrantPlugins
           ensure_type shared_folders, Array, 'shared_folders'
           @shared_folders = convert_array(shared_folders, SharedFolder.name)
 
+          # Mount DotVM project directory
           settings = {
             'host'     => @parent.variables['host.project_dir'],
             'guest'    => @parent.variables['guest.project_dir'],
