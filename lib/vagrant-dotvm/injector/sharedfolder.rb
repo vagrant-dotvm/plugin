@@ -28,7 +28,11 @@ module VagrantPlugins
         module_function
 
         def inject(folder: nil, machine: nil)
-          machine.vm.synced_folder folder.host, folder.guest, **generate_hash(folder, OPTIONS)
+          machine.vm.synced_folder(
+            folder.host,
+            folder.guest,
+            **generate_hash(folder, OPTIONS)
+          )
         end
       end
     end
