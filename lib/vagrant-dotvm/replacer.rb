@@ -31,6 +31,7 @@ module VagrantPlugins
       end
 
       private
+
       def process_string(target)
         @vars.each do |k, v|
           pattern = "%#{k}%"
@@ -54,7 +55,6 @@ module VagrantPlugins
         target
       end
 
-      private
       def _replace_vars(target)
         case target
         when Hash

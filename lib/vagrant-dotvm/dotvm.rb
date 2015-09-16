@@ -7,7 +7,15 @@ module VagrantPlugins
         @path = path
       end
 
+      def inject(vc)
+        init_instance
+        load_options
+        load_projects
+        Injector::Instance.inject @instance, vc
+      end
+
       private
+
       def parse_variables(path)
         result = {}
 
@@ -22,14 +30,12 @@ module VagrantPlugins
         result
       end
 
-      private
       def init_instance
         @instance = Config::Instance.new
         @instance.variables.append_group 'env', ENV
         @instance.variables.append_group 'global', (parse_variables "#{@path}/variables/*.yaml")
       end
 
-      private
       def load_options
         Dir["#{@path}/options/*.yaml"].each do |file|
           @instance.options = Replacer.new
@@ -39,7 +45,6 @@ module VagrantPlugins
         end
       end
 
-      private
       def load_projects
         Dir["#{@path}/projects/*"].each do |dir|
           project = @instance.new_project
@@ -75,14 +80,6 @@ module VagrantPlugins
             end
           end
         end
-      end
-
-      public
-      def inject(vc)
-        init_instance
-        load_options
-        load_projects
-        Injector::Instance.inject @instance, vc
       end
 
     end # DotVm
