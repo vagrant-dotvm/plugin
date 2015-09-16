@@ -1,7 +1,9 @@
 module VagrantPlugins
   module Dotvm
     module Injector
-      class Machine < AbstractInjector
+      module Machine
+        extend AbstractInjector
+
         BOX_OPTIONS = [
           :box,
           :hostname,
@@ -23,7 +25,9 @@ module VagrantPlugins
           :usable_port_range,
         ]
 
-        def self.inject(machine_cfg: nil, vc: nil)
+        module_function
+
+        def inject(machine_cfg: nil, vc: nil)
           define_opts = {}
           define_opts[:primary]   = machine_cfg.primary   unless machine_cfg.primary.nil?
           define_opts[:autostart] = machine_cfg.autostart unless machine_cfg.autostart.nil?

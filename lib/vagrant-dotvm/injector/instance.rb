@@ -1,8 +1,12 @@
 module VagrantPlugins
   module Dotvm
     module Injector
-      class Instance < AbstractInjector
-        def self.inject(instance, vc)
+      module Instance
+        extend AbstractInjector
+
+        module_function
+
+        def inject(instance, vc)
           instance.options.to_h.each do |category, options|
             options.to_a.each do |option|
               vc.send(category).send("#{option.name}=", option.value)

@@ -1,7 +1,9 @@
 module VagrantPlugins
   module Dotvm
     module Injector
-      class SharedFolder < AbstractInjector
+      module SharedFolder
+        extend AbstractInjector
+
         OPTIONS = [
           :disabled,
           :create,
@@ -23,7 +25,9 @@ module VagrantPlugins
           :smb_username
         ]
 
-        def self.inject(folder: nil, machine: nil)
+        module_function
+
+        def inject(folder: nil, machine: nil)
           machine.vm.synced_folder folder.host, folder.guest, **generate_hash(folder, OPTIONS)
         end
       end

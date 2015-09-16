@@ -1,7 +1,9 @@
 module VagrantPlugins
   module Dotvm
     module Injector
-      class Provision < AbstractInjector
+      module Provision
+        extend AbstractInjector
+
         OPTIONS = [
           :path,
           :inline,
@@ -131,8 +133,9 @@ module VagrantPlugins
           :restart,
         ]
 
-        public
-        def self.inject(provision_cfg: nil, machine: nil)
+        module_function
+
+        def inject(provision_cfg: nil, machine: nil)
           machine.vm.provision provision_cfg.type, run: provision_cfg.run do |p|
             rewrite_options(provision_cfg, p, OPTIONS)
 
