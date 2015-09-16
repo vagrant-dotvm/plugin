@@ -88,7 +88,7 @@ module VagrantPlugins
               vc.group.groups = {} unless vc.group.groups.kind_of?(Hash)
 
               machine_cfg.groups.to_a.each do |group|
-                vc.group.groups[group] = [] unless vc.group.groups.has_key?(group)
+                vc.group.groups[group] = [] unless vc.group.groups.key?(group)
                 vc.group.groups[group] << machine_cfg.nick
               end
             end

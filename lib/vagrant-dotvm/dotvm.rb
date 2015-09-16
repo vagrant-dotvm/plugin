@@ -22,7 +22,7 @@ module VagrantPlugins
         Dir[path].each do |fname|
           yaml = YAML::load(File.read(fname)) || {}
           yaml.each do |name, value|
-            raise "Variable #{name} already exists." if result.has_key? name
+            raise "Variable #{name} already exists." if result.key? name
             result[name] = value
           end
         end
