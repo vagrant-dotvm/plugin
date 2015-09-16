@@ -10,7 +10,7 @@ module VagrantPlugins
         def initialize(parent)
           @parent = parent
           @variables = Variables.new
-          @machines = Array.new
+          @machines = []
         end
 
         def new_machine
