@@ -1,7 +1,6 @@
 # DotVm
 
 [![Code Climate](https://codeclimate.com/github/vagrant-dotvm/vagrant-dotvm/badges/gpa.svg)](https://codeclimate.com/github/vagrant-dotvm/vagrant-dotvm)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/krzysztof-magosa/vagrant-dotvm/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/krzysztof-magosa/vagrant-dotvm/?branch=master)
 [![Gem Version](https://badge.fury.io/rb/vagrant-dotvm.svg)](http://badge.fury.io/rb/vagrant-dotvm)
 
 ## What is that?
