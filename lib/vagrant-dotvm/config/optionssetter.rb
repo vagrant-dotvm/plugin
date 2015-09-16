@@ -5,7 +5,7 @@ module VagrantPlugins
         def options=(options)
           ensure_type options, Hash, 'options'
 
-          @options  = {}
+          @options = {}
           self.class::OPTIONS_CATEGORIES.each do |cat|
             @options[cat] = []
           end
