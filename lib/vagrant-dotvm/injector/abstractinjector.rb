@@ -15,7 +15,7 @@ module VagrantPlugins
             hash[opt] = val unless val.nil?
           end
 
-          return hash
+          hash
         end
 
         # Rewrite `options` from `source` to `target`.
