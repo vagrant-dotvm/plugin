@@ -107,7 +107,6 @@ module VagrantPlugins
           item.populate settings
           @shared_folders << item
         end
-
       end
     end
   end
