@@ -27,7 +27,7 @@ module VagrantPlugins
           return target if @replaced == 0
         end
 
-        raise 'Too deep variables relations, possible recurrence.'
+        fail 'Too deep variables relations, possible recurrence.'
       end
 
       private
@@ -44,7 +44,7 @@ module VagrantPlugins
               break unless v.is_a? String # value is no longer string, so replace cannot be performed
             else
               unless v.respond_to? :to_s
-                raise 'Non-string values cannot be joined together.'
+                fail 'Non-string values cannot be joined together.'
               end
 
               target = target.gsub pattern, v.to_s

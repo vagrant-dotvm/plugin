@@ -12,7 +12,7 @@ module VagrantPlugins
 
           options.to_h.each do |key, confs|
             key = key.to_sym
-            raise InvalidConfigError.new "Invalid options category: #{key}." unless @options.key?(key)
+            fail InvalidConfigError.new, "Invalid options category: #{key}." unless @options.key?(key)
             ensure_type confs, Array, "options.#{key}"
 
             confs.to_a.each do |conf|

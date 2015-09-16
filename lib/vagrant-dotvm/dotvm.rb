@@ -3,7 +3,7 @@ module VagrantPlugins
     class Dotvm
 
       def initialize(path = nil)
-        raise 'path must be set.' until path
+        fail 'path must be set.' until path
         @path = path
       end
 
@@ -22,7 +22,7 @@ module VagrantPlugins
         Dir[path].each do |fname|
           yaml = YAML::load(File.read(fname)) || {}
           yaml.each do |name, value|
-            raise "Variable #{name} already exists." if result.key? name
+            fail "Variable #{name} already exists." if result.key? name
             result[name] = value
           end
         end
