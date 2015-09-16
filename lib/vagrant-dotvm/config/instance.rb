@@ -8,7 +8,7 @@ module VagrantPlugins
         OPTIONS_CATEGORIES = [
           :ssh,
           :winrm,
-          :vagrant,
+          :vagrant
         ]
 
         attr_reader :projects

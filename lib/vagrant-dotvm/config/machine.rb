@@ -5,7 +5,7 @@ module VagrantPlugins
         include OptionsSetter
 
         OPTIONS_CATEGORIES = [
-          :virtualbox,
+          :virtualbox
         ]
 
         attr_reader :parent
@@ -101,7 +101,7 @@ module VagrantPlugins
             'guest'    => @parent.variables['guest.project_dir'],
             'disabled' => false,
             'create'   => false,
-            'type'     => nil,
+            'type'     => nil
           }
           item = SharedFolder.new
           item.populate settings

@@ -27,7 +27,7 @@ module VagrantPlugins
             'public_network'  => :public_network,
             'public'          => :public_network,
             'forwarded_port'  => :forwarded_port,
-            'port'            => :forwarded_port,
+            'port'            => :forwarded_port
           }
 
           @net = nets[value]

@@ -20,7 +20,7 @@ module VagrantPlugins
           :rsync__verbose,
           :smb_host,
           :smb_password,
-          :smb_username,
+          :smb_username
         ]
 
         def self.inject(folder: nil, machine: nil)
