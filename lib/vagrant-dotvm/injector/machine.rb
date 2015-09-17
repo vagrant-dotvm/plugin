@@ -27,32 +27,53 @@ module VagrantPlugins
 
         module_function
 
+        def inject_options(machine_cfg, machine)
+          BOX_OPTIONS.each do |opt|
+            val = machine_cfg.send(opt)
+            machine.vm.send("#{opt}=", val) unless val.nil?
+          end
+        end
+
+        def inject_vbox(machine_cfg, machine)
+          machine.vm.provider 'virtualbox' do |vb|
+            vb.customize ['modifyvm', :id, '--memory',          machine_cfg.memory] unless machine_cfg.memory.nil?
+            vb.customize ['modifyvm', :id, '--cpus',            machine_cfg.cpus]   unless machine_cfg.cpus.nil?
+            vb.customize ['modifyvm', :id, '--cpuexecutioncap', machine_cfg.cpucap] unless machine_cfg.cpucap.nil?
+            vb.customize ['modifyvm', :id, '--natnet1',         machine_cfg.natnet] unless machine_cfg.natnet.nil?
+
+            machine_cfg.options.to_h[:virtualbox].to_a.each do |option|
+              vb.customize ['modifyvm', :id, option.name, option.value]
+            end
+          end
+        end
+
+        def inject_vmware(machine_cfg, machine)
+          machine.vm.provider 'vmware_fusion' do |vf|
+            vf.vmx['memsize']  = machine_cfg.memory unless machine_cfg.memory.nil?
+            vf.vmx['numvcpus'] = machine_cfg.cpus   unless machine_cfg.cpus.nil?
+          end
+        end
+
+        def inject_groups(machine_cfg, vc)
+          return false unless Vagrant.has_plugin?('vagrant-group')
+
+          vc.group.groups = {} unless vc.group.groups.kind_of?(Hash)
+
+          machine_cfg.groups.to_a.each do |group|
+            vc.group.groups[group] = [] unless vc.group.groups.key?(group)
+            vc.group.groups[group] << machine_cfg.nick
+          end
+        end
+
         def inject(machine_cfg: nil, vc: nil)
           define_opts = {}
           define_opts[:primary]   = machine_cfg.primary   unless machine_cfg.primary.nil?
           define_opts[:autostart] = machine_cfg.autostart unless machine_cfg.autostart.nil?
 
           vc.vm.define machine_cfg.nick, **define_opts do |machine|
-            BOX_OPTIONS.each do |opt|
-              val = machine_cfg.send(opt)
-              machine.vm.send("#{opt}=", val) unless val.nil?
-            end
-
-            machine.vm.provider 'virtualbox' do |vb|
-              vb.customize ['modifyvm', :id, '--memory',          machine_cfg.memory] unless machine_cfg.memory.nil?
-              vb.customize ['modifyvm', :id, '--cpus',            machine_cfg.cpus]   unless machine_cfg.cpus.nil?
-              vb.customize ['modifyvm', :id, '--cpuexecutioncap', machine_cfg.cpucap] unless machine_cfg.cpucap.nil?
-              vb.customize ['modifyvm', :id, '--natnet1',         machine_cfg.natnet] unless machine_cfg.natnet.nil?
-
-              machine_cfg.options.to_h[:virtualbox].to_a.each do |option|
-                vb.customize ['modifyvm', :id, option.name, option.value]
-              end
-            end
-
-            machine.vm.provider 'vmware_fusion' do |vf|
-              vf.vmx['memsize']  = machine_cfg.memory unless machine_cfg.memory.nil?
-              vf.vmx['numvcpus'] = machine_cfg.cpus   unless machine_cfg.cpus.nil?
-            end
+            inject_options machine_cfg, machine
+            inject_vbox machine_cfg, machine
+            inject_vmware machine_cfg, vc
 
             machine_cfg.networks.to_a.each do |net|
               Network.inject net: net,
@@ -82,15 +103,6 @@ module VagrantPlugins
             machine_cfg.authorized_keys.to_a.each do |key|
               AuthorizedKey.inject key: key,
                                    machine: machine
-            end
-
-            if Vagrant.has_plugin?('vagrant-group')
-              vc.group.groups = {} unless vc.group.groups.kind_of?(Hash)
-
-              machine_cfg.groups.to_a.each do |group|
-                vc.group.groups[group] = [] unless vc.group.groups.key?(group)
-                vc.group.groups[group] << machine_cfg.nick
-              end
             end
           end
         end
