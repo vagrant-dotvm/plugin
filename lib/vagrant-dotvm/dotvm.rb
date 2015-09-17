@@ -59,7 +59,7 @@ module VagrantPlugins
             'guest',
             {
               'project_dir' => DOTVM_PROJECT_PATH,
-              'files_dir' => "#{DOTVM_PROJECT_PATH}/files"
+              'files_dir' => DOTVM_FILES_PATH
             }
           )
 
