@@ -35,11 +35,18 @@ module VagrantPlugins
         end
 
         def inject_vbox(machine_cfg, machine)
+          mapping = [
+            ['--memory', :memory],
+            ['--cpus', :cpus],
+            ['--cpuexecutioncap', :cpucap],
+            ['--natnet1', :natnet]
+          ]
+
           machine.vm.provider 'virtualbox' do |vb|
-            vb.customize ['modifyvm', :id, '--memory',          machine_cfg.memory] unless machine_cfg.memory.nil?
-            vb.customize ['modifyvm', :id, '--cpus',            machine_cfg.cpus]   unless machine_cfg.cpus.nil?
-            vb.customize ['modifyvm', :id, '--cpuexecutioncap', machine_cfg.cpucap] unless machine_cfg.cpucap.nil?
-            vb.customize ['modifyvm', :id, '--natnet1',         machine_cfg.natnet] unless machine_cfg.natnet.nil?
+            mapping.each do |item|
+              value = machine_cfg.send(item[1])
+              vb.customize ['modifyvm', :id, item[0], value] unless value.nil?
+            end
 
             machine_cfg.options.to_h[:virtualbox].to_a.each do |option|
               vb.customize ['modifyvm', :id, option.name, option.value]
