@@ -1,7 +1,6 @@
 module VagrantPlugins
   module Dotvm
     class Dotvm
-
       def initialize(path = nil)
         fail 'path must be set.' until path
         @path = path
