@@ -1,6 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
+      # Injects DotVm authorized key configuration into Vagrant
       module AuthorizedKey
         extend AbstractInjector
 

@@ -1,6 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Config
+      # Stores machine configuration
       class Machine < AbstractConfig
         include OptionsSetter
 

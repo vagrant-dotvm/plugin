@@ -1,6 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
+      # Injects DotVm provision configuration into Vagrant
       module Provision
         extend AbstractInjector
 

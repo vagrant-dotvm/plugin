@@ -1,6 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
+      # Injects DotVm project configuration into Vagrant
       module Project
         extend AbstractInjector
 

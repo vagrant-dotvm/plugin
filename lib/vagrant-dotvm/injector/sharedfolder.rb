@@ -1,6 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
+      # Injects DotVm shared folder configuration into Vagrant
       module SharedFolder
         extend AbstractInjector
 

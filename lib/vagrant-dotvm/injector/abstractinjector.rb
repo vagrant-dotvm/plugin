@@ -1,6 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
+      # Helper functions used by injectors
       module AbstractInjector
         module_function
 

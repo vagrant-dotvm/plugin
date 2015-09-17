@@ -1,6 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Config
+      # Stores network configuration
       class Network < AbstractConfig
         attr_reader :net
         attr_accessor :type

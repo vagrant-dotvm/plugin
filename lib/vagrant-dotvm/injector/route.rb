@@ -1,6 +1,7 @@
 module VagrantPlugins
   module Dotvm
     module Injector
+      # Injects DotVm route configuration into Vagrant
       module Route
         extend AbstractInjector
 
