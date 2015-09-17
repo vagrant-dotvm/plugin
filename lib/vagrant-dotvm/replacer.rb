@@ -41,7 +41,10 @@ module VagrantPlugins
 
           if target == pattern
             target = v
-            break unless v.is_a? String # value is no longer string, so replace cannot be performed
+
+            # value is no longer string, so
+            # replace cannot be performed
+            break unless v.is_a? String
           else
             unless v.respond_to? :to_s
               fail 'Non-string values cannot be joined together.'
