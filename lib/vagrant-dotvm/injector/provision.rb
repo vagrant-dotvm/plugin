@@ -121,7 +121,7 @@ module VagrantPlugins
           :delete_node,
           :delete_client,
           :recipe,
-          :images,
+          :images
         ]
 
         RUNS_OPTIONS = [
@@ -130,7 +130,7 @@ module VagrantPlugins
           :args,
           :auto_assign_name,
           :daemonize,
-          :restart,
+          :restart
         ]
 
         module_function
