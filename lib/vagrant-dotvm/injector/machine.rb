@@ -101,7 +101,7 @@ module VagrantPlugins
 
             machine_cfg.hosts.to_a.each do |host|
               Host.inject host: host,
-                       machine: machine
+                          machine: machine
             end
 
             machine_cfg.provision.to_a.each do |provision|
