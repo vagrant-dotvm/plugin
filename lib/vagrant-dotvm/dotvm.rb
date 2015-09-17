@@ -53,7 +53,7 @@ module VagrantPlugins
             'host',
             {
               'project_dir' => dir,
-              'files_dir' => "#{dir}/files",
+              'files_dir' => "#{dir}/files"
             }
           )
           project.variables.append_group(
