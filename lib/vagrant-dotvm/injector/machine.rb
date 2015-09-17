@@ -64,7 +64,7 @@ module VagrantPlugins
         def inject_groups(machine_cfg, vc)
           return false unless Vagrant.has_plugin?('vagrant-group')
 
-          vc.group.groups = {} unless vc.group.groups.kind_of?(Hash)
+          vc.group.groups = {} unless vc.group.groups.is_a?(Hash)
 
           machine_cfg.groups.to_a.each do |group|
             vc.group.groups[group] = [] unless vc.group.groups.key?(group)
