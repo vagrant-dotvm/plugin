@@ -13,7 +13,7 @@ module VagrantPlugins
         end
 
         def ensure_type(value, type, name = '')
-          fail InvalidConfigError.new, "'#{name}' must be #{type.name}." unless value.kind_of?(type) || value.kind_of?(NilClass)
+          fail InvalidConfigError.new, "'#{name}' must be #{type.name}." unless value.is_a?(type) || value.is_a?(NilClass)
         end
 
         # Converts array of hashes into array of specialized objects.
