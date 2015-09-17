@@ -22,7 +22,7 @@ module VagrantPlugins
           :box_url,
           :communicator,
           :guest,
-          :usable_port_range,
+          :usable_port_range
         ]
 
         module_function
