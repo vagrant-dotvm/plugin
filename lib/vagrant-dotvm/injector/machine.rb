@@ -55,9 +55,16 @@ module VagrantPlugins
         end
 
         def inject_vmware(machine_cfg, machine)
+          mapping = [
+            ['memsize', :memory],
+            ['numvcpus', :cpus]
+          ]
+
           machine.vm.provider 'vmware_fusion' do |vf|
-            vf.vmx['memsize']  = machine_cfg.memory unless machine_cfg.memory.nil?
-            vf.vmx['numvcpus'] = machine_cfg.cpus   unless machine_cfg.cpus.nil?
+            mapping.each do |item|
+              value = machine_cfg.send(item[1])
+              vf.vmx[item[1]] = value unless value.nil?
+            end
           end
         end
 
