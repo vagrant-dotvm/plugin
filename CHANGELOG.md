@@ -1,3 +1,6 @@
+# 0.35.0
+* Technical improvements
+
 # 0.34.0
 * New configuration directory layout
 * Removed local variables
