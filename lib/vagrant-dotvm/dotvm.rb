@@ -39,9 +39,9 @@ module VagrantPlugins
       def load_options
         Dir["#{@path}/options/*.yaml"].each do |file|
           @instance.options = Replacer.new
-                              .on(YAML.load(File.read(file)) || {})
-                              .using(@instance.variables)
-                              .result
+            .on(YAML.load(File.read(file)) || {})
+            .using(@instance.variables)
+            .result
         end
       end
 
