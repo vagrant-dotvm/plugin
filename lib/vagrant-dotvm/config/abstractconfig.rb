@@ -7,13 +7,20 @@ module VagrantPlugins
         # @param data [Hash] Hash with data
         def populate(data)
           data.each do |key, value|
-            fail InvalidConfigError.new, "Invalid configuration option: #{key}." until respond_to? "#{key}="
+            unless respond_to? "#{key}="
+              fail(
+                InvalidConfigError.new,
+                "Invalid configuration option: #{key}."
+              )
+            end
+
             send("#{key}=", value)
           end
         end
 
         def ensure_type(value, type, name = '')
-          fail InvalidConfigError.new, "'#{name}' must be #{type.name}." unless value.is_a?(type) || value.is_a?(NilClass)
+          return true if value.is_a?(type) || value.is_a?(NilClass)
+          fail InvalidConfigError.new, "'#{name}' must be #{type.name}."
         end
 
         # Converts array of hashes into array of specialized objects.
