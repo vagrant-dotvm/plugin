@@ -1,4 +1,7 @@
-# 0.35.0
+# 0.35.1
+* Bugfix for groups support
+
+# 0.35.0 (not released because of bug)
 * Technical improvements
 
 # 0.34.0
