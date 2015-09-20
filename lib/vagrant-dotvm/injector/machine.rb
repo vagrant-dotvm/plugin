@@ -89,6 +89,7 @@ module VagrantPlugins
             inject_options machine_cfg, machine
             inject_vbox machine_cfg, machine
             inject_vmware machine_cfg, vc
+            inject_groups machine_cfg, vc
 
             machine_cfg.networks.to_a.each do |net|
               Network.inject net: net,
