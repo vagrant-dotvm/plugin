@@ -7,10 +7,16 @@ module VagrantPlugins
       end
 
       def inject(vc)
-        init_instance
-        load_options
-        load_projects
-        Injector::Instance.inject @instance, vc
+        begin
+          init_instance
+          load_options
+          load_projects
+          Injector::Instance.inject @instance, vc
+        rescue VagrantPlugins::Dotvm::Config::InvalidConfigError => e
+          raise Vagrant::Errors::VagrantError.new, "DotVM: #{e.file}: #{e.message}"
+        rescue Psych::SyntaxError => e
+          raise Vagrant::Errors::VagrantError.new, "DotVM: #{e.file}: Syntax error, line #{e.line}, #{e.problem}"
+        end
       end
 
       private
@@ -64,18 +70,21 @@ module VagrantPlugins
           )
 
           Dir["#{dir}/machines/*.yaml"].each do |file|
-            begin
-              yaml = Replacer.new
-                     .on(YAML.load_file(file) || [])
-                     .using(@instance.variables.merge(project.variables))
-                     .result
+            yaml = Replacer.new
+                   .on(YAML.load_file(file) || [])
+                   .using(@instance.variables.merge(project.variables))
+                   .result
 
+            begin
               yaml.each do |machine_yaml|
                 machine = project.new_machine
                 machine.populate machine_yaml
               end
             rescue VagrantPlugins::Dotvm::Config::InvalidConfigError => e
-              raise Vagrant::Errors::VagrantError.new, "DotVM: #{file}: #{e.message}"
+              # add filename to exception so we can display
+              # nice error message later.
+              e.file = file
+              raise e
             end
           end
         end
