@@ -19,7 +19,7 @@ module VagrantPlugins
         result = {}
 
         Dir[path].each do |fname|
-          yaml = YAML.load(File.read(fname)) || {}
+          yaml = YAML.load_file(fname) || {}
           yaml.each do |name, value|
             fail "Variable #{name} already exists." if result.key? name
             result[name] = value
@@ -38,7 +38,7 @@ module VagrantPlugins
       def load_options
         Dir["#{@path}/options/*.yaml"].each do |file|
           @instance.options = Replacer.new
-            .on(YAML.load(File.read(file)) || {})
+            .on(YAML.load_file(file) || {})
             .using(@instance.variables)
             .result
         end
@@ -66,7 +66,7 @@ module VagrantPlugins
           Dir["#{dir}/machines/*.yaml"].each do |file|
             begin
               yaml = Replacer.new
-                     .on(YAML.load(File.read(file)) || [])
+                     .on(YAML.load_file(file) || [])
                      .using(@instance.variables.merge(project.variables))
                      .result
 
