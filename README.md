@@ -35,4 +35,4 @@ $ mkdir projects
 ```
 
 ## More information
-For more information please follow to [wiki](https://github.com/vagrant-dotvm/vagrant-dotvm/wiki/Getting-started).
+For more information please follow to [documentation](https://github.com/vagrant-dotvm/documentation).
