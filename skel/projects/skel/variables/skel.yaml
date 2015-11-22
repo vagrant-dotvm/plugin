@@ -1,0 +1,11 @@
+#
+# You can set project variables here.
+# Follow to documentation for more information.
+# https://github.com/vagrant-dotvm/documentation/blob/master/variables.md#project-variables
+#
+
+#key1: value1
+#array1:
+#  - element1
+#  - element2
+#  - element3

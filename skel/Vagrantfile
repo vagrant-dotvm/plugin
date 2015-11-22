@@ -1,0 +1,13 @@
+#
+# DotVM VagrantFile
+#
+# Please don't make any changes here.
+# You should edit .yaml files to configure Vagrant in DotVM environment.
+#
+
+require 'vagrant-dotvm'
+
+Vagrant.configure(2) do |config|
+  dotvm = VagrantPlugins::Dotvm::Dotvm.new __dir__
+  dotvm.inject config
+end

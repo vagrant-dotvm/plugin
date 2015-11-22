@@ -1,0 +1,9 @@
+#
+# You can set Vagrant options here.
+# Follow to documentation for more information.
+# https://github.com/vagrant-dotvm/documentation/blob/master/options.md
+#
+
+#ssh:
+#  - name: forward_agent
+#    value: true

@@ -1,0 +1,13 @@
+#
+# You can define your machines here.
+# Follow to documentation for more information.
+# https://github.com/vagrant-dotvm/documentation/blob/master/vm_options.md
+# https://github.com/vagrant-dotvm/documentation/blob/master/groups.md
+# https://github.com/vagrant-dotvm/documentation/blob/master/networking.md
+# https://github.com/vagrant-dotvm/documentation/blob/master/shared_folders.md
+# https://github.com/vagrant-dotvm/documentation/blob/master/ssh_keys.md
+#
+
+#- nick: skel
+#  name: skel
+#  box: bento/centos-7.1
