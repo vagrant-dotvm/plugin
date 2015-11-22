@@ -1,3 +1,9 @@
+# 0.37.0 (upcoming)
+* Now it's possible to initialize DotVM environment with one command.
+
+# 0.36.0
+* Now you are informed about syntax errors in YAML files
+
 # 0.35.1
 * Bugfix for groups support
 
