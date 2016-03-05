@@ -123,7 +123,8 @@ module VagrantPlugins
           :delete_client,
           :recipe,
           :images,
-          :force_remote_user
+          :force_remote_user,
+          :env
         ]
 
         RUNS_OPTIONS = [
