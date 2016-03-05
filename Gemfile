@@ -7,6 +7,4 @@ end
 
 group :plugins do
   gemspec
-  gem 'vagrant-group',
-      git: 'git://github.com/krzysztof-magosa/vagrant-group.git'
 end

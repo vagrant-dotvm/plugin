@@ -70,13 +70,11 @@ module VagrantPlugins
         end
 
         def inject_groups(machine_cfg, vc)
-          return false unless Vagrant.has_plugin?('vagrant-group')
-
-          vc.group.groups = {} unless vc.group.groups.is_a?(Hash)
+          vc.dotvm_group.groups = {} unless vc.dotvm_group.groups.is_a?(Hash)
 
           machine_cfg.groups.to_a.each do |group|
-            vc.group.groups[group] = [] unless vc.group.groups.key?(group)
-            vc.group.groups[group] << machine_cfg.nick
+            vc.dotvm_group.groups[group] = [] unless vc.dotvm_group.groups.key?(group)
+            vc.dotvm_group.groups[group] << machine_cfg.nick
           end
         end
 
