@@ -38,11 +38,11 @@ module VagrantPlugins
       def init_instance
         @instance = Config::Instance.new
         @instance.variables.append_group 'env', ENV
-        @instance.variables.append_group 'global', (parse_variables "#{@path}/variables/*.yaml")
+        @instance.variables.append_group 'global', (parse_variables "#{@path}/variables/*.{yaml,yml}")
       end
 
       def load_options
-        Dir["#{@path}/options/*.yaml"].each do |file|
+        Dir["#{@path}/options/*.{yaml,yml}"].each do |file|
           @instance.options = Replacer.new
             .on(YAML.load_file(file) || {})
             .using(@instance.variables)
@@ -53,7 +53,7 @@ module VagrantPlugins
       def load_projects
         Dir["#{@path}/projects/*"].each do |dir|
           project = @instance.new_project
-          project.variables.append_group 'project', (parse_variables "#{dir}/variables/*.yaml")
+          project.variables.append_group 'project', (parse_variables "#{dir}/variables/*.{yaml,yml}")
           project.variables.append_group(
             'host',
             {
@@ -69,7 +69,7 @@ module VagrantPlugins
             }
           )
 
-          Dir["#{dir}/machines/*.yaml"].each do |file|
+          Dir["#{dir}/machines/*.{yaml,yml}"].each do |file|
             yaml = Replacer.new
                    .on(YAML.load_file(file) || [])
                    .using(@instance.variables.merge(project.variables))
