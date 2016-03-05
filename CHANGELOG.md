@@ -1,4 +1,10 @@
-# 0.37.0 (upcoming)
+# 0.38.0
+* Support for `.yml` extension
+* Added `force_remote_user` option to Ansible provision
+* Added `env` option to shell provision
+* Ability to configure groups without `vagrant-group` plugin installed
+
+# 0.37.0
 * Now it's possible to initialize DotVM environment with one command.
 
 # 0.36.0
