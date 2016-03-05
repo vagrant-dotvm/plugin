@@ -122,6 +122,7 @@ module VagrantPlugins
         attr_accessor :recipes # chef
         attr_accessor :roles # chef
         attr_accessor :pillar
+        attr_accessor :force_remote_user # ansible
 
         attr_accessor :images
         attr_reader :build_images
