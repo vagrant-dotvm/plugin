@@ -124,7 +124,8 @@ module VagrantPlugins
           :recipe,
           :images,
           :force_remote_user,
-          :env
+          :env,
+          # :_arguments_ # it must be commented
         ]
 
         RUNS_OPTIONS = [
@@ -141,6 +142,7 @@ module VagrantPlugins
         def inject(provision_cfg: nil, machine: nil)
           machine.vm.provision provision_cfg.type, run: provision_cfg.run do |p|
             rewrite_options(provision_cfg, p, OPTIONS)
+            rewrite_hash(provision_cfg._arguments_ || {}, p)
 
             provision_cfg.recipes.to_a.each do |recipe|
               p.add_recipe(recipe)

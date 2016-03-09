@@ -32,6 +32,12 @@ module VagrantPlugins
             target.send("#{opt}=", val) unless val.nil?
           end
         end
+
+        def rewrite_hash(source, target)
+          source.each do |key, val|
+            target.send("#{key}=", val) unless val.nil?
+          end
+        end
       end
     end
   end
