@@ -19,19 +19,9 @@ It's also recommended to install plugin for easier work with groups:
 $ vagrant plugin install vagrant-group
 ```
 
-Then create Vagrantfile like that:
-```ruby
-require 'vagrant-dotvm'
-
-Vagrant.configure(2) do |config|
-  dotvm = VagrantPlugins::Dotvm::Dotvm.new __dir__
-  dotvm.inject(config)
-end
+Then init DotVm inside directory where you want to keep all projects:
 ```
-
-Prepare directory for storing your projects:
-```
-$ mkdir projects
+$ vagrant dotvm init
 ```
 
 ## More information
