@@ -1,5 +1,5 @@
 module VagrantPlugins
   module Dotvm
-    VERSION = '0.39.0.pre'
+    VERSION = '0.39.0'
   end
 end
