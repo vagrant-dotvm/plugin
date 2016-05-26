@@ -124,6 +124,7 @@ module VagrantPlugins
         attr_accessor :pillar
         attr_accessor :force_remote_user # ansible
         attr_accessor :env # shell
+        attr_accessor :tmp_path
         attr_accessor :_arguments_ # generic
 
         attr_accessor :images

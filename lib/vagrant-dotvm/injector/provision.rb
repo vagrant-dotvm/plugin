@@ -125,6 +125,7 @@ module VagrantPlugins
           :images,
           :force_remote_user,
           :env,
+          :tmp_path,
           # :_arguments_ # it must be commented
         ]
 
