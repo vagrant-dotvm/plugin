@@ -14,11 +14,6 @@ First you need to install DotVm plugin:
 $ vagrant plugin install vagrant-dotvm
 ```
 
-It's also recommended to install plugin for easier work with groups:
-```
-$ vagrant plugin install vagrant-group
-```
-
 Then init DotVm inside directory where you want to keep all projects:
 ```
 $ vagrant dotvm init
