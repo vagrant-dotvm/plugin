@@ -15,6 +15,12 @@ if [ ! -f $KEYS ] ; then
     chmod 0600 $KEYS
 fi
 
+# Ensure that there is newline before new key.
+LAST=$(tail -c1 $KEYS)
+if [ ! "$LAST" = "" ] ; then
+    echo >> $KEYS
+fi
+
 grep -q "$PUBKEY" $KEYS
 if [ ! $? -eq 0 ] ; then
     echo "$PUBKEY" >> $KEYS
