@@ -42,12 +42,16 @@ module VagrantPlugins
       end
 
       def load_options
+        options = {}
+
         Dir["#{@path}/options/*.{yaml,yml}"].each do |file|
-          @instance.options = Replacer.new
-            .on(YAML.load_file(file) || {})
+          options.merge!(YAML.load_file(file) || {})
+        end
+
+        @instance.options = Replacer.new
+            .on(options)
             .using(@instance.variables)
             .result
-        end
       end
 
       def load_projects
